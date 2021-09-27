@@ -50,14 +50,14 @@ def CrudelyApproximateSecondDerivative(listx, listf):
 
 
 def ArrayIntegrate(arrayx, arrayf):
-    #Takes a array of f values and a grid of x values and integrates f with respect to f.
+    # Takes a array of f values and a grid of x values and integrates f with respect to f.
     area = (arrayx[1:] - arrayx[0:-1]) * (arrayf[1:] + arrayf[0:-1]) * 0.5
     # add all values of area and reduce to scalar quantity
     return numpy.add.reduce(area)
 
 
 def Integrate(listx, listf):
-    #Takes a list of f values and a grid of x values and integrates f with respect to f.
+    # Takes a list of f values and a grid of x values and integrates f with respect to f.
     rsum = 0
     for i in range(len(listx) - 1):
         rsum = rsum + (listx[i + 1] - listx[i]) * (listf[i + 1] + listf[i]) / 2

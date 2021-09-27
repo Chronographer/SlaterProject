@@ -39,13 +39,13 @@ while 1:
     dty = 4 * numpy.pi * arrayx**2 * Slater.density(arrayx, Z, occ)[0]
     printout = []
     for i in range(len(arrayx)):
-        printout.append([arrayx[i],dty[i]])
+        printout.append([arrayx[i], dty[i]])
     # print printout
     g.plot(printout)
     # g.hardcopy('tmp.gif',enhanced=1,color=1)
     g.reset()
 
-    if ccbox("There was your density.  Shall we do it again?", "Finale"):     # show a Continue/Cancel dialog
+    if ccbox("There was your density.  Shall we do it again?", "Finale"):  # show a Continue/Cancel dialog
         pass  # user chose Continue
     else:
-        sys.exit(0)           # user chose Cancel
+        sys.exit(0)  # user chose Cancel
