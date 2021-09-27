@@ -57,63 +57,68 @@ def s(listN):
     return lists
 
 
-def A(s, e, Z):
+""" e -> energyQuantumNumber
+    s -> shielding
+    Z -> netCharge """
+
+
+def A(shielding, energyQuantumNumber, netCharge):
     # Normalization constant for ith shell
-    nx = nstar[e]
-    print("Energy quantum number, shielding, Z:  ", e, s, Z)
-    if (Z - s) < 0:
+    nx = nstar[energyQuantumNumber]
+    print("Energy quantum number, shielding, netCharge:  ", energyQuantumNumber, shielding, netCharge)
+    if (netCharge - shielding) < 0:
         print("Fatal Error: UNBOUND ATOM")
-        print("Shielding charge {0} exceeds nuclear charge {1}".format(s, Z))
+        print("Shielding charge {0} exceeds nuclear charge {1}".format(shielding, netCharge))
         print("EXITING SOON")
-    a = numpy.sqrt((2.0 * (Z - s)) ** (2.0 * nx + 1) / (4.0 * numpy.pi * nx ** (2.0 * nx + 1) * Gamma.gamma(2 * nx + 1.0)))
+    a = numpy.sqrt((2.0 * (netCharge - shielding)) ** (2.0 * nx + 1) / (4.0 * numpy.pi * nx ** (2.0 * nx + 1) * Gamma.gamma(2 * nx + 1.0)))
     return a
 
 
-def phi(s, e, Z, arrayx):
+def phi(shielding, energyQuantumNumber, netCharge, arrayX):
     # wavefunction for ith shell
-    nx = nstar[e]
-    arrayy = A(s, e, Z) * arrayx ** (nx - 1) * numpy.exp(-(Z - s) * arrayx / nx)
-    return arrayy
+    nx = nstar[energyQuantumNumber]
+    arrayY = A(shielding, energyQuantumNumber, netCharge) * arrayX ** (nx - 1) * numpy.exp(-(netCharge - shielding) * arrayX / nx)
+    return arrayY
 
 
-def n(s, e, Z, arrayx, N):
+def n(s, e, Z, arrayX, N):
     # density for ith shell; returns density and four derivatives, calculated recursively
-    if (N == 0):
-        array0 = 0.0 * arrayx
+    if N == 0:
+        array0 = 0.0 * arrayX
         return array0, array0, array0, array0, array0
     else:
         nx = nstar[e]
-        mphi = numpy.absolute(phi(s, e, Z, arrayx)) ** 2
+        mphi = numpy.absolute(phi(s, e, Z, arrayX)) ** 2
         arrayy = N * mphi
-        ayp = 2 * ((nx - 1) / arrayx - (Z - s) / nx) * arrayy
-        aypp = 2 * (nx - 1) * (-1 / arrayx ** 2) * arrayy + 2 * ((nx - 1) / arrayx - (Z - s) / nx) * ayp
-        ayp3 = 2 * (nx - 1) * (2 / arrayx ** 3) * arrayy + 2 * 2 * (nx - 1) * (-1 / arrayx ** 2) * ayp + 2 * ((nx - 1) / arrayx - (Z - s) / nx) * aypp
-        ayp4 = 2 * (nx - 1) * (-6 / arrayx ** 4) * arrayy + 3 * 2 * (nx - 1) * (2 / arrayx ** 3) * ayp + 3 * 2 * (nx - 1) * (-1 / arrayx ** 2) * aypp + 2 * ((nx - 1) / arrayx - (Z - s) / nx) * ayp3
+        ayp = 2 * ((nx - 1) / arrayX - (Z - s) / nx) * arrayy
+        aypp = 2 * (nx - 1) * (-1 / arrayX ** 2) * arrayy + 2 * ((nx - 1) / arrayX - (Z - s) / nx) * ayp
+        ayp3 = 2 * (nx - 1) * (2 / arrayX ** 3) * arrayy + 2 * 2 * (nx - 1) * (-1 / arrayX ** 2) * ayp + 2 * ((nx - 1) / arrayX - (Z - s) / nx) * aypp
+        ayp4 = 2 * (nx - 1) * (-6 / arrayX ** 4) * arrayy + 3 * 2 * (nx - 1) * (2 / arrayX ** 3) * ayp + 3 * 2 * (nx - 1) * (-1 / arrayX ** 2) * aypp + 2 * ((nx - 1) / arrayX - (Z - s) / nx) * ayp3
         return arrayy, ayp, aypp, ayp3, ayp4
 
 
-def shelldensities(arrayx, Z, listN):
+def shelldensities(arrayX, Z, listN):
     # gives the densities of each shell
-    svalues = s(listN)
-    returnlist = []
+    sValues = s(listN)
+    returnList = []
     for j in range(len(listN)):
-        sconst = svalues[j]
+        sConstant = sValues[j]
         e = energy[j]
         N = listN[j]
         # only want the density of each shell, and want list over shells
-        returnlist.append(n(sconst, e, Z, arrayx, N)[0])
-    return returnlist
+        returnList.append(n(sConstant, e, Z, arrayX, N)[0])
+    return returnList
 
 
-def density(arrayx, Z, listN):
+def density(arrayX, netCharge, listN):
     """gets total density and its derivatives, summing over shells
 
     arrayX -- array of radial positions
     listN  -- list of shell occupancy numbers
-    Z      -- net charge """
+    netCharge      -- net charge """
     sValues = s(listN)
     # print("sValues", sValues)
-    length = len(arrayx)
+    length = len(arrayX)
     # print("length", length)
     final = numpy.zeros(length)
     finalp = numpy.zeros(length)
@@ -128,7 +133,7 @@ def density(arrayx, Z, listN):
         e = energy[j]
         N = listN[j]
         if (N > 0):
-            dens, densp, denspp, densp3, densp4 = n(sConstant, e, Z, arrayx, N)
+            dens, densp, denspp, densp3, densp4 = n(sConstant, e, netCharge, arrayX, N)
             final = final + dens
             finalp = finalp + densp
             finalpp = finalpp + denspp
@@ -138,15 +143,15 @@ def density(arrayx, Z, listN):
     return final, finalp, finalpp, finalp3, finalp4
 
 
-def grlaglll(arrayx, Z, listN):
+def grlaglll(arrayx, netCharge, listN):
     """Returns the RADIAL density and its gradient, laplacian, grad(lapl), lapl(lapl)
     arrayX -- array of radial positions
     listN  -- list of shell occupancy numbers
-    Z      -- net charge """
+    netCharge      -- net charge """
     N = len(arrayx)
 
     # print("grlaglll: listN", listN)
-    d0, d1, d2, d3, d4 = density(arrayx, Z, listN)
+    d0, d1, d2, d3, d4 = density(arrayx, netCharge, listN)
 
     grad = d1
     lapl = d2 + 2 * d1 / arrayx
@@ -159,14 +164,14 @@ def grlaglll(arrayx, Z, listN):
 # The following are some miscellaneous analytic density routines.
 
 
-def H(listx):
-    y = numpy.exp(-2 * listx) / numpy.pi
-    yprime = -2 * numpy.exp(-2 * listx) / numpy.pi
+def H(listX):
+    y = numpy.exp(-2 * listX) / numpy.pi
+    yprime = -2 * numpy.exp(-2 * listX) / numpy.pi
     return y, yprime
 
 
 def Ne(listx):
-    """N.B.: Not a real wavefunction!"""
+    # N.B.: Not a real wavefunction!
     norm1s = numpy.sqrt(27.)
     y = numpy.exp(-listx) + norm1s * numpy.exp(-3 * listx)
     yprime = -numpy.exp(-listx) - 3.0 * norm1s * numpy.exp(-3 * listx)
