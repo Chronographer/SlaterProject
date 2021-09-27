@@ -47,7 +47,7 @@ def s(listN):
     # 4d
     lists.append((listN[5] - 1) * nshield["Valence"] + (listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nshield["Core"])
     # 4f
-    lists.append((listN[6] - 1) * nshield["Valence"] + (listN[5] + listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) *nshield["Core"])
+    lists.append((listN[6] - 1) * nshield["Valence"] + (listN[5] + listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nshield["Core"])
     # 5sp
     lists.append((listN[7] - 1) * nshield["Valence"] + (listN[6] + listN[5] + listN[4]) * nshield["sp_semicore"] + (listN[3] + listN[2] + listN[1] + listN[0]) * nshield["Core"])
     # 5d
@@ -108,11 +108,11 @@ def shelldensities(arrayx, Z, listN):
 def density(arrayx, Z, listN):
     """gets total density and its derivatives, summing over shells
 
-    arrayx -- array of radial positions
+    arrayX -- array of radial positions
     listN  -- list of shell occupancy numbers
     Z      -- net charge """
-    svalues = s(listN)
-    # print("svalues", svalues)
+    sValues = s(listN)
+    # print("sValues", sValues)
     length = len(arrayx)
     # print("length", length)
     final = numpy.zeros(length)
@@ -123,12 +123,12 @@ def density(arrayx, Z, listN):
 
     # print("density: listN", listN)
     for j in range(len(listN)):
-        # print("j, svalues[j]", j, svalues[j])
-        sconst = svalues[j]
+        # print("j, sValues[j]", j, sValues[j])
+        sConstant = sValues[j]
         e = energy[j]
         N = listN[j]
         if (N > 0):
-            dens, densp, denspp, densp3, densp4 = n(sconst, e, Z, arrayx, N)
+            dens, densp, denspp, densp3, densp4 = n(sConstant, e, Z, arrayx, N)
             final = final + dens
             finalp = finalp + densp
             finalpp = finalpp + denspp
@@ -140,7 +140,7 @@ def density(arrayx, Z, listN):
 
 def grlaglll(arrayx, Z, listN):
     """Returns the RADIAL density and its gradient, laplacian, grad(lapl), lapl(lapl)
-    arrayx -- array of radial positions
+    arrayX -- array of radial positions
     listN  -- list of shell occupancy numbers
     Z      -- net charge """
     N = len(arrayx)

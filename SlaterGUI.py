@@ -15,16 +15,16 @@ while 1:
 
     Z = integerbox("Enter the atomic number of the element.", "Element Selection.")
 
-    listlength = integerbox("Enter (integer) length of grid.", "Grid Length")
+    listLength = integerbox("Enter (integer) length of grid.", "Grid Length")
 
     choices1 = ["Exponential", "Uniform"]
 
     a = buttonbox("Would you like an exponential or uniform grid?", "Grid Type", choices1)
 
     if a == "Exponential":
-        arrayx = Routines.ExpGridStretch2(numpy.arange(0.01, 1.0 * listlength, 0.01))
+        arrayx = Routines.ExpGridStretch2(numpy.arange(0.01, 1.0 * listLength, 0.01))
     else:
-        arrayx = numpy.arange(0.01, 1.0 * listlength, 0.01)
+        arrayx = numpy.arange(0.01, 1.0 * listLength, 0.01)
 
     subshell = ["1s", "2s&p", "3s&p", "3d", "4s&p", "4d", "4f", "5s&p", "5d"]
 
