@@ -5,15 +5,14 @@ import numpy
 
 
 def ArrayDotProduct(vector1array, vector2array):
-    """Takes two arrays of 3-vectors, calculates the 3-vector dot product"""
+    # Takes two arrays of 3-vectors, calculates the 3-vector dot product
     x1, y1, z1 = vector1array[:, 0], vector1array[:, 1], vector1array[:, 2]
     x2, y2, z2 = vector2array[:, 0], vector2array[:, 1], vector2array[:, 2]
     return x1 * x2 + y1 * y2 + z1 * z2
 
 
 def ArrayApproxDerivative(arrayx, arrayf):
-    """Takes a numpy arrray of x values and an array of f values and finds an
-    approximate centered first derivative."""
+    # Takes a numpy arrray of x values and an array of f values and finds an approximate centered first derivative.
     arrayfprime = 0.0 * arrayf
     # first point indexed by 0
     arrayfprime[0] = (arrayf[1] - arrayf[0]) / (arrayx[1] - arrayx[0])
@@ -25,8 +24,7 @@ def ArrayApproxDerivative(arrayx, arrayf):
 
 
 def ApproximateDerivative(listx, listf):
-    """Takes a list of x values and a list of f values and finds an
-    approximate centered first derivative."""
+    # Takes a list of x values and a list of f values and finds an approximate centered first derivative.
     N = len(listx)
     listfprime = []
     listfprime.append((listf[1] - listf[0]) / (listx[1] - listx[0]))
@@ -38,34 +36,28 @@ def ApproximateDerivative(listx, listf):
 
 
 def CrudelyApproximateSecondDerivative(listx, listf):
-    """Takes a list of x values and a list of f values and finds an
-    approximate centered second derivative."""
+    # Takes a list of x values and a list of f values and finds an approximate centered second derivative.
     N = len(listx)
     listfdoubleprime = []
-    fprimeprime = (listf[2] - listf[0]) / ((listx[2] - listx[0]) * \
-                                           (listx[1] - listx[0])) - (listf[1] - listf[0]) / (listx[1] - listx[0]) ** 2
+    fprimeprime = (listf[2] - listf[0]) / ((listx[2] - listx[0]) * (listx[1] - listx[0])) - (listf[1] - listf[0]) / (listx[1] - listx[0]) ** 2
     listfdoubleprime.append(fprimeprime)
     for i in range(1, N - 1, 1):
-        fprimeprime = ((listf[i + 1] - listf[i]) / (listx[i + 1] - listx[i]) \
-                       - (listf[i] - listf[i - 1]) / (listx[i] - listx[i - 1])) / ((listx[i + 1] - listx[i - 1]) / 2)
+        fprimeprime = ((listf[i + 1] - listf[i]) / (listx[i + 1] - listx[i]) - (listf[i] - listf[i - 1]) / (listx[i] - listx[i - 1])) / ((listx[i + 1] - listx[i - 1]) / 2)
         listfdoubleprime.append(fprimeprime)
-    fprimeprime = (listf[-1] - listf[-2]) / (listx[-1] - listx[-2]) ** 2 \
-                  - (listf[-1] - listf[-3]) / ((listx[-1] - listx[-3]) * (listx[-1] - listx[-2]))
+    fprimeprime = (listf[-1] - listf[-2]) / (listx[-1] - listx[-2]) ** 2 - (listf[-1] - listf[-3]) / ((listx[-1] - listx[-3]) * (listx[-1] - listx[-2]))
     listfdoubleprime.append(fprimeprime)
     return listfdoubleprime
 
 
 def ArrayIntegrate(arrayx, arrayf):
-    """Takes a array of f values and a grid of x values and integrates
-    f with respect to f."""
+    #Takes a array of f values and a grid of x values and integrates f with respect to f.
     area = (arrayx[1:] - arrayx[0:-1]) * (arrayf[1:] + arrayf[0:-1]) * 0.5
     # add all values of area and reduce to scalar quantity
     return numpy.add.reduce(area)
 
 
 def Integrate(listx, listf):
-    """Takes a list of f values and a grid of x values and integrates
-    f with respect to f."""
+    #Takes a list of f values and a grid of x values and integrates f with respect to f.
     rsum = 0
     for i in range(len(listx) - 1):
         rsum = rsum + (listx[i + 1] - listx[i]) * (listf[i + 1] + listf[i]) / 2
@@ -73,8 +65,7 @@ def Integrate(listx, listf):
 
 
 def RMSError(listapprox, listexact):
-    """Takes a list of approximate function values and a list of exact
-    function values and returns a root-mean-square error."""
+    # Takes a list of approximate function values and a list of exact function values and returns a root-mean-square error.
     ngrid = len(listapprox)
     if len(listexact) == ngrid:
         sum = numpy.add.reduce((listapprox - listexact) ** 2)
@@ -85,7 +76,7 @@ def RMSError(listapprox, listexact):
 
 
 def MARE(weight, listapprox, listexact):
-    """Returns a mean absolute relative error for two arrays."""
+    # Returns a mean absolute relative error for two arrays.
     numerator = numpy.add.reduce(weight * numpy.abs(listapprox - listexact))
     denominator = numpy.add.reduce(weight)
     mare = numerator / denominator
@@ -93,20 +84,20 @@ def MARE(weight, listapprox, listexact):
 
 
 def radialMARE(grid, dens, listapprox, listexact):
-    """Returns a mean absolute relative error for two lists."""
+    # Returns a mean absolute relative error for two lists.
     weight = grid ** 2 * dens
     return MARE(weight, listapprox, listexact)
 
 
 def PctgError(exact, approx):
-    """Returns percentage error at each point."""
+    # Returns percentage error at each point.
     final = numpy.zeros(len(exact))
     final = numpy.abs(exact - approx) / exact
     return final
 
 
 def WgtRMSError(weight, listapprox, listexact):
-    """Returns a weighted RMS error"""
+    # Returns a weighted RMS error
     ngrid = len(listapprox)
     if len(weight) == ngrid & len(listexact) == ngrid:
         sum = numpy.add.reduce(weight * (listapprox - listexact) ** 2)
@@ -117,7 +108,7 @@ def WgtRMSError(weight, listapprox, listexact):
 
 
 def FurthestIndex(grid, array, a):
-    """Finds the index and concurrent grid value beyond which all points have magnitude less than a."""
+    # Finds the index and concurrent grid value beyond which all points have magnitude less than a.
     N = len(grid)
     i = N - 1
     while (array[i] > a) and i > -1:
@@ -126,7 +117,7 @@ def FurthestIndex(grid, array, a):
 
 
 def ChainDerivPQ(fp, fq, fpp, fpq, fqq, fqqq, gf, gff, gfff):
-    """Find derivatives of G(f(p,q)) in terms of those of f(p,q) and G(f)"""
+    # Find derivatives of G(f(p,q)) in terms of those of f(p,q) and G(f)
 
     gp = gf * fp
     gq = gf * fq
@@ -143,7 +134,7 @@ def ChainDerivPQ(fp, fq, fpp, fpq, fqq, fqqq, gf, gff, gfff):
 
 
 def ChainDerivQ(fq, fqq, fqqq, gf, gff, gfff):
-    """Find derivatives of G(f(q)) in terms of those of f(q) and G(f)"""
+    # Find derivatives of G(f(q)) in terms of those of f(q) and G(f)
 
     gq = gf * fq
     gqq = gff * fq * fq + gf * fqq
@@ -152,15 +143,15 @@ def ChainDerivQ(fq, fqq, fqqq, gf, gff, gfff):
     return gq, gqq, gqqq
 
 
-# def ChainDerivP(fp,fpp,gf,gff):
-#    """Find derivatives of G(f(q)) in terms of those of f(q) and G(f)"""
-#
-#    gp = gf*fp
-#    gpp = gff*fp*fp + gf*fpp
-#
-#    return gp, gpp, gpp
+""" def ChainDerivP(fp,fpp,gf,gff):
+    #Find derivatives of G(f(q)) in terms of those of f(q) and G(f)
 
-"""The following are the two exponential grid routines."""
+    gp = gf*fp
+    gpp = gff*fp*fp + gf*fpp
+
+    return gp, gpp, gpp """
+
+# The following are the two exponential grid routines.
 
 
 def ExpGridStretch1(N, x0, a):

@@ -3,7 +3,7 @@
 from cmath import *
 
 g = 7
-lanczos_coef = [ \
+lanczos_coef = [
      0.99999999999980993,
    676.5203681218851,
  -1259.1392167224028,
@@ -33,7 +33,9 @@ def gamma(z):
 ## NOTE -- Hopefully you intend to test the above definition with the below
 ##         dicitonary!! (and include the test in the separate module.)
 #Test - print out in an array the values of gamma(z) relevant to the
-if __name__=="__main__":
+
+
+if __name__ == "__main__":
     print("Hello world from the gamma function!\n")
     print("Testing the gamma function ...\n")
     listgamma = [gamma(1), gamma(2), gamma(3), gamma(3.7), gamma(4), gamma(4.2)]

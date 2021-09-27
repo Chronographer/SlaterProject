@@ -43,32 +43,22 @@ def s(listN):
     # 3d
     lists.append((listN[3] - 1) * nshield["Valence"] + (listN[2] + listN[1] + listN[0]) * nshield["Core"])
     # 4sp
-    lists.append(
-        (listN[4] - 1) * nshield["Valence"] + (listN[3] + listN[2]) * nshield["sp_semicore"] + (listN[1] + listN[0]) *
-        nshield["Core"])
+    lists.append((listN[4] - 1) * nshield["Valence"] + (listN[3] + listN[2]) * nshield["sp_semicore"] + (listN[1] + listN[0]) * nshield["Core"])
     # 4d
-    lists.append(
-        (listN[5] - 1) * nshield["Valence"] + (listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nshield["Core"])
+    lists.append((listN[5] - 1) * nshield["Valence"] + (listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nshield["Core"])
     # 4f
-    lists.append(
-        (listN[6] - 1) * nshield["Valence"] + (listN[5] + listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) *
-        nshield["Core"])
+    lists.append((listN[6] - 1) * nshield["Valence"] + (listN[5] + listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) *nshield["Core"])
     # 5sp
-    lists.append((listN[7] - 1) * nshield["Valence"] + (listN[6] + listN[5] + listN[4]) * nshield["sp_semicore"] + (
-                listN[3] + listN[2] + listN[1] + listN[0]) * nshield["Core"])
+    lists.append((listN[7] - 1) * nshield["Valence"] + (listN[6] + listN[5] + listN[4]) * nshield["sp_semicore"] + (listN[3] + listN[2] + listN[1] + listN[0]) * nshield["Core"])
     # 5d
-    lists.append((listN[8] - 1) * nshield["Valence"] + (
-                listN[7] + listN[6] + listN[5] + listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nshield[
-                     "Core"])
+    lists.append((listN[8] - 1) * nshield["Valence"] + (listN[7] + listN[6] + listN[5] + listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nshield["Core"])
     # 6s
-    lists.append((listN[9] - 1) * nshield["Valence"] + (
-                listN[8] + listN[7] + listN[6] + listN[5] + listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) *
-                 nshield["Core"])
+    lists.append((listN[9] - 1) * nshield["Valence"] + (listN[8] + listN[7] + listN[6] + listN[5] + listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nshield["Core"])
     return lists
 
 
 def A(s, e, Z):
-    """Normalization constant for ith shell"""
+    # Normalization constant for ith shell
     nx = nstar[e]
     print
     "Energy quantum number, shielding, Z:  ", e, s, Z
@@ -76,21 +66,19 @@ def A(s, e, Z):
         print("Fatal Error: UNBOUND ATOM")
         print("Shielding charge {0} exceeds nuclear charge {1}".format(s, Z))
         print("EXITING SOON")
-    a = numpy.sqrt((2.0 * (Z - s)) ** (2.0 * nx + 1) / \
-                   (4.0 * numpy.pi * nx ** (2.0 * nx + 1) * Gamma.gamma(2 * nx + 1.0)))
+    a = numpy.sqrt((2.0 * (Z - s)) ** (2.0 * nx + 1) / (4.0 * numpy.pi * nx ** (2.0 * nx + 1) * Gamma.gamma(2 * nx + 1.0)))
     return a
 
 
 def phi(s, e, Z, arrayx):
-    """wavefunction for ith shell"""
+    # wavefunction for ith shell
     nx = nstar[e]
     arrayy = A(s, e, Z) * arrayx ** (nx - 1) * numpy.exp(-(Z - s) * arrayx / nx)
     return arrayy
 
 
 def n(s, e, Z, arrayx, N):
-    """density for ith shell; returns density and four derivatives,
-    calculated recursively"""
+    # density for ith shell; returns density and four derivatives, calculated recursively
     if (N == 0):
         array0 = 0.0 * arrayx
         return array0, array0, array0, array0, array0
@@ -100,15 +88,13 @@ def n(s, e, Z, arrayx, N):
         arrayy = N * mphi
         ayp = 2 * ((nx - 1) / arrayx - (Z - s) / nx) * arrayy
         aypp = 2 * (nx - 1) * (-1 / arrayx ** 2) * arrayy + 2 * ((nx - 1) / arrayx - (Z - s) / nx) * ayp
-        ayp3 = 2 * (nx - 1) * (2 / arrayx ** 3) * arrayy + 2 * 2 * (nx - 1) * (-1 / arrayx ** 2) \
-               * ayp + 2 * ((nx - 1) / arrayx - (Z - s) / nx) * aypp
-        ayp4 = 2 * (nx - 1) * (-6 / arrayx ** 4) * arrayy + 3 * 2 * (nx - 1) * (2 / arrayx ** 3) \
-               * ayp + 3 * 2 * (nx - 1) * (-1 / arrayx ** 2) * aypp + 2 * ((nx - 1) / arrayx - (Z - s) / nx) * ayp3
+        ayp3 = 2 * (nx - 1) * (2 / arrayx ** 3) * arrayy + 2 * 2 * (nx - 1) * (-1 / arrayx ** 2) * ayp + 2 * ((nx - 1) / arrayx - (Z - s) / nx) * aypp
+        ayp4 = 2 * (nx - 1) * (-6 / arrayx ** 4) * arrayy + 3 * 2 * (nx - 1) * (2 / arrayx ** 3) * ayp + 3 * 2 * (nx - 1) * (-1 / arrayx ** 2) * aypp + 2 * ((nx - 1) / arrayx - (Z - s) / nx) * ayp3
         return arrayy, ayp, aypp, ayp3, ayp4
 
 
 def shelldensities(arrayx, Z, listN):
-    """gives the densities of each shell"""
+    # gives the densities of each shell
     svalues = s(listN)
     returnlist = []
     for j in range(len(listN)):
@@ -125,8 +111,7 @@ def density(arrayx, Z, listN):
 
     arrayx -- array of radial positions
     listN  -- list of shell occupancy numbers
-    Z      -- net charge
-    """
+    Z      -- net charge """
     svalues = s(listN)
     # print("svalues", svalues)
     length = len(arrayx)
@@ -158,11 +143,10 @@ def grlaglll(arrayx, Z, listN):
     """Returns the RADIAL density and its gradient, laplacian, grad(lapl), lapl(lapl)
     arrayx -- array of radial positions
     listN  -- list of shell occupancy numbers
-    Z      -- net charge
-    """
+    Z      -- net charge """
     N = len(arrayx)
 
-    # print "grlaglll: listN", listN
+    # print("grlaglll: listN", listN)
     d0, d1, d2, d3, d4 = density(arrayx, Z, listN)
 
     grad = d1
@@ -173,7 +157,7 @@ def grlaglll(arrayx, Z, listN):
     return d0, grad, lapl, glap, llap
 
 
-"""The following are some miscellaneous analytic density routines."""
+# The following are some miscellaneous analytic density routines.
 
 
 def H(listx):

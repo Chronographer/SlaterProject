@@ -26,7 +26,7 @@ while 1:
     else:
         arrayx = numpy.arange(0.01, 1.0 * listlength, 0.01)
 
-    subshell = ["1s","2s&p","3s&p","3d","4s&p","4d","4f","5s&p","5d"]
+    subshell = ["1s", "2s&p", "3s&p", "3d", "4s&p", "4d", "4f", "5s&p", "5d"]
 
     occ = []
 
@@ -40,9 +40,9 @@ while 1:
     printout = []
     for i in range(len(arrayx)):
         printout.append([arrayx[i],dty[i]])
-    #print printout
+    # print printout
     g.plot(printout)
-    #g.hardcopy('tmp.gif',enhanced=1,color=1)
+    # g.hardcopy('tmp.gif',enhanced=1,color=1)
     g.reset()
 
     if ccbox("There was your density.  Shall we do it again?", "Finale"):     # show a Continue/Cancel dialog
