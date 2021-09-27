@@ -11,8 +11,7 @@ import Gnuplot
 import Gnuplot.funcutils
 
 while 1:
-    msgbox("A simple GUI for displaying Slater electron densities\n" \
-        +"By Neal Coleman", "Introduction")
+    msgbox("A simple GUI for displaying Slater electron densities\n" + "By Neal Coleman", "Introduction")
 
     Z = integerbox("Enter the atomic number of the element.", "Element Selection.")
 
@@ -32,8 +31,7 @@ while 1:
     occ = []
 
     for i in range(9):
-        occ.append(integerbox("Enter the occupancy of the "+subshell[i]+" subshell.",\
-            "Subshell Selection"))
+        occ.append(integerbox("Enter the occupancy of the "+subshell[i]+" subshell.", "Subshell Selection"))
 
     g = Gnuplot.Gnuplot()
     g.title("tmp")

@@ -99,13 +99,11 @@ def n(s, e, Z, arrayx, N):
         mphi = numpy.absolute(phi(s, e, Z, arrayx)) ** 2
         arrayy = N * mphi
         ayp = 2 * ((nx - 1) / arrayx - (Z - s) / nx) * arrayy
-        aypp = 2 * (nx - 1) * (-1 / arrayx ** 2) * arrayy + 2 * ((nx - 1) / arrayx - \
-                                                                 (Z - s) / nx) * ayp
+        aypp = 2 * (nx - 1) * (-1 / arrayx ** 2) * arrayy + 2 * ((nx - 1) / arrayx - (Z - s) / nx) * ayp
         ayp3 = 2 * (nx - 1) * (2 / arrayx ** 3) * arrayy + 2 * 2 * (nx - 1) * (-1 / arrayx ** 2) \
                * ayp + 2 * ((nx - 1) / arrayx - (Z - s) / nx) * aypp
         ayp4 = 2 * (nx - 1) * (-6 / arrayx ** 4) * arrayy + 3 * 2 * (nx - 1) * (2 / arrayx ** 3) \
-               * ayp + 3 * 2 * (nx - 1) * (-1 / arrayx ** 2) * aypp + 2 * ((nx - 1) / arrayx - \
-                                                                           (Z - s) / nx) * ayp3
+               * ayp + 3 * 2 * (nx - 1) * (-1 / arrayx ** 2) * aypp + 2 * ((nx - 1) / arrayx - (Z - s) / nx) * ayp3
         return arrayy, ayp, aypp, ayp3, ayp4
 
 
@@ -130,18 +128,18 @@ def density(arrayx, Z, listN):
     Z      -- net charge
     """
     svalues = s(listN)
-    # print "svalues", svalues
+    # print("svalues", svalues)
     length = len(arrayx)
-    # print "length", length
+    # print("length", length)
     final = numpy.zeros(length)
     finalp = numpy.zeros(length)
     finalpp = numpy.zeros(length)
     finalp3 = numpy.zeros(length)
     finalp4 = numpy.zeros(length)
 
-    # print "density: listN", listN
+    # print("density: listN", listN)
     for j in range(len(listN)):
-        # print "j, svalues[j]", j, svalues[j]
+        # print("j, svalues[j]", j, svalues[j])
         sconst = svalues[j]
         e = energy[j]
         N = listN[j]

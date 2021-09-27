@@ -14,6 +14,7 @@ lanczos_coef = [ \
      9.9843695780195716e-6,
      1.5056327351493116e-7]
 
+
 def gamma(z):
     z = complex(z)
     if z.real < 0.5:
@@ -34,10 +35,10 @@ def gamma(z):
 #Test - print out in an array the values of gamma(z) relevant to the
 if __name__=="__main__":
     print("Hello world from the gamma function!\n")
-    print( "Testing the gamma function ...\n")
-    listgamma = [gamma(1),gamma(2),gamma(3),gamma(3.7),gamma(4),gamma(4.2)]
+    print("Testing the gamma function ...\n")
+    listgamma = [gamma(1), gamma(2), gamma(3), gamma(3.7), gamma(4), gamma(4.2)]
     nstar = {1:1.0, 2:2.0, 3:3.0, 4:3.7, 5:4.0, 6:4.2}
-    gammafunction = [1.0,1.0,2.0,4.1706517838,6.0,7.75668953579]
+    gammafunction = [1.0, 1.0, 2.0, 4.1706517838, 6.0, 7.75668953579]
     listout = []
     for i in range(len(listgamma)):
         print(i, listgamma[i], gammafunction[i], gammafunction[i]-listgamma[i])

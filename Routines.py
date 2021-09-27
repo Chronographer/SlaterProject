@@ -47,8 +47,7 @@ def CrudelyApproximateSecondDerivative(listx, listf):
     listfdoubleprime.append(fprimeprime)
     for i in range(1, N - 1, 1):
         fprimeprime = ((listf[i + 1] - listf[i]) / (listx[i + 1] - listx[i]) \
-                       - (listf[i] - listf[i - 1]) / (listx[i] - listx[i - 1])) / ((listx[i + 1] - \
-                                                                                    listx[i - 1]) / 2)
+                       - (listf[i] - listf[i - 1]) / (listx[i] - listx[i - 1])) / ((listx[i + 1] - listx[i - 1]) / 2)
         listfdoubleprime.append(fprimeprime)
     fprimeprime = (listf[-1] - listf[-2]) / (listx[-1] - listx[-2]) ** 2 \
                   - (listf[-1] - listf[-3]) / ((listx[-1] - listx[-3]) * (listx[-1] - listx[-2]))
