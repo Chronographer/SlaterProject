@@ -1,5 +1,4 @@
-"""This is a set of routines to approximate first and second derivatives,
-integration, and error-checking routines."""
+# This is a set of routines to approximate first and second derivatives, integration, and error-checking routines.
 
 import numpy
 import numpy as np
@@ -13,55 +12,55 @@ def ArrayDotProduct(vector1array, vector2array):
     return x1 * x2 + y1 * y2 + z1 * z2
 
 
-def ArrayApproxDerivative(arrayX, arrayf):
-    # Takes a numpy arrray of x values and an array of f values and finds an approximate centered first derivative.
-    arrayfprime = 0.0 * arrayf
+def ArrayApproxDerivative(arrayX, arrayF):
+    # Takes a numpy array of x values and an array of f values and finds an approximate centered first derivative.
+    arrayfprime = 0.0 * arrayF
     # first point indexed by 0
-    arrayfprime[0] = (arrayf[1] - arrayf[0]) / (arrayX[1] - arrayX[0])
+    arrayfprime[0] = (arrayF[1] - arrayF[0]) / (arrayX[1] - arrayX[0])
     # middle points done with slice
-    arrayfprime[1:-1] = (arrayf[2:] - arrayf[0:-2]) / (arrayX[2:] - arrayX[0:-2])
+    arrayfprime[1:-1] = (arrayF[2:] - arrayF[0:-2]) / (arrayX[2:] - arrayX[0:-2])
     # last point indexed by -1
-    arrayfprime[-1] = (arrayf[-1] - arrayf[-2]) / (arrayX[-1] - arrayX[-2])
+    arrayfprime[-1] = (arrayF[-1] - arrayF[-2]) / (arrayX[-1] - arrayX[-2])
     return arrayfprime
 
 
-def ApproximateDerivative(listX, listf):
+def ApproximateDerivative(listX, listF):
     # Takes a list of x values and a list of f values and finds an approximate centered first derivative.
     N = len(listX)
-    listfprime = [(listf[1] - listf[0]) / (listX[1] - listX[0])]
+    listfprime = [(listF[1] - listF[0]) / (listX[1] - listX[0])]
     for i in range(1, N - 1, 1):
-        fprime = (listf[i + 1] - listf[i - 1]) / (listX[i + 1] - listX[i - 1])
+        fprime = (listF[i + 1] - listF[i - 1]) / (listX[i + 1] - listX[i - 1])
         listfprime.append(fprime)
-    listfprime.append((listf[-1] - listf[-2]) / (listX[-1] - listX[-2]))
+    listfprime.append((listF[-1] - listF[-2]) / (listX[-1] - listX[-2]))
     return listfprime
 
 
-def CrudelyApproximateSecondDerivative(listx, listf):
+def CrudelyApproximateSecondDerivative(listX, listF):
     # Takes a list of x values and a list of f values and finds an approximate centered second derivative.
-    N = len(listx)
+    N = len(listX)
     listfdoubleprime = []
-    fprimeprime = (listf[2] - listf[0]) / ((listx[2] - listx[0]) * (listx[1] - listx[0])) - (listf[1] - listf[0]) / (listx[1] - listx[0]) ** 2
+    fprimeprime = (listF[2] - listF[0]) / ((listX[2] - listX[0]) * (listX[1] - listX[0])) - (listF[1] - listF[0]) / (listX[1] - listX[0]) ** 2
     listfdoubleprime.append(fprimeprime)
     for i in range(1, N - 1, 1):
-        fprimeprime = ((listf[i + 1] - listf[i]) / (listx[i + 1] - listx[i]) - (listf[i] - listf[i - 1]) / (listx[i] - listx[i - 1])) / ((listx[i + 1] - listx[i - 1]) / 2)
+        fprimeprime = ((listF[i + 1] - listF[i]) / (listX[i + 1] - listX[i]) - (listF[i] - listF[i - 1]) / (listX[i] - listX[i - 1])) / ((listX[i + 1] - listX[i - 1]) / 2)
         listfdoubleprime.append(fprimeprime)
-    fprimeprime = (listf[-1] - listf[-2]) / (listx[-1] - listx[-2]) ** 2 - (listf[-1] - listf[-3]) / ((listx[-1] - listx[-3]) * (listx[-1] - listx[-2]))
+    fprimeprime = (listF[-1] - listF[-2]) / (listX[-1] - listX[-2]) ** 2 - (listF[-1] - listF[-3]) / ((listX[-1] - listX[-3]) * (listX[-1] - listX[-2]))
     listfdoubleprime.append(fprimeprime)
     return listfdoubleprime
 
 
-def ArrayIntegrate(arrayX, arrayf):
+def ArrayIntegrate(arrayX, arrayF):
     # Takes a array of f values and a grid of x values and integrates f with respect to f.
-    area = (arrayX[1:] - arrayX[0:-1]) * (arrayf[1:] + arrayf[0:-1]) * 0.5
+    area = (arrayX[1:] - arrayX[0:-1]) * (arrayF[1:] + arrayF[0:-1]) * 0.5
     # add all values of area and reduce to scalar quantity
     return numpy.add.reduce(area)
 
 
-def Integrate(listX, listf):
+def Integrate(listX, listF):
     # Takes a list of f values and a grid of x values and integrates f with respect to f.
     rsum = 0
     for i in range(len(listX) - 1):
-        rsum = rsum + (listX[i + 1] - listX[i]) * (listf[i + 1] + listf[i]) / 2
+        rsum = rsum + (listX[i + 1] - listX[i]) * (listF[i + 1] + listF[i]) / 2
     return rsum
 
 
@@ -97,7 +96,7 @@ def PctgError(exact, approximate):
     return final
 
 
-def WgtRMSError(weight, listApproximate, listExact):
+def WeightedRMSError(weight, listApproximate, listExact):
     # Returns a weighted RMS error
     ngrid = len(listApproximate)
     if len(weight) == ngrid & len(listExact) == ngrid:
@@ -117,7 +116,7 @@ def FurthestIndex(grid, array, a):
     return i - 1, grid[i - 1]
 
 
-def ChainDerivPQ(fp, fq, fpp, fpq, fqq, fqqq, gf, gff, gfff):
+def ChainDerivativePQ(fp, fq, fpp, fpq, fqq, fqqq, gf, gff, gfff):
     # Find derivatives of G(f(p,q)) in terms of those of f(p,q) and G(f)
 
     gp = gf * fp
@@ -134,7 +133,7 @@ def ChainDerivPQ(fp, fq, fpp, fpq, fqq, fqqq, gf, gff, gfff):
     return gp, gq, gpp, gpq, gqq, gqqq
 
 
-def ChainDerivQ(fq, fqq, fqqq, gf, gff, gfff):
+def ChainDerivativeQ(fq, fqq, fqqq, gf, gff, gfff):
     # Find derivatives of G(f(q)) in terms of those of f(q) and G(f)
 
     gq = gf * fq
@@ -145,7 +144,7 @@ def ChainDerivQ(fq, fqq, fqqq, gf, gff, gfff):
 
 
 """ def ChainDerivP(fp,fpp,gf,gff):
-    #Find derivatives of G(f(q)) in terms of those of f(q) and G(f)
+    # Find derivatives of G(f(q)) in terms of those of f(q) and G(f)
 
     gp = gf*fp
     gpp = gff*fp*fp + gf*fpp

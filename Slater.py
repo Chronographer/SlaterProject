@@ -81,23 +81,23 @@ def phi(shielding, energyQuantumNumber, netCharge, arrayX):
     return arrayY
 
 
-def n(s, e, Z, arrayX, N):
+def n(shielding, energyQuantumNumber, netCharge, arrayX, N):
     # density for ith shell; returns density and four derivatives, calculated recursively
     if N == 0:
         array0 = 0.0 * arrayX
         return array0, array0, array0, array0, array0
     else:
-        nx = nstar[e]
-        mphi = numpy.absolute(phi(s, e, Z, arrayX)) ** 2
-        arrayy = N * mphi
-        ayp = 2 * ((nx - 1) / arrayX - (Z - s) / nx) * arrayy
-        aypp = 2 * (nx - 1) * (-1 / arrayX ** 2) * arrayy + 2 * ((nx - 1) / arrayX - (Z - s) / nx) * ayp
-        ayp3 = 2 * (nx - 1) * (2 / arrayX ** 3) * arrayy + 2 * 2 * (nx - 1) * (-1 / arrayX ** 2) * ayp + 2 * ((nx - 1) / arrayX - (Z - s) / nx) * aypp
-        ayp4 = 2 * (nx - 1) * (-6 / arrayX ** 4) * arrayy + 3 * 2 * (nx - 1) * (2 / arrayX ** 3) * ayp + 3 * 2 * (nx - 1) * (-1 / arrayX ** 2) * aypp + 2 * ((nx - 1) / arrayX - (Z - s) / nx) * ayp3
-        return arrayy, ayp, aypp, ayp3, ayp4
+        nx = nstar[energyQuantumNumber]
+        mphi = numpy.absolute(phi(shielding, energyQuantumNumber, netCharge, arrayX)) ** 2
+        arrayY = N * mphi
+        ayp = 2 * ((nx - 1) / arrayX - (netCharge - shielding) / nx) * arrayY
+        aypp = 2 * (nx - 1) * (-1 / arrayX ** 2) * arrayY + 2 * ((nx - 1) / arrayX - (netCharge - shielding) / nx) * ayp
+        ayp3 = 2 * (nx - 1) * (2 / arrayX ** 3) * arrayY + 2 * 2 * (nx - 1) * (-1 / arrayX ** 2) * ayp + 2 * ((nx - 1) / arrayX - (netCharge - shielding) / nx) * aypp
+        ayp4 = 2 * (nx - 1) * (-6 / arrayX ** 4) * arrayY + 3 * 2 * (nx - 1) * (2 / arrayX ** 3) * ayp + 3 * 2 * (nx - 1) * (-1 / arrayX ** 2) * aypp + 2 * ((nx - 1) / arrayX - (netCharge - shielding) / nx) * ayp3
+        return arrayY, ayp, aypp, ayp3, ayp4
 
 
-def shelldensities(arrayX, Z, listN):
+def shellDensities(arrayX, Z, listN):
     # gives the densities of each shell
     sValues = s(listN)
     returnList = []
@@ -143,20 +143,20 @@ def density(arrayX, netCharge, listN):
     return final, finalp, finalpp, finalp3, finalp4
 
 
-def grlaglll(arrayx, netCharge, listN):
+def grlaglll(arrayX, netCharge, listN):
     """Returns the RADIAL density and its gradient, laplacian, grad(lapl), lapl(lapl)
     arrayX -- array of radial positions
     listN  -- list of shell occupancy numbers
     netCharge      -- net charge """
-    N = len(arrayx)
+    N = len(arrayX)
 
     # print("grlaglll: listN", listN)
-    d0, d1, d2, d3, d4 = density(arrayx, netCharge, listN)
+    d0, d1, d2, d3, d4 = density(arrayX, netCharge, listN)
 
     grad = d1
-    lapl = d2 + 2 * d1 / arrayx
-    glap = d3 + 2 * d2 / arrayx - 2 * d1 / arrayx ** 2
-    llap = d4 + 4 * d3 / arrayx
+    lapl = d2 + 2 * d1 / arrayX
+    glap = d3 + 2 * d2 / arrayX - 2 * d1 / arrayX ** 2
+    llap = d4 + 4 * d3 / arrayX
 
     return d0, grad, lapl, glap, llap
 
@@ -170,12 +170,12 @@ def H(listX):
     return y, yprime
 
 
-def Ne(listx):
+def Ne(listX):
     # N.B.: Not a real wavefunction!
     norm1s = numpy.sqrt(27.)
-    y = numpy.exp(-listx) + norm1s * numpy.exp(-3 * listx)
-    yprime = -numpy.exp(-listx) - 3.0 * norm1s * numpy.exp(-3 * listx)
-    y2prime = numpy.exp(-listx) + 3.0 ** 2 * norm1s * numpy.exp(-3 * listx)
-    y3prime = -numpy.exp(-listx) - 3.0 ** 3 * norm1s * numpy.exp(-3 * listx)
-    y4prime = numpy.exp(-listx) + 3.0 ** 4 * norm1s * numpy.exp(-3 * listx)
+    y = numpy.exp(-listX) + norm1s * numpy.exp(-3 * listX)
+    yprime = -numpy.exp(-listX) - 3.0 * norm1s * numpy.exp(-3 * listX)
+    y2prime = numpy.exp(-listX) + 3.0 ** 2 * norm1s * numpy.exp(-3 * listX)
+    y3prime = -numpy.exp(-listX) - 3.0 ** 3 * norm1s * numpy.exp(-3 * listX)
+    y4prime = numpy.exp(-listX) + 3.0 ** 4 * norm1s * numpy.exp(-3 * listX)
     return y, yprime, y2prime, y3prime, y4prime
