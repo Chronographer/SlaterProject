@@ -57,11 +57,11 @@ def s(listN):
 def A(s,e,Z):
     """Normalization constant for ith shell"""
     nx=nstar[e]
-    print "Energy quantum number, shielding, Z:  ", e, s, Z
+    print("Energy quantum number, shielding, Z:  ", e, s, Z)
     if (Z - s) < 0:
-        print "Fatal Error: UNBOUND ATOM"
-        print "Shielding charge {0} exceeds nuclear charge {1}".format(s,Z)
-        print "EXITING SOON"
+        print("Fatal Error: UNBOUND ATOM")
+        print("Shielding charge {0} exceeds nuclear charge {1}".format(s,Z))
+        print("EXITING SOON")
     a = numpy.sqrt( (2.0*(Z-s))**(2.0*nx+1) / \
         (4.0*numpy.pi*nx**(2.0*nx+1) * Gamma.gamma(2*nx+1.0)) )
     return a
