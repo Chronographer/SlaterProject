@@ -113,7 +113,7 @@ def dq(s):
 rootWindowPosition = "+300+200"
 
 DEFAULT_FONT_FAMILY = ("MS", "Sans", "Serif")
-MONOSPACE_FONT_FAMILY = ("Courier")
+MONOSPACE_FONT_FAMILY = "Courier"
 DEFAULT_FONT_SIZE = 10
 BIG_FONT_SIZE = 12
 SMALL_FONT_SIZE = 9

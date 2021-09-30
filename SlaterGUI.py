@@ -7,8 +7,8 @@ import sys
 import Slater
 import numpy
 import Routines
-import Gnuplot
-import Gnuplot.funcutils
+import matplotlib.pyplot as plt
+
 
 while 1:
     msgbox("A simple GUI for displaying Slater electron densities\n" + "By Neal Coleman", "Introduction")
@@ -33,17 +33,17 @@ while 1:
     for i in range(9):
         occ.append(integerbox("Enter the occupancy of the "+subshell[i]+" subshell.", "Subshell Selection"))
 
-    g = Gnuplot.Gnuplot()
-    g.title("tmp")
-    g('set data style linespoints')
+    #g = Gnuplot.Gnuplot()
+    #g.title("tmp")
+    #g('set data style linespoints')
     dty = 4 * numpy.pi * arrayx**2 * Slater.density(arrayx, Z, occ)[0]
     printout = []
     for i in range(len(arrayx)):
         printout.append([arrayx[i], dty[i]])
     # print printout
-    g.plot(printout)
+    plt.plot(printout)
     # g.hardcopy('tmp.gif',enhanced=1,color=1)
-    g.reset()
+    #g.reset()
 
     if ccbox("There was your density.  Shall we do it again?", "Finale"):  # show a Continue/Cancel dialog
         pass  # user chose Continue
