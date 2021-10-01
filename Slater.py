@@ -33,27 +33,26 @@ nshield = {"1s_valence": 0.3, "Valence": 0.35, "sp_semicore": 0.85, "Core": 1.0}
 def s(listN):
     """Extract shielding constant from occupancy list - through 5d
     These are ansatz functions, so there's no general formula."""
-    lists = []
+    lists = [(listN[0] - 1) * nshield["1s_valence"],
+             (listN[1] - 1) * nshield["Valence"] + listN[0] * nshield["sp_semicore"],
+             (listN[2] - 1) * nshield["Valence"] + listN[1] * nshield["sp_semicore"] + listN[0] * nshield["Core"],
+             (listN[3] - 1) * nshield["Valence"] + (listN[2] + listN[1] + listN[0]) * nshield["Core"],
+             (listN[4] - 1) * nshield["Valence"] + (listN[3] + listN[2]) * nshield["sp_semicore"] + (listN[1] + listN[0]) * nshield["Core"],
+             (listN[5] - 1) * nshield["Valence"] + (listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nshield["Core"],
+             (listN[6] - 1) * nshield["Valence"] + (listN[5] + listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nshield["Core"],
+             (listN[7] - 1) * nshield["Valence"] + (listN[6] + listN[5] + listN[4]) * nshield["sp_semicore"] + (listN[3] + listN[2] + listN[1] + listN[0]) * nshield["Core"],
+             (listN[8] - 1) * nshield["Valence"] + (listN[7] + listN[6] + listN[5] + listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nshield["Core"]]#,
+             #(listN[9] - 1) * nshield["Valence"] + (listN[8] + listN[7] + listN[6] + listN[5] + listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nshield["Core"]]
     # 1s
-    lists.append((listN[0] - 1) * nshield["1s_valence"])
     # 2sp
-    lists.append((listN[1] - 1) * nshield["Valence"] + listN[0] * nshield["sp_semicore"])
     # 3sp
-    lists.append((listN[2] - 1) * nshield["Valence"] + listN[1] * nshield["sp_semicore"] + listN[0] * nshield["Core"])
     # 3d
-    lists.append((listN[3] - 1) * nshield["Valence"] + (listN[2] + listN[1] + listN[0]) * nshield["Core"])
     # 4sp
-    lists.append((listN[4] - 1) * nshield["Valence"] + (listN[3] + listN[2]) * nshield["sp_semicore"] + (listN[1] + listN[0]) * nshield["Core"])
     # 4d
-    lists.append((listN[5] - 1) * nshield["Valence"] + (listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nshield["Core"])
     # 4f
-    lists.append((listN[6] - 1) * nshield["Valence"] + (listN[5] + listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nshield["Core"])
     # 5sp
-    lists.append((listN[7] - 1) * nshield["Valence"] + (listN[6] + listN[5] + listN[4]) * nshield["sp_semicore"] + (listN[3] + listN[2] + listN[1] + listN[0]) * nshield["Core"])
     # 5d
-    lists.append((listN[8] - 1) * nshield["Valence"] + (listN[7] + listN[6] + listN[5] + listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nshield["Core"])
     # 6s
-    lists.append((listN[9] - 1) * nshield["Valence"] + (listN[8] + listN[7] + listN[6] + listN[5] + listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nshield["Core"])
     return lists
 
 

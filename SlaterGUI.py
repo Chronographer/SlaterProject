@@ -19,31 +19,30 @@ while 1:
 
     choices1 = ["Exponential", "Uniform"]
 
-    a = buttonbox("Would you like an exponential or uniform grid?", "Grid Type", choices1)
+    scaleType = buttonbox("Would you like an exponential or uniform grid?", "Grid Type", choices1)
 
-    if a == "Exponential":
+    if scaleType == "Exponential":
         arrayx = Routines.ExpGridStretch2(numpy.arange(0.01, 1.0 * listLength, 0.01))
     else:
         arrayx = numpy.arange(0.01, 1.0 * listLength, 0.01)
 
     subshell = ["1s", "2s&p", "3s&p", "3d", "4s&p", "4d", "4f", "5s&p", "5d"]
 
-    occ = []
+    occupancy = []
 
     for i in range(9):
-        occ.append(integerbox("Enter the occupancy of the "+subshell[i]+" subshell.", "Subshell Selection"))
-
-    #g = Gnuplot.Gnuplot()
-    #g.title("tmp")
-    #g('set data style linespoints')
-    dty = 4 * numpy.pi * arrayx**2 * Slater.density(arrayx, Z, occ)[0]
-    printout = []
+        occupancy.append(integerbox("Enter the occupancy of the " + subshell[i] + " subshell.", "Subshell Selection"))
+    dty = 4 * numpy.pi * arrayx**2 * Slater.density(arrayx, Z, occupancy)[0]  # what is 'dty'? Density?
+    xList = []
+    yList = []
     for i in range(len(arrayx)):
-        printout.append([arrayx[i], dty[i]])
-    # print printout
-    plt.plot(printout)
-    # g.hardcopy('tmp.gif',enhanced=1,color=1)
-    #g.reset()
+        xList.append(arrayx[i])
+        yList.append(dty[i])
+    plt.plot(xList, yList)
+    plt.title("Plot of <something> vs. <something> for atomic number " + str(Z))
+    plt.xlabel("xLable")
+    plt.ylabel("ylable")
+    plt.show()
 
     if ccbox("There was your density.  Shall we do it again?", "Finale"):  # show a Continue/Cancel dialog
         pass  # user chose Continue
