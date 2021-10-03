@@ -67,10 +67,10 @@ def A(shielding, energyQuantumNumber, netCharge):
     print("Energy quantum number, shielding, netCharge:  ", energyQuantumNumber, shielding, netCharge)
     if (netCharge - shielding) < 0:
         print("Fatal Error: UNBOUND ATOM")
-        print("Shielding charge {0} exceeds nuclear charge {1}".format(shielding, netCharge))
+        print("Shielding charge {0} exceeds nuclear charge {1} ".format(shielding, netCharge))
         print("EXITING SOON")
-    a = numpy.sqrt((2.0 * (netCharge - shielding)) ** (2.0 * nx + 1) / (4.0 * numpy.pi * nx ** (2.0 * nx + 1) * Gamma.gamma(2 * nx + 1.0)))
-    return a
+    normalizationConstant = numpy.sqrt((2.0 * (netCharge - shielding)) ** (2.0 * nx + 1) / (4.0 * numpy.pi * nx ** (2.0 * nx + 1) * Gamma.gamma(2 * nx + 1.0)))
+    return normalizationConstant
 
 
 def phi(shielding, energyQuantumNumber, netCharge, arrayX):

@@ -39,9 +39,9 @@ while 1:
         xList.append(arrayx[i])
         yList.append(dty[i])
     plt.plot(xList, yList)
-    plt.title("Plot of <something> vs. <something> for atomic number " + str(Z))
-    plt.xlabel("xLable")
-    plt.ylabel("ylable")
+    plt.title("Plot of <something> vs. <radius> for atomic number " + str(Z))
+    plt.xlabel("radius")
+    plt.ylabel("4pi r ^2")
     plt.show()
 
     if ccbox("There was your density.  Shall we do it again?", "Finale"):  # show a Continue/Cancel dialog
