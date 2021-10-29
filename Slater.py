@@ -132,7 +132,7 @@ def density(arrayX, netCharge, listN):
         e = energy[j]
         N = listN[j]
         if N > 0:
-            dens, densp, denspp, densp3, densp4 = n(sConstant, e, netCharge, arrayX, N)
+            dens, densp, denspp, densp3, densp4 = n(sConstant, e, netCharge, arrayX, N)  # here
             final = final + dens
             finalp = finalp + densp
             finalpp = finalpp + denspp
