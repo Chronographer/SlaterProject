@@ -39,27 +39,19 @@ while 1:
     occupancy = []
     xListMaster = []
     yListMaster = []
-    orbitalConfig = ""
-    orbitalConfig = enterbox("Enter the orbital configuration of each shell as a comma separated list.")
-    print(orbitalConfig)
-    orbitalConfigList = orbitalConfig.split(",")
-    print(orbitalConfigList)
+    orbitalConfig = enterbox("Enter the orbital configuration of each shell as a period separated list.")
+    orbitalConfigList = orbitalConfig.split(".")
     for element in range(0, len(orbitalConfigList)):
         orbitalConfigList[element] = int(orbitalConfigList[element])
-    print(orbitalConfigList)
-    for orbital in range(independentOrbitalNumber):
-        msgbox("Enter the Orbital Configuration for plot number " + str(orbital) + ".")
-        for i in range(9):
-            occupancy.append(integerbox("Enter the occupancy of the " + subshell[i] + " subshell.", "Subshell Selection"))
-        dty = 4 * numpy.pi * arrayx**2 * Slater.density(arrayx, Z, occupancy)[0]
-        xList = []
-        yList = []
-        for i in range(len(arrayx)):
-            xList.append(arrayx[i])
-            yList.append(dty[i])
-        xListMaster.append(xList)
-        yListMaster.append(yList)
-        occupancy.clear()
+    dty = 4 * numpy.pi * arrayx**2 * Slater.density(arrayx, Z, occupancy)[0]
+    xList = []
+    yList = []
+    for i in range(len(arrayx)):
+        xList.append(arrayx[i])
+        yList.append(dty[i])
+    xListMaster.append(xList)
+    yListMaster.append(yList)
+    occupancy.clear()
     for plotNumber in range(len(xListMaster)):
         plt.plot(xListMaster[plotNumber], yListMaster[plotNumber])
     plt.title("Plot of <something> vs. radius for atomic number " + str(Z))
