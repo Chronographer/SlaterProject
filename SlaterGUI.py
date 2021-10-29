@@ -9,6 +9,26 @@ import numpy
 import Routines
 import matplotlib.pyplot as plt
 
+listx = [0, 1, 2, 3, 4, 5, 6]
+listy = [1, 5, 6, 2, 3, 8, 7]
+list1x = [0, 1, 2, 3, 4, 5, 6]
+list1y = [4, 5, 5, 2, 1, 7, 8]
+list2x = [0, 1, 2, 3, 4, 5, 6]
+list2y = [6, 4, 1, 1, 5, 9, 9]
+
+mlistx = []
+mlisty = []
+
+mlistx.append(listx)
+mlisty.append(listy)
+mlistx.append(list1x)
+mlisty.append(list1y)
+mlistx.append(list2x)
+mlisty.append(list2y)
+
+for i in range(len(mlistx)):
+    plt.plot(mlistx[i], mlisty[i])
+plt.show()
 
 while 1:
     # msgbox("A simple GUI for displaying Slater electron densities\n" + "By Neal Coleman", "Introduction")
@@ -52,15 +72,18 @@ while 1:
                 orbitalConfigList.append(0)
     for element in range(0, len(orbitalConfigList)):
         orbitalConfigList[element] = int(orbitalConfigList[element])
+
     returnList = Slater.density(arrayx, Z, orbitalConfigList)
     dty = 4 * numpy.pi * arrayx**2 * returnList[0]
     xList = []
     yList = []
+
     for i in range(len(arrayx)):
         xList.append(arrayx[i])
         yList.append(dty[i])
     xListMaster.append(xList)
     yListMaster.append(yList)
+
     for index in range(len(returnList[1])):
         dty = 4 * numpy.pi * arrayx**2 * returnList[1][index]
         for i in range(len(arrayx)):
@@ -68,12 +91,13 @@ while 1:
             yList.append(dty[i])
         xListMaster.append(xList)
         yListMaster.append(yList)
-    for plotNumber in range(len(xListMaster)):
-        plt.plot(xListMaster[plotNumber], yListMaster[plotNumber])
+
+    for i in range(len(xListMaster)):
+        plt.plot(xListMaster[i], yListMaster[i])
+
     plt.title("Plot of <something> vs. radius for atomic number " + str(Z))
     plt.xlabel("radius")
     plt.ylabel("4pi r ^2")
-    plt.plot()
     plt.legend()
     plt.show()
 
