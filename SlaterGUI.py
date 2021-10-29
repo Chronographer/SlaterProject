@@ -52,8 +52,8 @@ while 1:
                 orbitalConfigList.append(0)
     for element in range(0, len(orbitalConfigList)):
         orbitalConfigList[element] = int(orbitalConfigList[element])
-
-    dty = 4 * numpy.pi * arrayx**2 * Slater.density(arrayx, Z, orbitalConfigList)[0]
+    returnList = Slater.density(arrayx, Z, orbitalConfigList)
+    dty = 4 * numpy.pi * arrayx**2 * returnList[0]
     xList = []
     yList = []
     for i in range(len(arrayx)):
@@ -61,6 +61,13 @@ while 1:
         yList.append(dty[i])
     xListMaster.append(xList)
     yListMaster.append(yList)
+    for index in range(len(returnList[1])):
+        dty = 4 * numpy.pi * arrayx**2 * returnList[1][index]
+        for i in range(len(arrayx)):
+            xList.append(arrayx[i])
+            yList.append(dty[i])
+        xListMaster.append(xList)
+        yListMaster.append(yList)
     for plotNumber in range(len(xListMaster)):
         plt.plot(xListMaster[plotNumber], yListMaster[plotNumber])
     plt.title("Plot of <something> vs. radius for atomic number " + str(Z))

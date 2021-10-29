@@ -124,6 +124,8 @@ def density(arrayX, netCharge, listN):
     finalpp = numpy.zeros(length)
     finalp3 = numpy.zeros(length)
     finalp4 = numpy.zeros(length)
+    componentList = []
+    returnList = []
 
     # print("density: listN", listN)
     for j in range(len(listN)):
@@ -138,8 +140,10 @@ def density(arrayX, netCharge, listN):
             finalpp = finalpp + denspp
             finalp3 = finalp3 + densp3
             finalp4 = finalp4 + densp4
-
-    return final, finalp, finalpp, finalp3, finalp4
+            componentList.append(dens)
+    returnList.append(final)
+    returnList.append(componentList)
+    return returnList
 
 
 def grlaglll(arrayX, netCharge, listN):
