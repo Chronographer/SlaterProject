@@ -62,7 +62,7 @@ def s(listN):
 
 
 def A(shielding, energyQuantumNumber, netCharge):
-    # Normalization constant for ith shell
+    """Normalization constant for ith shell"""
     nx = nstar[energyQuantumNumber]
     print("Energy quantum number, shielding, netCharge:  ", energyQuantumNumber, shielding, netCharge)
     if (netCharge - shielding) < 0:
@@ -74,14 +74,14 @@ def A(shielding, energyQuantumNumber, netCharge):
 
 
 def phi(shielding, energyQuantumNumber, netCharge, arrayX):
-    # wavefunction for ith shell
+    """wavefunction for ith shell"""
     nx = nstar[energyQuantumNumber]
     arrayY = A(shielding, energyQuantumNumber, netCharge) * arrayX ** (nx - 1) * numpy.exp(-(netCharge - shielding) * arrayX / nx)
     return arrayY
 
 
 def n(shielding, energyQuantumNumber, netCharge, arrayX, N):
-    # density for ith shell; returns density and four derivatives, calculated recursively
+    """density for ith shell; returns density and four derivatives, calculated recursively"""
     if N == 0:
         array0 = 0.0 * arrayX
         return array0, array0, array0, array0, array0
@@ -97,7 +97,7 @@ def n(shielding, energyQuantumNumber, netCharge, arrayX, N):
 
 
 def shellDensities(arrayX, Z, listN):
-    # gives the densities of each shell
+    """ gives the densities of each shell """
     sValues = s(listN)
     returnList = []
     for j in range(len(listN)):

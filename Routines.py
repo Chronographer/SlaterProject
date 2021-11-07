@@ -1,19 +1,18 @@
 # This is a set of routines to approximate first and second derivatives, integration, and error-checking routines.
 
 import numpy
-import numpy as np
 
 
 def ArrayDotProduct(vector1array, vector2array):
-    # numpy.dot(vector1array, vector2array)  # This *should* do the same thing (?)
-    # Takes two arrays of 3-vectors, calculates the 3-vector dot product
+    """Takes two arrays of 3-vectors, calculates the 3-vector dot product\n
+     # numpy.dot(vector1array, vector2array)  # This *should* do the same thing (?)"""
     x1, y1, z1 = vector1array[:, 0], vector1array[:, 1], vector1array[:, 2]
     x2, y2, z2 = vector2array[:, 0], vector2array[:, 1], vector2array[:, 2]
     return x1 * x2 + y1 * y2 + z1 * z2
 
 
 def ArrayApproxDerivative(arrayX, arrayF):
-    # Takes a numpy array of x values and an array of f values and finds an approximate centered first derivative.
+    """Takes a numpy array of x values and an array of f values and finds an approximate centered first derivative."""
     arrayfprime = 0.0 * arrayF
     # first point indexed by 0
     arrayfprime[0] = (arrayF[1] - arrayF[0]) / (arrayX[1] - arrayX[0])
@@ -25,7 +24,7 @@ def ArrayApproxDerivative(arrayX, arrayF):
 
 
 def ApproximateDerivative(listX, listF):
-    # Takes a list of x values and a list of f values and finds an approximate centered first derivative.
+    """Takes a list of x values and a list of f values and finds an approximate centered first derivative."""
     N = len(listX)
     listfprime = [(listF[1] - listF[0]) / (listX[1] - listX[0])]
     for i in range(1, N - 1, 1):
@@ -36,7 +35,7 @@ def ApproximateDerivative(listX, listF):
 
 
 def CrudelyApproximateSecondDerivative(listX, listF):
-    # Takes a list of x values and a list of f values and finds an approximate centered second derivative.
+    """Takes a list of x values and a list of f values and finds an approximate centered second derivative."""
     N = len(listX)
     listfdoubleprime = []
     fprimeprime = (listF[2] - listF[0]) / ((listX[2] - listX[0]) * (listX[1] - listX[0])) - (listF[1] - listF[0]) / (listX[1] - listX[0]) ** 2
@@ -50,14 +49,14 @@ def CrudelyApproximateSecondDerivative(listX, listF):
 
 
 def ArrayIntegrate(arrayX, arrayF):
-    # Takes a array of f values and a grid of x values and integrates f with respect to f.
+    """Takes a array of f values and a grid of x values and integrates f with respect to f."""
     area = (arrayX[1:] - arrayX[0:-1]) * (arrayF[1:] + arrayF[0:-1]) * 0.5
     # add all values of area and reduce to scalar quantity
     return numpy.add.reduce(area)
 
 
 def Integrate(listX, listF):
-    # Takes a list of f values and a grid of x values and integrates f with respect to f.
+    """Takes a list of f values and a grid of x values and integrates f with respect to f."""
     rsum = 0
     for i in range(len(listX) - 1):
         rsum = rsum + (listX[i + 1] - listX[i]) * (listF[i + 1] + listF[i]) / 2
@@ -65,7 +64,7 @@ def Integrate(listX, listF):
 
 
 def RMSError(listApproximate, listExact):
-    # Takes a list of approximate function values and a list of exact function values and returns a root-mean-square error.
+    """Takes a list of approximate function values and a list of exact function values and returns a root-mean-square error."""
     ngrid = len(listApproximate)
     if len(listExact) == ngrid:
         sum = numpy.add.reduce((listApproximate - listExact) ** 2)
@@ -76,7 +75,7 @@ def RMSError(listApproximate, listExact):
 
 
 def MARE(weight, listApproximate, listExact):
-    # Returns a mean absolute relative error for two arrays.
+    """Returns a mean absolute relative error for two arrays."""
     numerator = numpy.add.reduce(weight * numpy.abs(listApproximate - listExact))
     denominator = numpy.add.reduce(weight)
     mare = numerator / denominator
@@ -84,20 +83,20 @@ def MARE(weight, listApproximate, listExact):
 
 
 def radialMARE(grid, dens, listApproximate, listExact):
-    # Returns a mean absolute relative error for two lists.
+    """Returns a mean absolute relative error for two lists."""
     weight = grid ** 2 * dens
     return MARE(weight, listApproximate, listExact)
 
 
 def PctgError(exact, approximate):
-    # Returns percentage error at each point.
+    """Returns percentage error at each point."""
     final = numpy.zeros(len(exact))
     final = numpy.abs(exact - approximate) / exact
     return final
 
 
 def WeightedRMSError(weight, listApproximate, listExact):
-    # Returns a weighted RMS error
+    """Returns a weighted RMS error"""
     ngrid = len(listApproximate)
     if len(weight) == ngrid & len(listExact) == ngrid:
         sum = numpy.add.reduce(weight * (listApproximate - listExact) ** 2)
@@ -108,7 +107,7 @@ def WeightedRMSError(weight, listApproximate, listExact):
 
 
 def FurthestIndex(grid, array, a):
-    # Finds the index and concurrent grid value beyond which all points have magnitude less than a.
+    """Finds the index and concurrent grid value beyond which all points have magnitude less than a."""
     N = len(grid)
     i = N - 1
     while (array[i] > a) and i > -1:
@@ -117,7 +116,7 @@ def FurthestIndex(grid, array, a):
 
 
 def ChainDerivativePQ(fp, fq, fpp, fpq, fqq, fqqq, gf, gff, gfff):
-    # Find derivatives of G(f(p,q)) in terms of those of f(p,q) and G(f)
+    """Find derivatives of G(f(p,q)) in terms of those of f(p,q) and G(f)"""
 
     gp = gf * fp
     gq = gf * fq
@@ -134,7 +133,7 @@ def ChainDerivativePQ(fp, fq, fpp, fpq, fqq, fqqq, gf, gff, gfff):
 
 
 def ChainDerivativeQ(fq, fqq, fqqq, gf, gff, gfff):
-    # Find derivatives of G(f(q)) in terms of those of f(q) and G(f)
+    """Find derivatives of G(f(q)) in terms of those of f(q) and G(f)"""
 
     gq = gf * fq
     gqq = gff * fq * fq + gf * fqq
