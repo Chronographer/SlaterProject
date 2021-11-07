@@ -57,8 +57,8 @@ while 1:
 
     if plotType == "components" or plotType == "both":  # Plots the density of each individual shell without considering screening from other shells.
         for index in range(len(components)):
-            components[index] = 4 * numpy.pi * arrayx**2 * components[index]
-            yListMaster.append(components[index])
+            components[index][0] = 4 * numpy.pi * arrayx**2 * components[index][0]
+            yListMaster.append(components[index][0])
 
     for i in range(len(yListMaster)):
         if plotType == "cumulative" or plotType == "both":

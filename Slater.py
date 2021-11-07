@@ -133,7 +133,8 @@ def density(arrayX, netCharge, listN):
             finalp2 = finalp2 + densp2
             finalp3 = finalp3 + densp3
             finalp4 = finalp4 + densp4
-            componentList.append(dens)
+            densDerivativeList = [dens, densp1, densp2, densp3, densp4]
+            componentList.append(densDerivativeList)
     finalDerivativeList = [final, finalp1, finalp2, finalp3, finalp4]
     return finalDerivativeList, componentList
 
