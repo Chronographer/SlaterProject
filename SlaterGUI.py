@@ -24,6 +24,13 @@ while 1:
     plotTypeOptions = ["cumulative", "components", "both"]
     plotType = buttonbox("What would you like to plot?", "Plot Type", plotTypeOptions)
 
+    derivativeOptions = ["None", "First derivative", "Second derivative", "Third Derivative", "Fourth derivative"]
+    derivativeType = buttonbox("Which derivative (if any) do you want to plot?", "Derivative Type", derivativeOptions)
+
+    for i in range(len(derivativeOptions)):  # This lets you choose what derivative (if any) you want to plot and makes the plot title update automatically to reflect this.
+        if derivativeType == derivativeOptions[i]:
+            derivativeNumber = i
+            break
 
     if scaleType == "Exponential":
         arrayx = Routines.ExpGridStretch2(numpy.arange(0.01, 1.0 * listLength, 0.01))
@@ -52,13 +59,13 @@ while 1:
 
     if plotType == "cumulative" or plotType == "both":  # Plots the density of the entire system as one plot.
         for i in range(len(arrayx)):
-            yList.append(dty[0][i])
+            yList.append(dty[derivativeNumber][i])
         yListMaster.append(yList)
 
     if plotType == "components" or plotType == "both":  # Plots the density of each individual shell without considering screening from other shells.
         for index in range(len(components)):
-            components[index][0] = 4 * numpy.pi * arrayx**2 * components[index][0]
-            yListMaster.append(components[index][0])
+            components[index][derivativeNumber] = 4 * numpy.pi * arrayx**2 * components[index][derivativeNumber]
+            yListMaster.append(components[index][derivativeNumber])
 
     for i in range(len(yListMaster)):
         if plotType == "cumulative" or plotType == "both":
@@ -66,8 +73,10 @@ while 1:
         else:
             plt.plot(arrayx, yListMaster[i], label=labelList[i+1])  # This skips the first label in the list of label handles so the legend correctly labels the plots when the cumulative plot is not present.
 
-    plt.title("Scale type: " + scaleType)
-    plt.suptitle("Plot of <something> vs. radius for atomic number " + str(Z))
+    if derivativeNumber != 0:
+        plt.title("Plot of <something> (" + derivativeOptions[derivativeNumber] + ") vs. radius for atomic number " + str(Z) + "\nScale type: " + scaleType)
+    else:
+        plt.title("Plot of <something> vs. radius for atomic number " + str(Z) + "\nScale type: " + scaleType)
     plt.xlabel("radius")
     plt.ylabel("4pi r ^2")
     plt.legend()
