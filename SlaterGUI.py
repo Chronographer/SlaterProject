@@ -27,11 +27,6 @@ while 1:
         msgbox("'" + plotType + "' is not a valid plot type. Please enter only one of the specified options.")
         plotType = enterbox("What would you like to plot? (type 'combined' for combined only, 'components' for subshell components only, or 'both' for both.)")
 
-    """legendLabelList = [] # for eventual automatic creation of legend labels.
-    for legendIndex in range(independentOrbitalNumber):
-        legendBox = easygui.textbox("Enter the legend label for the plot number" + str(legendIndex))
-        legendLabelList.append(legendBox)"""
-
     if scaleType == "Exponential":
         arrayx = Routines.ExpGridStretch2(numpy.arange(0.01, 1.0 * listLength, 0.01))
     else:
@@ -39,7 +34,6 @@ while 1:
 
     subshell = ["1s", "2s&p", "3s&p", "3d", "4s&p", "4d", "4f", "5s&p", "5d"]
 
-    xListMaster = []
     yListMaster = []
     orbitalConfigList = []
     while len(orbitalConfigList) != 9:
@@ -58,14 +52,11 @@ while 1:
 
     dty, components = Slater.density(arrayx, Z, orbitalConfigList)
     dty = 4 * numpy.pi * arrayx**2 * dty
-    xList = []
     yList = []
 
     if plotType == "combined" or plotType == "both":
         for i in range(len(arrayx)):
-            xList.append(arrayx[i])
             yList.append(dty[i])
-        xListMaster.append(xList)
         yListMaster.append(yList)
 
     if plotType == "components" or plotType == "both":
