@@ -52,7 +52,7 @@ while 1:
 
     if plotType == "cumulative" or plotType == "both":  # Plots the density of the entire system as one plot.
         for i in range(len(arrayx)):
-            yList.append(dty[i])
+            yList.append(dty[0][i])
         yListMaster.append(yList)
 
     if plotType == "components" or plotType == "both":  # Plots the density of each individual shell without considering screening from other shells.

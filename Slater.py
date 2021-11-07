@@ -122,7 +122,6 @@ def density(arrayX, netCharge, listN):
     finalp3 = numpy.zeros(length)
     finalp4 = numpy.zeros(length)
     componentList = []
-
     for j in range(len(listN)):
         sConstant = sValues[j]
         e = energy[j]
@@ -135,7 +134,8 @@ def density(arrayX, netCharge, listN):
             finalp3 = finalp3 + densp3
             finalp4 = finalp4 + densp4
             componentList.append(dens)
-    return final, componentList
+    finalDerivativeList = [final, finalp1, finalp2, finalp3, finalp4]
+    return finalDerivativeList, componentList
 
 
 def grlaglll(arrayX, netCharge, listN):
