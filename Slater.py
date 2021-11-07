@@ -110,16 +110,15 @@ def shellDensities(arrayX, Z, listN):
 
 
 def density(arrayX, netCharge, listN):
-    """gets total density and its derivatives, summing over shells
-
-    arrayX -- array of radial positions
-    listN  -- list of shell occupancy numbers
-    netCharge      -- net charge """
+    """gets total density and its derivatives, summing over shells \n
+    arrayX -- array of radial positions \n
+    listN  -- list of shell occupancy numbers \n
+    netCharge      -- net charge"""
     sValues = s(listN)
     length = len(arrayX)
     final = numpy.zeros(length)
-    finalp = numpy.zeros(length)
-    finalpp = numpy.zeros(length)
+    finalp1 = numpy.zeros(length)
+    finalp2 = numpy.zeros(length)
     finalp3 = numpy.zeros(length)
     finalp4 = numpy.zeros(length)
     componentList = []
@@ -129,10 +128,10 @@ def density(arrayX, netCharge, listN):
         e = energy[j]
         N = listN[j]
         if N > 0:
-            dens, densp, denspp, densp3, densp4 = n(sConstant, e, netCharge, arrayX, N)  # here
+            dens, densp1, densp2, densp3, densp4 = n(sConstant, e, netCharge, arrayX, N)
             final = final + dens
-            finalp = finalp + densp
-            finalpp = finalpp + denspp
+            finalp1 = finalp1 + densp1
+            finalp2 = finalp2 + densp2
             finalp3 = finalp3 + densp3
             finalp4 = finalp4 + densp4
             componentList.append(dens)
@@ -140,10 +139,10 @@ def density(arrayX, netCharge, listN):
 
 
 def grlaglll(arrayX, netCharge, listN):
-    """Returns the RADIAL density and its gradient, laplacian, grad(lapl), lapl(lapl)
-    arrayX -- array of radial positions
-    listN  -- list of shell occupancy numbers
-    netCharge      -- net charge """
+    """Returns the RADIAL density and its gradient, laplacian, grad(lapl), lapl(lapl)\n
+    arrayX -- array of radial positions \n
+    listN  -- list of shell occupancy numbers \n
+    netCharge      -- net charge"""
     N = len(arrayX)
 
     # print("grlaglll: listN", listN)
