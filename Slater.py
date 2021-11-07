@@ -42,7 +42,7 @@ def s(listN):
              (listN[6] - 1) * nshield["Valence"] + (listN[5] + listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nshield["Core"],
              (listN[7] - 1) * nshield["Valence"] + (listN[6] + listN[5] + listN[4]) * nshield["sp_semicore"] + (listN[3] + listN[2] + listN[1] + listN[0]) * nshield["Core"],
              (listN[8] - 1) * nshield["Valence"] + (listN[7] + listN[6] + listN[5] + listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nshield["Core"]]#,
-             #(listN[9] - 1) * nshield["Valence"] + (listN[8] + listN[7] + listN[6] + listN[5] + listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nshield["Core"]]
+             # (listN[9] - 1) * nshield["Valence"] + (listN[8] + listN[7] + listN[6] + listN[5] + listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nshield["Core"]] # Uncommenting this breaks something, I dont know why it was like that when I started working on this.
     # 1s
     # 2sp
     # 3sp
@@ -116,16 +116,13 @@ def density(arrayX, netCharge, listN):
     listN  -- list of shell occupancy numbers
     netCharge      -- net charge """
     sValues = s(listN)
-    # print("sValues", sValues)
     length = len(arrayX)
-    # print("length", length)
     final = numpy.zeros(length)
     finalp = numpy.zeros(length)
     finalpp = numpy.zeros(length)
     finalp3 = numpy.zeros(length)
     finalp4 = numpy.zeros(length)
     componentList = []
-    returnList = []
 
     for j in range(len(listN)):
         sConstant = sValues[j]
@@ -139,7 +136,6 @@ def density(arrayX, netCharge, listN):
             finalp3 = finalp3 + densp3
             finalp4 = finalp4 + densp4
             componentList.append(dens)
-    returnList.append(final)
     return final, componentList
 
 

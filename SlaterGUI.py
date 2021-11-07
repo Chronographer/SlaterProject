@@ -9,22 +9,7 @@ import numpy
 import Routines
 import matplotlib.pyplot as plt
 
-listx = [0, 1, 2, 3, 4, 5, 6]
-listy = [1, 5, 6, 2, 3, 8, 7]
-list1x = [0, 1, 2, 3, 4, 5, 6]
-list1y = [4, 5, 5, 2, 1, 7, 8]
-list2x = [0, 1, 2, 3, 4, 5, 6]
-list2y = [6, 4, 1, 1, 5, 9, 9]
-
-mlistx = []
-mlisty = []
-
-mlistx.append(listx)
-mlisty.append(listy)
-mlistx.append(list1x)
-mlisty.append(list1y)
-mlistx.append(list2x)
-mlisty.append(list2y)
+labelList = ["cumulative density", "1s subshell", "2s&p subshell", "3s&p subshell", "3d subshell", "4s&p subshell", "4d subshell", "4f subshell", "5s&p subshell", "5d subshell"]
 
 while 1:
     # msgbox("A simple GUI for displaying Slater electron densities\n" + "By Neal Coleman", "Introduction")
@@ -89,7 +74,10 @@ while 1:
             yListMaster.append(components[index])
 
     for i in range(len(yListMaster)):
-        plt.plot(arrayx, yListMaster[i], label="plot number "+str(i))
+        if plotType == "combined" or plotType == "both":
+            plt.plot(arrayx, yListMaster[i], label=labelList[i])
+        else:
+            plt.plot(arrayx, yListMaster[i], label=labelList[i+1])
 
     plt.title("Plot of <something> vs. radius for atomic number " + str(Z))
     plt.xlabel("radius")
