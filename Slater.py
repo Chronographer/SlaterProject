@@ -127,9 +127,7 @@ def density(arrayX, netCharge, listN):
     componentList = []
     returnList = []
 
-    # print("density: listN", listN)
     for j in range(len(listN)):
-        # print("j, sValues[j]", j, sValues[j])
         sConstant = sValues[j]
         e = energy[j]
         N = listN[j]
@@ -142,8 +140,7 @@ def density(arrayX, netCharge, listN):
             finalp4 = finalp4 + densp4
             componentList.append(dens)
     returnList.append(final)
-    returnList.append(componentList)
-    return returnList
+    return final, componentList
 
 
 def grlaglll(arrayX, netCharge, listN):

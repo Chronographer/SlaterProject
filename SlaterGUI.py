@@ -26,10 +26,6 @@ mlisty.append(list1y)
 mlistx.append(list2x)
 mlisty.append(list2y)
 
-for i in range(len(mlistx)):
-    plt.plot(mlistx[i], mlisty[i])
-plt.show()
-
 while 1:
     # msgbox("A simple GUI for displaying Slater electron densities\n" + "By Neal Coleman", "Introduction")
 
@@ -41,13 +37,15 @@ while 1:
 
     scaleType = buttonbox("Would you like an exponential or uniform grid? (They produce identical plots for now)", "Grid Type", exponentialOrUniform)
 
-
+    plotType = enterbox("What would you like to plot? (type 'combined' for combined only, 'components' for subshell components only, or 'both' for both.)")
+    while not(plotType == "components" or plotType == "combined" or plotType == "both"):
+        msgbox("'" + plotType + "' is not a valid plot type. Please enter only one of the specified options.")
+        plotType = enterbox("What would you like to plot? (type 'combined' for combined only, 'components' for subshell components only, or 'both' for both.)")
 
     """legendLabelList = [] # for eventual automatic creation of legend labels.
     for legendIndex in range(independentOrbitalNumber):
         legendBox = easygui.textbox("Enter the legend label for the plot number" + str(legendIndex))
         legendLabelList.append(legendBox)"""
-
 
     if scaleType == "Exponential":
         arrayx = Routines.ExpGridStretch2(numpy.arange(0.01, 1.0 * listLength, 0.01))
@@ -73,27 +71,25 @@ while 1:
     for element in range(0, len(orbitalConfigList)):
         orbitalConfigList[element] = int(orbitalConfigList[element])
 
-    returnList = Slater.density(arrayx, Z, orbitalConfigList)
-    dty = 4 * numpy.pi * arrayx**2 * returnList[0]
+    dty, components = Slater.density(arrayx, Z, orbitalConfigList)
+    dty = 4 * numpy.pi * arrayx**2 * dty
     xList = []
     yList = []
 
-    for i in range(len(arrayx)):
-        xList.append(arrayx[i])
-        yList.append(dty[i])
-    xListMaster.append(xList)
-    yListMaster.append(yList)
-
-    for index in range(len(returnList[1])):
-        dty = 4 * numpy.pi * arrayx**2 * returnList[1][index]
+    if plotType == "combined" or plotType == "both":
         for i in range(len(arrayx)):
             xList.append(arrayx[i])
             yList.append(dty[i])
         xListMaster.append(xList)
         yListMaster.append(yList)
 
-    for i in range(len(xListMaster)):
-        plt.plot(xListMaster[i], yListMaster[i])
+    if plotType == "components" or plotType == "both":
+        for index in range(len(components)):
+            components[index] = 4 * numpy.pi * arrayx**2 * components[index]
+            yListMaster.append(components[index])
+
+    for i in range(len(yListMaster)):
+        plt.plot(arrayx, yListMaster[i], label="plot number "+str(i))
 
     plt.title("Plot of <something> vs. radius for atomic number " + str(Z))
     plt.xlabel("radius")
