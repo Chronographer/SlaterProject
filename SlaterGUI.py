@@ -1,7 +1,6 @@
 """A simple GUI for displaying Slater electron densities.
    By Neal Coleman
 """
-import easygui
 from easygui import *
 import sys
 import Slater
@@ -22,10 +21,10 @@ while 1:
 
     scaleType = buttonbox("Would you like an exponential or uniform grid? (They produce identical plots for now)", "Grid Type", exponentialOrUniform)
 
-    plotType = enterbox("What would you like to plot? (type 'combined' for combined only, 'components' for subshell components only, or 'both' for both.)")
-    while not(plotType == "components" or plotType == "combined" or plotType == "both"):
+    plotType = enterbox("What would you like to plot? (type 'cumulative' for cumulative only, 'components' for subshell components only, or 'both' for both.)")
+    while not(plotType == "components" or plotType == "cumulative" or plotType == "both"):
         msgbox("'" + plotType + "' is not a valid plot type. Please enter only one of the specified options.")
-        plotType = enterbox("What would you like to plot? (type 'combined' for combined only, 'components' for subshell components only, or 'both' for both.)")
+        plotType = enterbox("What would you like to plot? (type 'cumulative' for cumulative only, 'components' for subshell components only, or 'both' for both.)")
 
     if scaleType == "Exponential":
         arrayx = Routines.ExpGridStretch2(numpy.arange(0.01, 1.0 * listLength, 0.01))
@@ -54,7 +53,7 @@ while 1:
     dty = 4 * numpy.pi * arrayx**2 * dty
     yList = []
 
-    if plotType == "combined" or plotType == "both":
+    if plotType == "cumulative" or plotType == "both":
         for i in range(len(arrayx)):
             yList.append(dty[i])
         yListMaster.append(yList)
