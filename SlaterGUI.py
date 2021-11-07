@@ -19,19 +19,16 @@ while 1:
 
     exponentialOrUniform = ["Exponential", "Uniform"]
 
-    scaleType = buttonbox("Would you like an exponential or uniform grid? (They produce identical plots for now)", "Grid Type", exponentialOrUniform)
+    scaleType = buttonbox("Would you like an exponential or uniform grid?", "Grid Type", exponentialOrUniform)
 
-    plotType = enterbox("What would you like to plot? (type 'cumulative' for cumulative only, 'components' for subshell components only, or 'both' for both.)")
-    while not(plotType == "components" or plotType == "cumulative" or plotType == "both"):
-        msgbox("'" + plotType + "' is not a valid plot type. Please enter only one of the specified options.")
-        plotType = enterbox("What would you like to plot? (type 'cumulative' for cumulative only, 'components' for subshell components only, or 'both' for both.)")
+    plotTypeOptions = ["cumulative", "components", "both"]
+    plotType = buttonbox("What would you like to plot?", "Plot Type", plotTypeOptions)
+
 
     if scaleType == "Exponential":
         arrayx = Routines.ExpGridStretch2(numpy.arange(0.01, 1.0 * listLength, 0.01))
     else:
         arrayx = numpy.arange(0.01, 1.0 * listLength, 0.01)
-
-    subshell = ["1s", "2s&p", "3s&p", "3d", "4s&p", "4d", "4f", "5s&p", "5d"]
 
     yListMaster = []
     orbitalConfigList = []
@@ -53,26 +50,28 @@ while 1:
     dty = 4 * numpy.pi * arrayx**2 * dty
     yList = []
 
-    if plotType == "cumulative" or plotType == "both":
+    if plotType == "cumulative" or plotType == "both":  # Plots the density of the entire system as one plot.
         for i in range(len(arrayx)):
             yList.append(dty[i])
         yListMaster.append(yList)
 
-    if plotType == "components" or plotType == "both":
+    if plotType == "components" or plotType == "both":  # Plots the density of each individual shell without considering screening from other shells.
         for index in range(len(components)):
             components[index] = 4 * numpy.pi * arrayx**2 * components[index]
             yListMaster.append(components[index])
 
     for i in range(len(yListMaster)):
-        if plotType == "combined" or plotType == "both":
+        if plotType == "cumulative" or plotType == "both":
             plt.plot(arrayx, yListMaster[i], label=labelList[i])
         else:
-            plt.plot(arrayx, yListMaster[i], label=labelList[i+1])
+            plt.plot(arrayx, yListMaster[i], label=labelList[i+1])  # This skips the first label in the list of label handles so the legend correctly labels the plots when the cumulative plot is not present.
 
-    plt.title("Plot of <something> vs. radius for atomic number " + str(Z))
+    plt.title("Scale type: " + scaleType)
+    plt.suptitle("Plot of <something> vs. radius for atomic number " + str(Z))
     plt.xlabel("radius")
     plt.ylabel("4pi r ^2")
     plt.legend()
+    plt.grid()
     plt.show()
 
     if ccbox("There was your density.  Shall we do it again?", "Finale"):  # show a Continue/Cancel dialog
