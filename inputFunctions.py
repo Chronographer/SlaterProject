@@ -1,0 +1,59 @@
+from easygui import *
+import numpy
+import Routines
+
+derivativeOptions = ["None", "First derivative", "Second derivative", "Third Derivative", "Fourth derivative"]  # This is dirty, should just include it in two places...
+
+
+def getElectronConfigInput():
+    orbitalConfigList = []
+    while len(orbitalConfigList) != 9:
+        orbitalConfigString = enterbox("Enter the orbital configuration of each shell as a period separated list.\n\nThere should be no more than 9 elements.\n\nTrailing zero's can be omitted and will be automatically added to the end of the list as needed.")
+        if not orbitalConfigString[len(orbitalConfigString) - 1].isdigit():
+            print("\nWARNING: the last character of your input string was '" + orbitalConfigString[len(orbitalConfigString) - 1] + "', which is not a digit. You might have accidentally left out a number or entered it incorrectly. The input you provided was: '" + orbitalConfigString + "'\nThe anomalous character has been removed in an attempt to prevent a runtime error.\nBe cautious; even if a runtime error is not thrown, your results might not reflect the system you intended to model!\n")
+            orbitalConfigString = orbitalConfigString[:-1]  # this removes the last character from the input string; the idea is that if you accidentally end with a '.', this will remove it for you. Will produce incorrect results if the user left out a non-zero number after the last character.
+        orbitalConfigList = orbitalConfigString.split(".")
+        if len(orbitalConfigList) > 9:
+            msgbox("There are " + str(len(orbitalConfigList)) + " elements in orbitalConfigList, there should be no more than 9.\nRe-enter the orbital configuration of each shell as a period separated list.")
+        elif len(orbitalConfigList) < 9:
+            while len(orbitalConfigList) < 9:  # Allows user to omit all trailing 0's by adding as many as are needed to generate a list of correct length, thus saving time.
+                orbitalConfigList.append(0)
+    for element in range(0, len(orbitalConfigList)):
+        orbitalConfigList[element] = int(orbitalConfigList[element])
+    return orbitalConfigList
+
+
+def chooseDerivativeOptions():
+    derivativeType = buttonbox("Which derivative (if any) do you want to plot?", "Derivative Type", derivativeOptions)
+    derivativeNumber = -1  # By initializing this to an unacceptable/nonsense value, if the code following this were to somehow break in a spectacular manner and not assign a value to derivativeNumber, it would prevent it from being uninitialized and make it easier to trace the problem back to here. I don't think its possible for this to occur, however. Think of this as looking both ways before crossing a one-way street.
+    for i in range(len(derivativeOptions)):  # This lets you choose what derivative (if any) you want to plot and makes the plot title update automatically to reflect this.
+        if derivativeType == derivativeOptions[i]:
+            derivativeNumber = i
+            break
+    return derivativeNumber
+
+
+def getArrayX(scaleType):
+    listLength = integerbox("Enter (integer) length of grid.", "Grid Length")
+    if scaleType == "Exponential":
+        arrayX = Routines.ExpGridStretch2(numpy.arange(0.01, 1.0 * listLength, 0.01))
+    else:
+        arrayX = numpy.arange(0.01, 1.0 * listLength, 0.01)
+    return arrayX
+
+
+def getScaleType():
+    exponentialOrUniform = ["Exponential", "Uniform"]
+    scaleType = buttonbox("Would you like an exponential or uniform grid?", "Grid Type", exponentialOrUniform)
+    return scaleType
+
+
+def getPlotType():
+    plotTypeOptions = ["cumulative", "components", "both"]
+    plotType = buttonbox("What would you like to plot?", "Plot Type", plotTypeOptions)
+    return plotType
+
+
+def getAtomicNumber():
+    Z = integerbox("Enter the atomic number of the element.", "Element Selection.")
+    return Z
