@@ -1,53 +1,89 @@
 """A simple GUI for displaying Slater electron densities.
    By Neal Coleman
 """
-
 from easygui import *
 import sys
 import Slater
 import numpy
 import Routines
-import Gnuplot
-import Gnuplot.funcutils
+import matplotlib.pyplot as plt
+
+labelList = ["cumulative density", "1s subshell", "2s&p subshell", "3s&p subshell", "3d subshell", "4s&p subshell", "4d subshell", "4f subshell", "5s&p subshell", "5d subshell"]
 
 while 1:
-    msgbox("A simple GUI for displaying Slater electron densities\n" \
-        +"By Neal Coleman", "Introduction")
+    # msgbox("A simple GUI for displaying Slater electron densities\n" + "By Neal Coleman", "Introduction")
 
     Z = integerbox("Enter the atomic number of the element.", "Element Selection.")
 
-    listlength = integerbox("Enter (integer) length of grid.", "Grid Length")
+    listLength = integerbox("Enter (integer) length of grid.", "Grid Length")
 
-    choices1 = ["Exponential", "Uniform"]
+    exponentialOrUniform = ["Exponential", "Uniform"]
 
-    a = buttonbox("Would you like an exponential or uniform grid?", "Grid Type", choices1)
+    scaleType = buttonbox("Would you like an exponential or uniform grid?", "Grid Type", exponentialOrUniform)
 
-    if a == "Exponential":
-        arrayx = Routines.ExpGridStretch2(numpy.arange(0.01, 1.0 * listlength, 0.01))
+    plotTypeOptions = ["cumulative", "components", "both"]
+    plotType = buttonbox("What would you like to plot?", "Plot Type", plotTypeOptions)
+
+    derivativeOptions = ["None", "First derivative", "Second derivative", "Third Derivative", "Fourth derivative"]
+    derivativeType = buttonbox("Which derivative (if any) do you want to plot?", "Derivative Type", derivativeOptions)
+
+    for i in range(len(derivativeOptions)):  # This lets you choose what derivative (if any) you want to plot and makes the plot title update automatically to reflect this.
+        if derivativeType == derivativeOptions[i]:
+            derivativeNumber = i
+            break
+
+    if scaleType == "Exponential":
+        arrayx = Routines.ExpGridStretch2(numpy.arange(0.01, 1.0 * listLength, 0.01))
     else:
-        arrayx = numpy.arange(0.01, 1.0 * listlength, 0.01)
+        arrayx = numpy.arange(0.01, 1.0 * listLength, 0.01)
 
-    subshell = ["1s","2s&p","3s&p","3d","4s&p","4d","4f","5s&p","5d"]
+    yListMaster = []
+    orbitalConfigList = []
+    while len(orbitalConfigList) != 9:
+        orbitalConfigString = enterbox("Enter the orbital configuration of each shell as a period separated list.\n\nThere should be no more than 9 elements.\n\nTrailing zero's can be omitted and will be automatically added to the end of the list as needed.")
+        if not orbitalConfigString[len(orbitalConfigString)-1].isdigit():
+            print("\nWARNING: the last character of your input string was '" + orbitalConfigString[len(orbitalConfigString)-1] + "', which is not a digit. You might have accidentally left out a number or entered it incorrectly. The input you provided was: '" + orbitalConfigString + "'\nThe anomalous character has been removed in an attempt to prevent a runtime error.\nBe cautious; even if a runtime error is not thrown, your results might not reflect the system you intended to model!\n")
+            orbitalConfigString = orbitalConfigString[:-1]  # this removes the last character from the input string; the idea is that if you accidentally end with a '.', this will remove it for you. Will produce incorrect results if the user left out a non-zero number after the last character.
+        orbitalConfigList = orbitalConfigString.split(".")
+        if len(orbitalConfigList) > 9:
+            msgbox("There are " + str(len(orbitalConfigList)) + " elements in orbitalConfigList, there should be no more than 9.\nRe-enter the orbital configuration of each shell as a period separated list.")
+        elif len(orbitalConfigList) < 9:
+            while len(orbitalConfigList) < 9:  # Allows user to omit all trailing 0's by adding as many as are needed to generate a list of correct length, thus saving time.
+                orbitalConfigList.append(0)
+    for element in range(0, len(orbitalConfigList)):
+        orbitalConfigList[element] = int(orbitalConfigList[element])
 
-    occ = []
+    dty, components = Slater.density(arrayx, Z, orbitalConfigList)
+    dty = 4 * numpy.pi * arrayx**2 * dty
+    yList = []
 
-    for i in range(9):
-        occ.append(integerbox("Enter the occupancy of the "+subshell[i]+" subshell.",\
-            "Subshell Selection"))
+    if plotType == "cumulative" or plotType == "both":  # Plots the density of the entire system as one plot.
+        for i in range(len(arrayx)):
+            yList.append(dty[derivativeNumber][i])
+        yListMaster.append(yList)
 
-    g = Gnuplot.Gnuplot()
-    g.title("tmp")
-    g('set data style linespoints')
-    dty = 4 * numpy.pi * arrayx**2 * Slater.density(arrayx, Z, occ)[0]
-    printout = []
-    for i in range(len(arrayx)):
-        printout.append([arrayx[i],dty[i]])
-    #print printout
-    g.plot(printout)
-    #g.hardcopy('tmp.gif',enhanced=1,color=1)
-    g.reset()
+    if plotType == "components" or plotType == "both":  # Plots the density of each individual shell without considering screening from other shells.
+        for index in range(len(components)):
+            components[index][derivativeNumber] = 4 * numpy.pi * arrayx**2 * components[index][derivativeNumber]
+            yListMaster.append(components[index][derivativeNumber])
 
-    if ccbox("There was your density.  Shall we do it again?", "Finale"):     # show a Continue/Cancel dialog
+    for i in range(len(yListMaster)):
+        if plotType == "cumulative" or plotType == "both":
+            plt.plot(arrayx, yListMaster[i], label=labelList[i])
+        else:
+            plt.plot(arrayx, yListMaster[i], label=labelList[i+1])  # This skips the first label in the list of label handles so the legend correctly labels the plots when the cumulative plot is not present.
+
+    if derivativeNumber != 0:
+        plt.title("Plot of <something> (" + derivativeOptions[derivativeNumber] + ") vs. radius for atomic number " + str(Z) + "\nScale type: " + scaleType)
+    else:
+        plt.title("Plot of <something> vs. radius for atomic number " + str(Z) + "\nScale type: " + scaleType)
+    plt.xlabel("radius")
+    plt.ylabel("4pi r ^2")
+    plt.legend()
+    plt.grid()
+    plt.show()
+
+    if ccbox("There was your density.  Shall we do it again?", "Finale"):  # show a Continue/Cancel dialog
         pass  # user chose Continue
     else:
-        sys.exit(0)           # user chose Cancel
+        sys.exit(0)  # user chose Cancel
