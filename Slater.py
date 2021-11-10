@@ -31,7 +31,7 @@ nShield = {"1s_valence": 0.3, "Valence": 0.35, "sp_semicore": 0.85, "Core": 1.0}
 
 def s(listN):
     """Extract shielding constant from occupancy list - through 5d
-    These are ansatz functions, so there's no general formula."""
+    These are Ansatz functions, so there's no general formula."""
     lists = [(listN[0] - 1) * nShield["1s_valence"],
              (listN[1] - 1) * nShield["Valence"] + listN[0] * nShield["sp_semicore"],
              (listN[2] - 1) * nShield["Valence"] + listN[1] * nShield["sp_semicore"] + listN[0] * nShield["Core"],
@@ -40,8 +40,8 @@ def s(listN):
              (listN[5] - 1) * nShield["Valence"] + (listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nShield["Core"],
              (listN[6] - 1) * nShield["Valence"] + (listN[5] + listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nShield["Core"],
              (listN[7] - 1) * nShield["Valence"] + (listN[6] + listN[5] + listN[4]) * nShield["sp_semicore"] + (listN[3] + listN[2] + listN[1] + listN[0]) * nShield["Core"],
-             (listN[8] - 1) * nShield["Valence"] + (listN[7] + listN[6] + listN[5] + listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nShield["Core"]]#,
-             # (listN[9] - 1) * nShield["Valence"] + (listN[8] + listN[7] + listN[6] + listN[5] + listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nShield["Core"]] # Uncommenting this breaks something, I dont know why it was like that when I started working on this.
+             (listN[8] - 1) * nShield["Valence"] + (listN[7] + listN[6] + listN[5] + listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nShield["Core"]]  # ,
+            # (listN[9] - 1) * nShield["Valence"] + (listN[8] + listN[7] + listN[6] + listN[5] + listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nShield["Core"]] # Uncommenting this breaks something, I dont know why it was like that when I started working on this.
     # 1s
     # 2sp
     # 3sp
@@ -86,7 +86,7 @@ def n(shielding, energyQuantumNumber, netCharge, arrayX, N):
         return array0, array0, array0, array0, array0
     else:
         nx = nStar[energyQuantumNumber]
-        mphi = numpy.absolute(phi(shielding, energyQuantumNumber, netCharge, arrayX)) ** 2
+        mphi = numpy.absolute(phi(shielding, energyQuantumNumber, netCharge, arrayX)) ** 2  # What does 'mphi' stand for?
         arrayY = N * mphi
         ayp = 2 * ((nx - 1) / arrayX - (netCharge - shielding) / nx) * arrayY
         ayp2 = 2 * (nx - 1) * (-1 / arrayX ** 2) * arrayY + 2 * ((nx - 1) / arrayX - (netCharge - shielding) / nx) * ayp

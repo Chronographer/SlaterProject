@@ -2,8 +2,8 @@
    By Neal Coleman
 """
 import Slater
-import numpy
 import inputFunctions
+import numpy
 import matplotlib.pyplot as plt
 
 
@@ -18,10 +18,10 @@ while run:
     arrayX = inputFunctions.getArrayX(scaleType)
     orbitalConfigList = inputFunctions.getElectronConfigInput()
 
-    yListMaster = []
     dty, components = Slater.density(arrayX, atomicNumber, orbitalConfigList)
     dty = 4 * numpy.pi * arrayX ** 2 * dty
     yList = []
+    yListMaster = []
 
     if plotType == "cumulative" or plotType == "both":  # Plots the density of the entire system as a single data set.
         for i in range(len(arrayX)):
