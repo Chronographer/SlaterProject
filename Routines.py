@@ -57,18 +57,18 @@ def ArrayIntegrate(arrayX, arrayF):
 
 def Integrate(listX, listF):
     """Takes a list of f values and a grid of x values and integrates f with respect to f."""
-    rsum = 0
+    rSum = 0
     for i in range(len(listX) - 1):
-        rsum = rsum + (listX[i + 1] - listX[i]) * (listF[i + 1] + listF[i]) / 2
-    return rsum
+        rSum = rSum + (listX[i + 1] - listX[i]) * (listF[i + 1] + listF[i]) / 2
+    return rSum
 
 
 def RMSError(listApproximate, listExact):
     """Takes a list of approximate function values and a list of exact function values and returns a root-mean-square error."""
-    ngrid = len(listApproximate)
-    if len(listExact) == ngrid:
+    nGrid = len(listApproximate)
+    if len(listExact) == nGrid:
         sum = numpy.add.reduce((listApproximate - listExact) ** 2)
-        chi = numpy.sqrt(sum / ngrid)
+        chi = numpy.sqrt(sum / nGrid)
         return chi
     else:
         return "Make sure the lists have the same length."
@@ -97,8 +97,8 @@ def PctgError(exact, approximate):
 
 def WeightedRMSError(weight, listApproximate, listExact):
     """Returns a weighted RMS error"""
-    ngrid = len(listApproximate)
-    if len(weight) == ngrid & len(listExact) == ngrid:
+    nGrid = len(listApproximate)
+    if len(weight) == nGrid & len(listExact) == nGrid:
         sum = numpy.add.reduce(weight * (listApproximate - listExact) ** 2)
         chi = numpy.sqrt(sum / numpy.add.reduce(weight))
         return chi

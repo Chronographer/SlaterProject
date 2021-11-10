@@ -2,7 +2,7 @@ from easygui import *
 import numpy
 import Routines
 
-derivativeOptions = ["None", "First derivative", "Second derivative", "Third Derivative", "Fourth derivative"]  # This is dirty, should just include it in two places...
+derivativeOptions = ["None", "First derivative", "Second derivative", "Third Derivative", "Fourth derivative"]
 
 #  msgbox("A simple GUI for displaying Slater electron densities\n" + "By Neal Coleman", "Introduction")
 

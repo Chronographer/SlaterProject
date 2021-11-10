@@ -31,14 +31,13 @@ def gamma(z):
 """ GOOD! -- anything by Lanczos in numerical modeling is AOK. Its like using an algorithm by Donald Knuth in computer science.
  NOTE -- make gamma its own module (separate file).
  NOTE -- Hopefully you intend to test the above definition with the below dictionary!! (and include the test in the separate module.) """
-# Test - print out in an array the values of gamma(z) relevant to the
 
 
 if __name__ == "__main__":
     print("Hello world from the gamma function!\n")
     print("Testing the gamma function ...\n")
     listGamma = [gamma(1), gamma(2), gamma(3), gamma(3.7), gamma(4), gamma(4.2)]
-    nstar = {1:1.0, 2:2.0, 3:3.0, 4:3.7, 5:4.0, 6:4.2}
+    nStar = {1:1.0, 2:2.0, 3:3.0, 4:3.7, 5:4.0, 6:4.2}
     gammaFunction = [1.0, 1.0, 2.0, 4.1706517838, 6.0, 7.75668953579]
     listOut = []
     for i in range(len(listGamma)):

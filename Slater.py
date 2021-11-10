@@ -20,28 +20,28 @@ import Gamma
 energy = [1, 2, 3, 3, 4, 4, 4, 5, 5, 6]
 
 # The effective energy level dict
-nstar = {1: 1.0, 2: 2.0, 3: 3.0, 4: 3.7, 5: 4.0, 6: 4.2}
+nStar = {1: 1.0, 2: 2.0, 3: 3.0, 4: 3.7, 5: 4.0, 6: 4.2}
 
 # The shielding level dict
-nshield = {"1s_valence": 0.3, "Valence": 0.35, "sp_semicore": 0.85, "Core": 1.0}
+nShield = {"1s_valence": 0.3, "Valence": 0.35, "sp_semicore": 0.85, "Core": 1.0}
 
 
 # No shielding, 1s2 toy!
-# nshield = {"1s_valence":0.0, "Valence":1.0, "sp_semicore":1.0, "Core":1.0}
+# nShield = {"1s_valence":0.0, "Valence":1.0, "sp_semicore":1.0, "Core":1.0}
 
 def s(listN):
     """Extract shielding constant from occupancy list - through 5d
     These are ansatz functions, so there's no general formula."""
-    lists = [(listN[0] - 1) * nshield["1s_valence"],
-             (listN[1] - 1) * nshield["Valence"] + listN[0] * nshield["sp_semicore"],
-             (listN[2] - 1) * nshield["Valence"] + listN[1] * nshield["sp_semicore"] + listN[0] * nshield["Core"],
-             (listN[3] - 1) * nshield["Valence"] + (listN[2] + listN[1] + listN[0]) * nshield["Core"],
-             (listN[4] - 1) * nshield["Valence"] + (listN[3] + listN[2]) * nshield["sp_semicore"] + (listN[1] + listN[0]) * nshield["Core"],
-             (listN[5] - 1) * nshield["Valence"] + (listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nshield["Core"],
-             (listN[6] - 1) * nshield["Valence"] + (listN[5] + listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nshield["Core"],
-             (listN[7] - 1) * nshield["Valence"] + (listN[6] + listN[5] + listN[4]) * nshield["sp_semicore"] + (listN[3] + listN[2] + listN[1] + listN[0]) * nshield["Core"],
-             (listN[8] - 1) * nshield["Valence"] + (listN[7] + listN[6] + listN[5] + listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nshield["Core"]]#,
-             # (listN[9] - 1) * nshield["Valence"] + (listN[8] + listN[7] + listN[6] + listN[5] + listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nshield["Core"]] # Uncommenting this breaks something, I dont know why it was like that when I started working on this.
+    lists = [(listN[0] - 1) * nShield["1s_valence"],
+             (listN[1] - 1) * nShield["Valence"] + listN[0] * nShield["sp_semicore"],
+             (listN[2] - 1) * nShield["Valence"] + listN[1] * nShield["sp_semicore"] + listN[0] * nShield["Core"],
+             (listN[3] - 1) * nShield["Valence"] + (listN[2] + listN[1] + listN[0]) * nShield["Core"],
+             (listN[4] - 1) * nShield["Valence"] + (listN[3] + listN[2]) * nShield["sp_semicore"] + (listN[1] + listN[0]) * nShield["Core"],
+             (listN[5] - 1) * nShield["Valence"] + (listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nShield["Core"],
+             (listN[6] - 1) * nShield["Valence"] + (listN[5] + listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nShield["Core"],
+             (listN[7] - 1) * nShield["Valence"] + (listN[6] + listN[5] + listN[4]) * nShield["sp_semicore"] + (listN[3] + listN[2] + listN[1] + listN[0]) * nShield["Core"],
+             (listN[8] - 1) * nShield["Valence"] + (listN[7] + listN[6] + listN[5] + listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nShield["Core"]]#,
+             # (listN[9] - 1) * nShield["Valence"] + (listN[8] + listN[7] + listN[6] + listN[5] + listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nShield["Core"]] # Uncommenting this breaks something, I dont know why it was like that when I started working on this.
     # 1s
     # 2sp
     # 3sp
@@ -55,14 +55,14 @@ def s(listN):
     return lists
 
 
-""" e -> energyQuantumNumber
+""" e -> energyQuantumNumber  # This was put here to remind myself (Daniel) what the original variable names were, in case I missed something somewhere so I can be consistent with how I rename them.
     s -> shielding
     Z -> netCharge """
 
 
 def A(shielding, energyQuantumNumber, netCharge):
     """Normalization constant for ith shell"""
-    nx = nstar[energyQuantumNumber]
+    nx = nStar[energyQuantumNumber]
     print("Energy quantum number, shielding, netCharge:  ", energyQuantumNumber, shielding, netCharge)
     if (netCharge - shielding) < 0:
         print("Fatal Error: UNBOUND ATOM")
@@ -74,7 +74,7 @@ def A(shielding, energyQuantumNumber, netCharge):
 
 def phi(shielding, energyQuantumNumber, netCharge, arrayX):
     """wavefunction for ith shell"""
-    nx = nstar[energyQuantumNumber]
+    nx = nStar[energyQuantumNumber]
     arrayY = A(shielding, energyQuantumNumber, netCharge) * arrayX ** (nx - 1) * numpy.exp(-(netCharge - shielding) * arrayX / nx)
     return arrayY
 
@@ -85,14 +85,14 @@ def n(shielding, energyQuantumNumber, netCharge, arrayX, N):
         array0 = 0.0 * arrayX
         return array0, array0, array0, array0, array0
     else:
-        nx = nstar[energyQuantumNumber]
+        nx = nStar[energyQuantumNumber]
         mphi = numpy.absolute(phi(shielding, energyQuantumNumber, netCharge, arrayX)) ** 2
         arrayY = N * mphi
         ayp = 2 * ((nx - 1) / arrayX - (netCharge - shielding) / nx) * arrayY
-        aypp = 2 * (nx - 1) * (-1 / arrayX ** 2) * arrayY + 2 * ((nx - 1) / arrayX - (netCharge - shielding) / nx) * ayp
-        ayp3 = 2 * (nx - 1) * (2 / arrayX ** 3) * arrayY + 2 * 2 * (nx - 1) * (-1 / arrayX ** 2) * ayp + 2 * ((nx - 1) / arrayX - (netCharge - shielding) / nx) * aypp
-        ayp4 = 2 * (nx - 1) * (-6 / arrayX ** 4) * arrayY + 3 * 2 * (nx - 1) * (2 / arrayX ** 3) * ayp + 3 * 2 * (nx - 1) * (-1 / arrayX ** 2) * aypp + 2 * ((nx - 1) / arrayX - (netCharge - shielding) / nx) * ayp3
-        return arrayY, ayp, aypp, ayp3, ayp4
+        ayp2 = 2 * (nx - 1) * (-1 / arrayX ** 2) * arrayY + 2 * ((nx - 1) / arrayX - (netCharge - shielding) / nx) * ayp
+        ayp3 = 2 * (nx - 1) * (2 / arrayX ** 3) * arrayY + 2 * 2 * (nx - 1) * (-1 / arrayX ** 2) * ayp + 2 * ((nx - 1) / arrayX - (netCharge - shielding) / nx) * ayp2
+        ayp4 = 2 * (nx - 1) * (-6 / arrayX ** 4) * arrayY + 3 * 2 * (nx - 1) * (2 / arrayX ** 3) * ayp + 3 * 2 * (nx - 1) * (-1 / arrayX ** 2) * ayp2 + 2 * ((nx - 1) / arrayX - (netCharge - shielding) / nx) * ayp3
+        return arrayY, ayp, ayp2, ayp3, ayp4
 
 
 def shellDensities(arrayX, Z, listN):
@@ -112,29 +112,29 @@ def density(arrayX, netCharge, listN):
     """gets total density and its derivatives, summing over shells \n
     arrayX -- array of radial positions \n
     listN  -- list of shell occupancy numbers \n
-    netCharge      -- net charge"""
+    netCharge -- net charge"""
     sValues = s(listN)
     length = len(arrayX)
     final = numpy.zeros(length)
-    finalp1 = numpy.zeros(length)
-    finalp2 = numpy.zeros(length)
-    finalp3 = numpy.zeros(length)
-    finalp4 = numpy.zeros(length)
+    finalP1 = numpy.zeros(length)
+    finalP2 = numpy.zeros(length)
+    finalP3 = numpy.zeros(length)
+    finalP4 = numpy.zeros(length)
     componentList = []
     for j in range(len(listN)):
         sConstant = sValues[j]
         e = energy[j]
         N = listN[j]
         if N > 0:
-            dens, densp1, densp2, densp3, densp4 = n(sConstant, e, netCharge, arrayX, N)
+            dens, densP1, densP2, densP3, densP4 = n(sConstant, e, netCharge, arrayX, N)
             final = final + dens
-            finalp1 = finalp1 + densp1
-            finalp2 = finalp2 + densp2
-            finalp3 = finalp3 + densp3
-            finalp4 = finalp4 + densp4
-            densDerivativeList = [dens, densp1, densp2, densp3, densp4]
+            finalP1 = finalP1 + densP1
+            finalP2 = finalP2 + densP2
+            finalP3 = finalP3 + densP3
+            finalP4 = finalP4 + densP4
+            densDerivativeList = [dens, densP1, densP2, densP3, densP4]
             componentList.append(densDerivativeList)
-    finalDerivativeList = [final, finalp1, finalp2, finalp3, finalp4]
+    finalDerivativeList = [final, finalP1, finalP2, finalP3, finalP4]
     return finalDerivativeList, componentList
 
 
@@ -161,16 +161,16 @@ def grlaglll(arrayX, netCharge, listN):
 
 def H(listX):
     y = numpy.exp(-2 * listX) / numpy.pi
-    yprime = -2 * numpy.exp(-2 * listX) / numpy.pi
-    return y, yprime
+    yPrime = -2 * numpy.exp(-2 * listX) / numpy.pi
+    return y, yPrime
 
 
 def Ne(listX):
     # N.B.: Not a real wavefunction!
     norm1s = numpy.sqrt(27.)
     y = numpy.exp(-listX) + norm1s * numpy.exp(-3 * listX)
-    yprime = -numpy.exp(-listX) - 3.0 * norm1s * numpy.exp(-3 * listX)
-    y2prime = numpy.exp(-listX) + 3.0 ** 2 * norm1s * numpy.exp(-3 * listX)
-    y3prime = -numpy.exp(-listX) - 3.0 ** 3 * norm1s * numpy.exp(-3 * listX)
-    y4prime = numpy.exp(-listX) + 3.0 ** 4 * norm1s * numpy.exp(-3 * listX)
-    return y, yprime, y2prime, y3prime, y4prime
+    yPrime = -numpy.exp(-listX) - 3.0 * norm1s * numpy.exp(-3 * listX)
+    y2Prime = numpy.exp(-listX) + 3.0 ** 2 * norm1s * numpy.exp(-3 * listX)
+    y3Prime = -numpy.exp(-listX) - 3.0 ** 3 * norm1s * numpy.exp(-3 * listX)
+    y4Prime = numpy.exp(-listX) + 3.0 ** 4 * norm1s * numpy.exp(-3 * listX)
+    return y, yPrime, y2Prime, y3Prime, y4Prime
