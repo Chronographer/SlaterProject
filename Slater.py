@@ -15,7 +15,6 @@ __documenter__ == "Antonio Cancio"
 
 import numpy
 import Gamma
-import Routines
 
 # List to extract from occupancy list the energy
 energy = [1, 2, 3, 3, 4, 4, 4, 5, 5, 6]

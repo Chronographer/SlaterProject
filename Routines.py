@@ -75,7 +75,7 @@ def RMSError(listApproximate, listExact):
 
 
 def MARE(weight, listApproximate, listExact):
-    """Returns a mean absolute relative error for two arrays."""
+    """Returns a Mean Absolute Relative Error for two arrays."""
     numerator = numpy.add.reduce(weight * numpy.abs(listApproximate - listExact))
     denominator = numpy.add.reduce(weight)
     mare = numerator / denominator
@@ -83,7 +83,7 @@ def MARE(weight, listApproximate, listExact):
 
 
 def radialMARE(grid, dens, listApproximate, listExact):
-    """Returns a mean absolute relative error for two lists."""
+    """Returns a Mean Absolute Relative Error for two lists."""
     weight = grid ** 2 * dens
     return MARE(weight, listApproximate, listExact)
 
