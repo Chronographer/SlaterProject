@@ -41,7 +41,7 @@ def s(listN):
              (listN[6] - 1) * nShield["Valence"] + (listN[5] + listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nShield["Core"],
              (listN[7] - 1) * nShield["Valence"] + (listN[6] + listN[5] + listN[4]) * nShield["sp_semicore"] + (listN[3] + listN[2] + listN[1] + listN[0]) * nShield["Core"],
              (listN[8] - 1) * nShield["Valence"] + (listN[7] + listN[6] + listN[5] + listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nShield["Core"]]  # ,
-            # (listN[9] - 1) * nShield["Valence"] + (listN[8] + listN[7] + listN[6] + listN[5] + listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nShield["Core"]] # Uncommenting this breaks something, I dont know why it was like that when I started working on this.
+            # (listN[9] - 1) * nShield["Valence"] + (listN[8] + listN[7] + listN[6] + listN[5] + listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nShield["Core"]] # Uncommenting this breaks something, I don't know why it was like that when I started working on this.
     # 1s
     # 2sp
     # 3sp
@@ -146,7 +146,7 @@ def grlaglll(arrayX, netCharge, listN):
     N = len(arrayX)
 
     # print("grlaglll: listN", listN)
-    d0, d1, d2, d3, d4 = density(arrayX, netCharge, listN)
+    d0, d1, d2, d3, d4 = density(arrayX, netCharge, listN)[0]
 
     grad = d1
     lapl = d2 + 2 * d1 / arrayX

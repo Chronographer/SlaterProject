@@ -19,6 +19,7 @@ while run:
     orbitalConfigList = inputFunctions.getElectronConfigInput()
 
     dty, components = Slater.density(arrayX, atomicNumber, orbitalConfigList)
+    # dty = Slater.grlaglll(arrayX, atomicNumber, orbitalConfigList)
     dty = 4 * numpy.pi * arrayX ** 2 * dty
     yList = []
     yListMaster = []
