@@ -45,7 +45,7 @@ def chooseDerivativeOptions():
 def getArrayX(scaleType):
     """Takes a string value for scaleType and user input for the length of the x axis.\n
     Returns arrayX, appropriately scaled to either an exponential or uniform scale factor."""
-    listLength = integerbox("Enter (integer) length of grid.", "Grid Length")
+    listLength = integerbox("Enter maximum radius for the figure (Bohr units).", "Grid Length")
     if scaleType == "Exponential":
         arrayX = Routines.ExpGridStretch2(numpy.arange(0.01, 1.0 * listLength, 0.01))
     else:
