@@ -44,7 +44,7 @@ while run:
         plt.title("Plot of charge density (" + inputFunctions.derivativeOptions[derivativeNumber] + ") vs. radius for atomic number " + str(atomicNumber) + "\nScale type: " + scaleType)
     else:
         plt.title("Plot of charge density vs. radius for atomic number " + str(atomicNumber) + "\nScale type: " + scaleType)
-    plt.xlabel("Atomic radius")
+    plt.xlabel("Distance from atomic center (Bohr radii)")
     plt.ylabel("Radial electron density")
     plt.legend()
     plt.grid()
