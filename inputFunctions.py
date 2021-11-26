@@ -7,6 +7,34 @@ derivativeOptions = ["None", "First derivative", "Second derivative", "Third Der
 #  msgbox("A simple GUI for displaying Slater electron densities\n" + "By Neal Coleman", "Introduction")
 
 
+def getElectronConfigFromJson(orbitalConfigString):
+    """Converts a string of shell occupancies from a JSON file into something usable by Slater.py. This is ONLY used by the JSON controlled Slater program.
+        \nTakes input as a string of numbers separated by periods, then parses and converts it to a list of integers.\n
+        The returned list will always have 9 elements, and trailing zeros omitted by the user during input will
+        be automatically added by this function.\n
+        It also checks for and attempts to repair an input not ending in
+        a number, warning the user of possible unintended consequences in the process."""
+
+    orbitalConfigList = []
+    while len(orbitalConfigList) != 9:
+        if not orbitalConfigString[len(orbitalConfigString) - 1].isdigit():
+            print("\nWARNING: the last character of your input string was '" + orbitalConfigString[
+                len(orbitalConfigString) - 1] + "', which is not a digit. You might have accidentally left out a number or entered it incorrectly. The input you provided was: '" + orbitalConfigString + "'\nThe anomalous character has been removed in an attempt to prevent a runtime error.\nBe cautious; even if a runtime error is not thrown, your results might not reflect the system you intended to model!\n")
+            orbitalConfigString = orbitalConfigString[
+                                  :-1]  # this removes the last character from the input string; the idea is that if you accidentally end with a '.', this will remove it for you. Will produce incorrect results if the user left out a non-zero number after the last character.
+        orbitalConfigList = orbitalConfigString.split(".")
+        if len(orbitalConfigList) > 9:
+            msgbox("There are " + str(
+                len(orbitalConfigList)) + " elements in orbitalConfigList, there should be no more than 9.\nRe-enter the orbital configuration of each shell as a period separated list.")
+        elif len(orbitalConfigList) < 9:
+            while len(
+                    orbitalConfigList) < 9:  # Allows user to omit all trailing 0's by adding as many as are needed to generate a list of correct length, thus saving time.
+                orbitalConfigList.append(0)
+    for element in range(0, len(orbitalConfigList)):
+        orbitalConfigList[element] = int(orbitalConfigList[element])
+    return orbitalConfigList
+
+
 def getElectronConfigInput():
     """Handles user input of electron shell population.
     \nTakes input as a string of numbers separated by periods, then parses and converts it to a list of integers.\n
@@ -40,6 +68,16 @@ def chooseDerivativeOptions():
             derivativeNumber = i
             break
     return derivativeNumber
+
+
+def getArrayXFromJSON(scaleType, listLength):
+    """Takes a string value for scaleType and an integer extracted from a JSON file for the length of the x axis.\n
+        Returns arrayX, appropriately scaled to either an exponential or uniform scale factor."""
+    if scaleType == "Exponential":
+        arrayX = Routines.ExpGridStretch2(numpy.arange(0.01, 1.0 * listLength, 0.01))
+    else:
+        arrayX = numpy.arange(0.01, 1.0 * listLength, 0.01)
+    return arrayX
 
 
 def getArrayX(scaleType):

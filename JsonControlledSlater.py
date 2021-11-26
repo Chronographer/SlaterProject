@@ -1,5 +1,5 @@
-"""A simple GUI for displaying Slater electron densities.
-   By Neal Coleman
+"""A means of accessing the functionality of SlaterGUI.py without a GUI.
+   By Daniel Isenberg
 """
 import Slater
 import inputFunctions
@@ -7,19 +7,19 @@ import numpy
 import matplotlib.pyplot as plt
 import FileInput
 
+json = FileInput.openJsonFile()
+serializedJson = FileInput.serializeJson(json)
 
 labelList = ["cumulative density", "1s subshell", "2s&p subshell", "3s&p subshell", "3d subshell", "4s&p subshell", "4d subshell", "4f subshell", "5s&p subshell", "5d subshell"]
 run = True
-file = FileInput.openJsonFile()
-jfile = FileInput.serializeJson(file)
-print(jfile["atoms"][0]["atomicNumber"])
+
 while run:
-    atomicNumber = inputFunctions.getAtomicNumber()
-    plotType = inputFunctions.getPlotType()
-    derivativeNumber = inputFunctions.chooseDerivativeOptions()
-    scaleType = inputFunctions.getScaleType()
-    arrayX = inputFunctions.getArrayX(scaleType)
-    orbitalConfigList = inputFunctions.getElectronConfigInput()
+    plotType = serializedJson["plotType"]
+    derivativeNumber = serializedJson["derivativeNumber"]
+    scaleType = serializedJson["scaleType"]
+    arrayX = inputFunctions.getArrayXFromJSON(scaleType, serializedJson["plotRadius"])
+    atomicNumber = serializedJson["atoms"][0]["atomicNumber"]
+    orbitalConfigList = inputFunctions.getElectronConfigFromJson(serializedJson["atoms"][0]["shellOccupation"])
 
     dty, components = Slater.density(arrayX, atomicNumber, orbitalConfigList)
     # dty = Slater.grlaglll(arrayX, atomicNumber, orbitalConfigList)
