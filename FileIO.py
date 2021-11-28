@@ -43,10 +43,3 @@ def saveToJson(dty):
 def saveJsonTest(dty):
     encodedNumpyData = json.dumps(dty, cls=NumpyArrayEncoder)  # use dump() to write array into file
     return encodedNumpyData
-
-    print("Printing JSON serialized NumPy array")
-    print(encodedNumpyData)
-
-    # Deserialization
-    print("Decode JSON serialized NumPy array")
-    decodedArrays = json.loads(encodedNumpyData)
