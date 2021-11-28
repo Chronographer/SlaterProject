@@ -5,10 +5,12 @@ import Slater
 import inputFunctions
 import numpy
 import matplotlib.pyplot as plt
-import FileInput
+import FileIO
 
-json = FileInput.openJsonFile()
-serializedJson = FileInput.serializeJson(json)
+
+json = FileIO.openJsonFile()
+serializedJson = FileIO.serializeJson(json)
+
 
 labelList = ["cumulative density", "1s subshell", "2s&p subshell", "3s&p subshell", "3d subshell", "4s&p subshell", "4d subshell", "4f subshell", "5s&p subshell", "5d subshell"]
 run = True
@@ -52,5 +54,7 @@ while run:
     plt.legend()
     plt.grid()
     plt.show()
+    encodedNumpyData = FileIO.saveJsonTest(dty)
+    FileIO.saveToJson(encodedNumpyData)
 
     run = inputFunctions.askToRepeat()

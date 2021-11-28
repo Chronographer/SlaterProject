@@ -5,13 +5,13 @@ import Slater
 import inputFunctions
 import numpy
 import matplotlib.pyplot as plt
-import FileInput
+import FileIO
 
 
 labelList = ["cumulative density", "1s subshell", "2s&p subshell", "3s&p subshell", "3d subshell", "4s&p subshell", "4d subshell", "4f subshell", "5s&p subshell", "5d subshell"]
 run = True
-file = FileInput.openJsonFile()
-jfile = FileInput.serializeJson(file)
+file = FileIO.openJsonFile()
+jfile = FileIO.serializeJson(file)
 print(jfile["atoms"][0]["atomicNumber"])
 while run:
     atomicNumber = inputFunctions.getAtomicNumber()
