@@ -1,13 +1,5 @@
 import json
-from json import JSONEncoder
-import numpy
 
-
-class NumpyArrayEncoder(JSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, numpy.ndarray):
-            return obj.tolist()
-        return JSONEncoder.default(self, obj)
 
 
 def openJsonFile(path):
@@ -21,6 +13,9 @@ def serializeJson(file):
 
 
 def saveToJson(dty):
+    print("data type being fed into FileIO.saveToJson() is " + str(type(dty)))
+    dtyList = dty.tolist()
+    print("data type being dumped into json file is " + str(type(dtyList)))
     dictionary = {
         "plotType": "both",
         "derivativeNumber": 0,
@@ -30,16 +25,10 @@ def saveToJson(dty):
             {
                 "atomicNumber": 6,
                 "shellOccupation": "2.4",
-                "dtyRAW": dty
+                "dtyRAW": dtyList
             }
         ]
     }
 
     with open("C:/Users/Daniel/Desktop/outputJson.json", "w") as outfile:
-        json.dump(dictionary, outfile, cls=NumpyArrayEncoder)
-
-
-def saveJsonTest(dty):
-    print("data type being fed into FileIO.saveJsonTest() is " + str(type(dty)))
-    encodedNumpyData = json.dumps(dty, cls=NumpyArrayEncoder)  # use dump() to write array into file
-    return encodedNumpyData
+        json.dump(dictionary, outfile)
