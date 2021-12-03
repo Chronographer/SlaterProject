@@ -8,14 +8,14 @@ import matplotlib.pyplot as plt
 import FileIO
 
 
-json = FileIO.openJsonFile()
+json = FileIO.openJsonFile("C:/Users/Daniel/Desktop/inputJson.json")
 serializedJson = FileIO.serializeJson(json)
 
 
 labelList = ["cumulative density", "1s subshell", "2s&p subshell", "3s&p subshell", "3d subshell", "4s&p subshell", "4d subshell", "4f subshell", "5s&p subshell", "5d subshell"]
 run = True
 
-while run:
+for atom in range(len(serializedJson["atoms"])):
     plotType = serializedJson["plotType"]
     derivativeNumber = serializedJson["derivativeNumber"]
     scaleType = serializedJson["scaleType"]
@@ -55,6 +55,13 @@ while run:
     plt.grid()
     plt.show()
     encodedNumpyData = FileIO.saveJsonTest(dty)
-    FileIO.saveToJson(encodedNumpyData)
+    # FileIO.saveToJson(encodedNumpyData)
 
-    run = inputFunctions.askToRepeat()
+    outputListTest = []
+    outTest = FileIO.openJsonFile("C:/Users/Daniel/Desktop/outputJson.json")
+    serializedOutTest = FileIO.serializeJson(outTest)
+    testListY = serializedOutTest["atoms"][atom]["dtyRAW"]
+    print("data type being retrieved from saved json file is is " + str(type(testListY)))
+#   testListX = inputFunctions.getArrayXFromJSON(scaleType, serializedJson["plotRadius"])
+#   plt.plot(testListX, testListY)
+
