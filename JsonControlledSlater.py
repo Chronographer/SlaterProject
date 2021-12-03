@@ -55,7 +55,6 @@ for atom in range(len(serializedJson["atoms"])):
     plt.grid()
     plt.show()
     encodedNumpyData = FileIO.saveToJson(dty)
-    # FileIO.saveToJson(encodedNumpyData)
 
     outputListTest = []
     outTest = FileIO.openJsonFile("C:/Users/Daniel/Desktop/outputJson.json")
@@ -65,5 +64,6 @@ for atom in range(len(serializedJson["atoms"])):
     print("data type being retrieved from saved json file is is " + str(type(testListY)))
     testListX = inputFunctions.getArrayXFromJSON(scaleType, serializedJson["plotRadius"])
     plt.plot(testListX, testListY)
+    plt.title("same data retrieved from saved json file")
     plt.show()
 
