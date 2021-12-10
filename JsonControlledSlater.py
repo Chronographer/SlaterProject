@@ -81,12 +81,12 @@ outputListTest = []
 outTest = FileIO.openJsonFile("C:/Users/Daniel/Desktop/outputJson.json")
 serializedOutTest = FileIO.serializeJson(outTest)
 for i in range(len(serializedOutTest["atoms"])):
-    #testListY = serializedOutTest["atoms"][i]["dtyRAW"][0]
+    testListY = serializedOutTest["atoms"][i]["dtyRawList"][0]
     print("output index is " + str(i))
 
-"""#print("data type being retrieved from saved json file is is " + str(type(testListY)))
+    print("data type being retrieved from saved json file is is " + str(type(testListY)))
     testListX = inputFunctions.getArrayXFromJSON(scaleType, serializedJson["plotRadius"])
     plt.plot(testListX, testListY)
     plt.title("same data retrieved from saved json file")
-    plt.show()"""
+    plt.show()
 
