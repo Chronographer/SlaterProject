@@ -63,7 +63,7 @@ def s(listN):
 def A(shielding, energyQuantumNumber, netCharge):
     """Normalization constant for ith shell"""
     nx = nStar[energyQuantumNumber]
-    print("Energy quantum number, shielding, netCharge:  ", energyQuantumNumber, shielding, netCharge)
+    # print("Energy quantum number, shielding, netCharge:  ", energyQuantumNumber, shielding, netCharge)
     if (netCharge - shielding) < 0:
         print("Fatal Error: UNBOUND ATOM")
         print("Shielding charge {0} exceeds nuclear charge {1} ".format(shielding, netCharge))

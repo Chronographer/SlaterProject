@@ -15,13 +15,20 @@ serializedJson = FileIO.serializeJson(json)
 labelList = ["cumulative density", "1s subshell", "2s&p subshell", "3s&p subshell", "3d subshell", "4s&p subshell", "4d subshell", "4f subshell", "5s&p subshell", "5d subshell"]
 run = True
 
+atomList = []
+atomicNumberList = []
+shellOccupationList = []
+dtyList = []
+
 for atom in range(len(serializedJson["atoms"])):
     plotType = serializedJson["plotType"]
     derivativeNumber = serializedJson["derivativeNumber"]
     scaleType = serializedJson["scaleType"]
     arrayX = inputFunctions.getArrayXFromJSON(scaleType, serializedJson["plotRadius"])
-    atomicNumber = serializedJson["atoms"][0]["atomicNumber"]
-    orbitalConfigList = inputFunctions.getElectronConfigFromJson(serializedJson["atoms"][0]["shellOccupation"])
+    atomicNumber = serializedJson["atoms"][atom]["atomicNumber"]
+    print("Atom index is " + str(atom))
+    print("Atomic Number for current atom is " + str(atomicNumber))
+    orbitalConfigList = inputFunctions.getElectronConfigFromJson(serializedJson["atoms"][atom]["shellOccupation"])
 
     dty, components = Slater.density(arrayX, atomicNumber, orbitalConfigList)
     # dty = Slater.grlaglll(arrayX, atomicNumber, orbitalConfigList)
@@ -54,16 +61,32 @@ for atom in range(len(serializedJson["atoms"])):
     plt.legend()
     plt.grid()
     plt.show()
-    encodedNumpyData = FileIO.saveToJson(dty)
 
-    outputListTest = []
-    outTest = FileIO.openJsonFile("C:/Users/Daniel/Desktop/outputJson.json")
-    serializedOutTest = FileIO.serializeJson(outTest)
-    testListY = serializedOutTest["atoms"][atom]["dtyRAW"][0]
+    atomicNumberList.append(atomicNumber)
+    shellOccupationList.append(orbitalConfigList)
+    dtyList.append(dty)
+for i in range(len(atomicNumberList)):
+    atomList.append(
+        {
+            "atomicNumber": atomicNumberList[i],
+            "shellOccupation": shellOccupationList[i],
+            "dtyRawList": dtyList[i].tolist()
+        }
+    )
 
-    print("data type being retrieved from saved json file is is " + str(type(testListY)))
+
+encodedNumpyData = FileIO.saveToJson(atomList)
+
+outputListTest = []
+outTest = FileIO.openJsonFile("C:/Users/Daniel/Desktop/outputJson.json")
+serializedOutTest = FileIO.serializeJson(outTest)
+for i in range(len(serializedOutTest["atoms"])):
+    #testListY = serializedOutTest["atoms"][i]["dtyRAW"][0]
+    print("output index is " + str(i))
+
+"""#print("data type being retrieved from saved json file is is " + str(type(testListY)))
     testListX = inputFunctions.getArrayXFromJSON(scaleType, serializedJson["plotRadius"])
     plt.plot(testListX, testListY)
     plt.title("same data retrieved from saved json file")
-    plt.show()
+    plt.show()"""
 
