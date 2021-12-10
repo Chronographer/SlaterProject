@@ -2,7 +2,7 @@
 """
 
 
-class Atom():
+class Atom:
     """quick and dirty class for structured atomic data
     Use with Periodic Table to get a dictionary of elements
     """
@@ -17,7 +17,7 @@ class Atom():
 
     def __repr__(self):
         line1 = "#" + self.label + " Atom" + "\n"
-        if (self.config != "Normal"):
+        if self.config != "Normal":
             linex = "#" + self.config + "\n"
         else:
             linex = ""
@@ -36,7 +36,7 @@ class Atom():
 
 #    def initialize(self):
 
-class Grid():
+class Grid:
     """Holder class for grid on which to display atom"""
     name = "Exponential"
     amesh = 1.05
@@ -688,8 +688,8 @@ def Valence(atom):
     # Keep last occupied shell only in normal configuration
     have_valence = False
     for i in range(len(atom.occupancy), 0, -1):
-        if (atom.occupancy[i - 1] != 0):
-            if (have_valence == False):
+        if atom.occupancy[i - 1] != 0:
+            if have_valence == False:
                 have_valence = True
             else:
                 atom.occupancy[i - 1] = 0
@@ -702,12 +702,7 @@ def Normal(atom):
     return atom
 
 
-configTable = {}
-configTable["Normal"] = Normal
-configTable["PosIon"] = PosIon
-configTable["NegIon"] = NegIon
-configTable["InnerShell"] = InnerShell
-configTable["Valence"] = Valence
+configTable = {"Normal": Normal, "PosIon": PosIon, "NegIon": NegIon, "InnerShell": InnerShell, "Valence": Valence}
 
 
 def setAtomConfig(atom, atomconfig):
