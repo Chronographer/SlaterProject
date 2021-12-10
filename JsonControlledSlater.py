@@ -89,4 +89,3 @@ for i in range(len(serializedOutTest["atoms"])):
     plt.plot(testListX, testListY)
     plt.title("same data retrieved from saved json file")
     plt.show()
-
