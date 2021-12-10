@@ -3,7 +3,7 @@
 
 
 class Atom:
-    """quick and dirty class for structured atomic data
+    """quick and dirty class for structured atomic data.
     Use with Periodic Table to get a dictionary of elements
     """
 
@@ -15,10 +15,12 @@ class Atom:
         self.filename = filename
         self.densintegral = None
 
-    def __repr__(self):
+    def __repr__(self):  # what does "repr" stand for in human readable terms?
         line1 = "#" + self.label + " Atom" + "\n"
         if self.config != "Normal":
-            linex = "#" + self.config + "\n"
+            linex = "#" + self.config + "\n"  # This will always be "Normal" because it is defined explicitly instead of
+                                    # being read in from the argument passed to it in __init__. Is this intentional?
+                                    # Looking at posIon(), it looks like this might just be a placeholder?
         else:
             linex = ""
         line2 = "#Nuclear charge = " + str(self.Z) + "\n"
@@ -44,9 +46,12 @@ class Grid:
     rmax = 10.0
 
     def __init__(self, amesh=None, hmin=None, rmax=None):
-        if amesh is not None: self.amesh = amesh
-        if hmin is not None: self.hmin = hmin
-        if rmax is not None: self.rmax = rmax
+        if amesh is not None:
+            self.amesh = amesh
+        if hmin is not None:
+            self.hmin = hmin
+        if rmax is not None:  # again, these are all defined explicitly, so will ALWAYS be None. Is there a reason?
+            self.rmax = rmax
 
     def __str__(self):
         str1 = self.name + " Grid:\n"
