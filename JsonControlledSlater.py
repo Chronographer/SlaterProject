@@ -1,5 +1,7 @@
 """A means of accessing the functionality of SlaterGUI.py without a GUI.
    By Daniel Isenberg
+   TODO: Consider refactoring the input orbital configuration for atoms so that they are integer lists instead of strings to save an extra step in converting it. (It only took string input originally because of the manual input system I started with)
+   TODO: Consider refactoring Slater.density() so that it only returns the component contributions, which can then be added together later so it only has to return one thing instead of a tuple.
 """
 import Slater
 import inputFunctions
@@ -83,6 +85,10 @@ serializedOutTest = FileIO.serializeJson(outTest)
 for i in range(len(serializedOutTest["atoms"])):
     testListY = serializedOutTest["atoms"][i]["dtyRaw"][0]
     testListX = inputFunctions.getArrayXFromJSON(scaleType, serializedJson["plotRadius"])
-    plt.plot(testListX, testListY)
-    plt.title("same data retrieved from saved json file")
+    plt.plot(testListX, testListY, label="cumulative density")
+    plt.title("Cumulative density for atomic number " + str(serializedOutTest["atoms"][i]["atomicNumber"]) + " retrieved from saved json file")
+    plt.xlabel("Distance from atomic center (Bohr radii)")
+    plt.ylabel("Radial electron density")
+    plt.legend()
+    plt.grid()
     plt.show()

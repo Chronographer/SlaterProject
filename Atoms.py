@@ -479,7 +479,7 @@ periodictable['Jellium3Smooth'] = Atom(18, "Jellium3Smooth",
                                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])  # Jellium 1s2 2p6 3d10
 
 periodictable_ions = {}
-# Negative ions:  #####Add Flourides
+# Negative ions:  #####Add Fluorides
 periodictable_ions['H -'] = Atom(1, "H -",
                                  [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                                   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,

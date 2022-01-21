@@ -22,4 +22,5 @@ def saveToJson(atomList):
     }
 
     with open("C:/Users/Daniel/Desktop/outputJson.json", "w") as outfile:
-        json.dump(dictionary, outfile)
+        json.dump(dictionary, outfile, indent=4)
+       # json.dump()
