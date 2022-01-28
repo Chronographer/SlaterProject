@@ -5,10 +5,9 @@ import Slater
 import inputFunctions
 import numpy
 import matplotlib.pyplot as plt
-import FileIO
 
 
-labelList = ["cumulative density", "1s subshell", "2s&p subshell", "3s&p subshell", "3d subshell", "4s&p subshell", "4d subshell", "4f subshell", "5s&p subshell", "5d subshell"]
+labelList = ["cumulative density", "1s subshell", "2s&p subshell", "3s&p subshell", "3d subshell", "4s&p subshell", "4d subshell", "4f subshell", "5s&p subshell", "5d subshell"]  # this list of strings is used in the legend of matplotlib plots.
 run = True
 
 while run:
