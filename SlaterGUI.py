@@ -5,18 +5,33 @@ import Slater
 import inputFunctions
 import numpy
 import matplotlib.pyplot as plt
+import Atoms
 
+# TODO: Clean up atoms, put old version in "legacy atoms", take a look at high shell density calculation, add documentation about how to use stuff and what it means.
 
 labelList = ["cumulative density", "1s subshell", "2s&p subshell", "3s&p subshell", "3d subshell", "4s&p subshell", "4d subshell", "4f subshell", "5s&p subshell", "5d subshell"]  # this list of strings is used in the legend of matplotlib plots.
 run = True
+target = "Pb"
+
 
 while run:
-    atomicNumber = inputFunctions.getAtomicNumber()
+    target = "Li"
+    atomicNumber = Atoms.periodictable[target].Z
+    # atomicNumber = inputFunctions.getAtomicNumber()
     plotType = inputFunctions.getPlotType()
     derivativeNumber = inputFunctions.chooseDerivativeOptions()
     scaleType = inputFunctions.getScaleType()
     arrayX = inputFunctions.getArrayX(scaleType)
-    orbitalConfigList = inputFunctions.getElectronConfigInput()
+    # orbitalConfigList = inputFunctions.getElectronConfigInput()
+    LongOrbitalConfigList = Atoms.periodictable[target].occupancy
+
+    print(atomicNumber)
+    print(LongOrbitalConfigList)
+
+    orbitalConfigList = []
+    for i in range(0, 9):
+        orbitalConfigList.append(LongOrbitalConfigList[i])
+    print(orbitalConfigList)
 
     dty, components = Slater.density(arrayX, atomicNumber, orbitalConfigList)
     # dty = Slater.grlaglll(arrayX, atomicNumber, orbitalConfigList)
