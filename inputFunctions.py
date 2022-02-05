@@ -11,51 +11,18 @@ derivativeOptions = ["None", "First derivative", "Second derivative", "Third Der
 def getElementNameInput():
     elementInput = enterbox("Enter the abbreviation for the element you wish to model, or type 'manual' to manually specify the atomic number and Slater electron configuration.")
     elementCodeIsValid = False
-    while elementCodeIsValid == False:
+    while not elementCodeIsValid:
         if elementInput == "manual":
-            elementCodeIsValid = True
-            break
-        for key in Atoms.periodictable:
-            print("checking key '" + key + "' against target...")
+            break  # if you want manual control, we do not need to waste time checking every key in the dictionary.
+        for key in Atoms.periodictable:  # We want to make sure that there is a dictionary key matching the input before we pass it back to SlaterGUI.py
             if key == elementInput:
                 elementCodeIsValid = True
-                print("key-target match found! skipping remaining keys.")
-                break
-            else:
-                print("key '" + key + "' did not match target.")
-        if elementCodeIsValid == False:
-            print(elementInput)
+                break  # once we find a key matching the user input, we do not need to check the rest.
+        if not elementCodeIsValid:
             msgbox("'" + elementInput + "' is not a recognized element!\n\nElement abbreviations are case sensitive. Check to make sure you spelled it correctly.\n\nNot all elements are in the database. For a list of all recognized elements, see dictionary 'periodictable{}' in script 'Atoms.py'")
             elementInput = enterbox("Enter the abbreviation for the element you wish to model, or type 'manual' to manually specify the atomic number and Slater electron configuration.")
 
     return elementInput
-
-def getElectronConfigFromJson(orbitalConfigString):
-    """Converts a string of shell occupancies from a JSON file into something usable by Slater.py. This is ONLY used by the JSON controlled Slater program.
-        \nTakes input as a string of numbers separated by periods, then parses and converts it to a list of integers.\n
-        The returned list will always have 9 elements, and trailing zeros omitted by the user during input will
-        be automatically added by this function.\n
-        It also checks for and attempts to repair an input not ending in
-        a number, warning the user of possible unintended consequences in the process."""
-
-    orbitalConfigList = []
-    while len(orbitalConfigList) != 9:
-        if not orbitalConfigString[len(orbitalConfigString) - 1].isdigit():
-            print("\nWARNING: the last character of your input string was '" + orbitalConfigString[
-                len(orbitalConfigString) - 1] + "', which is not a digit. You might have accidentally left out a number or entered it incorrectly. The input you provided was: '" + orbitalConfigString + "'\nThe anomalous character has been removed in an attempt to prevent a runtime error.\nBe cautious; even if a runtime error is not thrown, your results might not reflect the system you intended to model!\n")
-            orbitalConfigString = orbitalConfigString[
-                                  :-1]  # this removes the last character from the input string; the idea is that if you accidentally end with a '.', this will remove it for you. Will produce incorrect results if the user left out a non-zero number after the last character.
-        orbitalConfigList = orbitalConfigString.split(".")
-        if len(orbitalConfigList) > 9:
-            msgbox("There are " + str(
-                len(orbitalConfigList)) + " elements in orbitalConfigList, there should be no more than 9.\nRe-enter the orbital configuration of each shell as a period separated list.")
-        elif len(orbitalConfigList) < 9:
-            while len(
-                    orbitalConfigList) < 9:  # Allows user to omit all trailing 0's by adding as many as are needed to generate a list of correct length, thus saving time.
-                orbitalConfigList.append(0)
-    for element in range(0, len(orbitalConfigList)):
-        orbitalConfigList[element] = int(orbitalConfigList[element])
-    return orbitalConfigList
 
 
 def getElectronConfigInput():
@@ -91,16 +58,6 @@ def chooseDerivativeOptions():
             derivativeNumber = i
             break
     return derivativeNumber
-
-
-def getArrayXFromJSON(scaleType, listLength):
-    """Takes a string value for scaleType and an integer extracted from a JSON file for the length of the x axis.\n
-        Returns arrayX, appropriately scaled to either an exponential or uniform scale factor."""
-    if scaleType == "Exponential":
-        arrayX = Routines.ExpGridStretch2(numpy.arange(0.01, 1.0 * listLength, 0.01))
-    else:
-        arrayX = numpy.arange(0.01, 1.0 * listLength, 0.01)
-    return arrayX
 
 
 def getArrayX(scaleType):
@@ -141,3 +98,41 @@ def askToRepeat():
     """Asks the user if they would like to run the program again after the plot window has been closed."""
     reRunProgram = boolbox("There was your density. Would you like to run the program again?", "End of program")
     return reRunProgram
+
+
+def getElectronConfigFromJson(orbitalConfigString):
+    """Converts a string of shell occupancies from a JSON file into something usable by Slater.py. This is ONLY used by the JSON controlled Slater program.
+        \nTakes input as a string of numbers separated by periods, then parses and converts it to a list of integers.\n
+        The returned list will always have 9 elements, and trailing zeros omitted by the user during input will
+        be automatically added by this function.\n
+        It also checks for and attempts to repair an input not ending in
+        a number, warning the user of possible unintended consequences in the process."""
+
+    orbitalConfigList = []
+    while len(orbitalConfigList) != 9:
+        if not orbitalConfigString[len(orbitalConfigString) - 1].isdigit():
+            print("\nWARNING: the last character of your input string was '" + orbitalConfigString[
+                len(orbitalConfigString) - 1] + "', which is not a digit. You might have accidentally left out a number or entered it incorrectly. The input you provided was: '" + orbitalConfigString + "'\nThe anomalous character has been removed in an attempt to prevent a runtime error.\nBe cautious; even if a runtime error is not thrown, your results might not reflect the system you intended to model!\n")
+            orbitalConfigString = orbitalConfigString[
+                                  :-1]  # this removes the last character from the input string; the idea is that if you accidentally end with a '.', this will remove it for you. Will produce incorrect results if the user left out a non-zero number after the last character.
+        orbitalConfigList = orbitalConfigString.split(".")
+        if len(orbitalConfigList) > 9:
+            msgbox("There are " + str(
+                len(orbitalConfigList)) + " elements in orbitalConfigList, there should be no more than 9.\nRe-enter the orbital configuration of each shell as a period separated list.")
+        elif len(orbitalConfigList) < 9:
+            while len(
+                    orbitalConfigList) < 9:  # Allows user to omit all trailing 0's by adding as many as are needed to generate a list of correct length, thus saving time.
+                orbitalConfigList.append(0)
+    for element in range(0, len(orbitalConfigList)):
+        orbitalConfigList[element] = int(orbitalConfigList[element])
+    return orbitalConfigList
+
+
+def getArrayXFromJSON(scaleType, listLength):
+    """Takes a string value for scaleType and an integer extracted from a JSON file for the length of the x axis.\n
+        Returns arrayX, appropriately scaled to either an exponential or uniform scale factor."""
+    if scaleType == "Exponential":
+        arrayX = Routines.ExpGridStretch2(numpy.arange(0.01, 1.0 * listLength, 0.01))
+    else:
+        arrayX = numpy.arange(0.01, 1.0 * listLength, 0.01)
+    return arrayX
