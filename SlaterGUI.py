@@ -1,5 +1,6 @@
 """A simple GUI for displaying Slater electron densities.
    By Neal Coleman
+   Modified and expanded by Daniel Isenberg
 """
 import Slater
 import inputFunctions
@@ -11,11 +12,10 @@ import Atoms
 
 labelList = ["cumulative density", "1s subshell", "2s&p subshell", "3s&p subshell", "3d subshell", "4s&p subshell", "4d subshell", "4f subshell", "5s&p subshell", "5d subshell"]  # this list of strings is used in the legend of matplotlib plots.
 run = True
-target = "Pb"
 
 
 while run:
-    target = "Li"
+    target = inputFunctions.getElementNameInput()
     atomicNumber = Atoms.periodictable[target].Z
     # atomicNumber = inputFunctions.getAtomicNumber()
     plotType = inputFunctions.getPlotType()
@@ -24,9 +24,6 @@ while run:
     arrayX = inputFunctions.getArrayX(scaleType)
     # orbitalConfigList = inputFunctions.getElectronConfigInput()
     LongOrbitalConfigList = Atoms.periodictable[target].occupancy
-
-    print(atomicNumber)
-    print(LongOrbitalConfigList)
 
     orbitalConfigList = []
     for i in range(0, 9):

@@ -7,6 +7,13 @@ derivativeOptions = ["None", "First derivative", "Second derivative", "Third Der
 #  msgbox("A simple GUI for displaying Slater electron densities\n" + "By Neal Coleman", "Introduction")
 
 
+def getElementNameInput():
+    elementInput = enterbox("Enter the abbreviation for the element you wish to model, or type 'manual' to manually specify the atomic number and Slater electron configuration.")
+    if elementInput == "manual":
+        return "manual"
+    else:
+        return elementInput
+
 def getElectronConfigFromJson(orbitalConfigString):
     """Converts a string of shell occupancies from a JSON file into something usable by Slater.py. This is ONLY used by the JSON controlled Slater program.
         \nTakes input as a string of numbers separated by periods, then parses and converts it to a list of integers.\n
