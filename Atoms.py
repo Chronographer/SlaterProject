@@ -15,7 +15,7 @@ class Atom:
         self.filename = filename
         self.densintegral = None
 
-    """def __repr__(self):
+    def __repr__(self):
         line1 = "#" + self.label + " Atom" + "\n"
         if self.config != "Normal":
             linex = "#" + self.config + "\n"  # This will always be "Normal" because it is defined explicitly instead of
@@ -33,7 +33,7 @@ class Atom:
             line5 = "#Density Integral = " + str(self.densintegral) + "\n"
         else:
             line5 = ""
-        return line1 + linex + line2 + line3 + line4 + line5"""
+        return line1 + linex + line2 + line3 + line4 + line5
 
 
 #    def initialize(self):

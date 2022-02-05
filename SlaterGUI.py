@@ -15,15 +15,23 @@ run = True
 
 
 while run:
+    inputMode = "automatic"
     target = inputFunctions.getElementNameInput()
-    atomicNumber = Atoms.periodictable[target].Z
-    # atomicNumber = inputFunctions.getAtomicNumber()
+
+    if inputMode == "manual":
+        atomicNumber = inputFunctions.getAtomicNumber()
+    else:
+        atomicNumber = Atoms.periodictable[target].Z
+
     plotType = inputFunctions.getPlotType()
     derivativeNumber = inputFunctions.chooseDerivativeOptions()
     scaleType = inputFunctions.getScaleType()
     arrayX = inputFunctions.getArrayX(scaleType)
-    # orbitalConfigList = inputFunctions.getElectronConfigInput()
-    LongOrbitalConfigList = Atoms.periodictable[target].occupancy
+
+    if inputMode == "manual":
+        orbitalConfigList = inputFunctions.getElectronConfigInput()
+    else:
+        LongOrbitalConfigList = Atoms.periodictable[target].occupancy
 
     orbitalConfigList = []
     for i in range(0, 9):

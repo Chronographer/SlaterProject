@@ -1,6 +1,7 @@
 from easygui import *
 import numpy
 import Routines
+import Atoms
 
 derivativeOptions = ["None", "First derivative", "Second derivative", "Third Derivative", "Fourth derivative"]
 
@@ -9,10 +10,25 @@ derivativeOptions = ["None", "First derivative", "Second derivative", "Third Der
 
 def getElementNameInput():
     elementInput = enterbox("Enter the abbreviation for the element you wish to model, or type 'manual' to manually specify the atomic number and Slater electron configuration.")
-    if elementInput == "manual":
-        return "manual"
-    else:
-        return elementInput
+    elementCodeIsValid = False
+    while elementCodeIsValid == False:
+        if elementInput == "manual":
+            elementCodeIsValid = True
+            break
+        for key in Atoms.periodictable:
+            print("checking key '" + key + "' against target...")
+            if key == elementInput:
+                elementCodeIsValid = True
+                print("key-target match found! skipping remaining keys.")
+                break
+            else:
+                print("key '" + key + "' did not match target.")
+        if elementCodeIsValid == False:
+            print(elementInput)
+            msgbox("'" + elementInput + "' is not a recognized element!\n\nElement abbreviations are case sensitive. Check to make sure you spelled it correctly.\n\nNot all elements are in the database. For a list of all recognized elements, see dictionary 'periodictable{}' in script 'Atoms.py'")
+            elementInput = enterbox("Enter the abbreviation for the element you wish to model, or type 'manual' to manually specify the atomic number and Slater electron configuration.")
+
+    return elementInput
 
 def getElectronConfigFromJson(orbitalConfigString):
     """Converts a string of shell occupancies from a JSON file into something usable by Slater.py. This is ONLY used by the JSON controlled Slater program.
