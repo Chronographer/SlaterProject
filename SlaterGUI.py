@@ -18,7 +18,7 @@ while run:
     inputMode = "automatic"
     target = inputFunctions.getElementNameInput()
 
-    if inputMode == "manual":
+    if target == "manual":
         atomicNumber = inputFunctions.getAtomicNumber()
     else:
         atomicNumber = Atoms.periodictable[target].Z
@@ -28,15 +28,14 @@ while run:
     scaleType = inputFunctions.getScaleType()
     arrayX = inputFunctions.getArrayX(scaleType)
 
-    if inputMode == "manual":
+    if target == "manual":
         orbitalConfigList = inputFunctions.getElectronConfigInput()
     else:
         LongOrbitalConfigList = Atoms.periodictable[target].occupancy
-
-    orbitalConfigList = []
-    for i in range(0, 9):
-        orbitalConfigList.append(LongOrbitalConfigList[i])
-    print(orbitalConfigList)
+        orbitalConfigList = []
+        for i in range(0, 9):
+            orbitalConfigList.append(LongOrbitalConfigList[i])
+        print(orbitalConfigList)
 
     dty, components = Slater.density(arrayX, atomicNumber, orbitalConfigList)
     # dty = Slater.grlaglll(arrayX, atomicNumber, orbitalConfigList)
