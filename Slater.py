@@ -33,36 +33,28 @@ def s(listN):
     """Extract shielding constant from occupancy list - through 5d
     These are Ansatz functions, so there's no general formula."""
     shells = len(listN) + 1
-    newLists = []
+    lists = []
     for i in range(0, shells):
         if i == 1:
-            newLists.append((listN[0] - 1) * nShield["1s_valence"])
+            lists.append((listN[0] - 1) * nShield["1s_valence"])
         elif i == 2:
-            newLists.append((listN[1] - 1) * nShield["Valence"] + listN[0] * nShield["sp_semicore"])
+            lists.append((listN[1] - 1) * nShield["Valence"] + listN[0] * nShield["sp_semicore"])
         elif i == 3:
-            newLists.append((listN[2] - 1) * nShield["Valence"] + listN[1] * nShield["sp_semicore"] + listN[0] * nShield["Core"])
+            lists.append((listN[2] - 1) * nShield["Valence"] + listN[1] * nShield["sp_semicore"] + listN[0] * nShield["Core"])
         elif i == 4:
-            newLists.append((listN[3] - 1) * nShield["Valence"] + (listN[2] + listN[1] + listN[0]) * nShield["Core"])
+            lists.append((listN[3] - 1) * nShield["Valence"] + (listN[2] + listN[1] + listN[0]) * nShield["Core"])
         elif i == 5:
-            newLists.append((listN[4] - 1) * nShield["Valence"] + (listN[3] + listN[2]) * nShield["sp_semicore"] + (listN[1] + listN[0]) * nShield["Core"])
+            lists.append((listN[4] - 1) * nShield["Valence"] + (listN[3] + listN[2]) * nShield["sp_semicore"] + (listN[1] + listN[0]) * nShield["Core"])
         elif i == 6:
-            newLists.append((listN[5] - 1) * nShield["Valence"] + (listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nShield["Core"])
+            lists.append((listN[5] - 1) * nShield["Valence"] + (listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nShield["Core"])
         elif i == 7:
-            newLists.append((listN[6] - 1) * nShield["Valence"] + (listN[5] + listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nShield["Core"])
+            lists.append((listN[6] - 1) * nShield["Valence"] + (listN[5] + listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nShield["Core"])
         elif i == 8:
-            newLists.append((listN[7] - 1) * nShield["Valence"] + (listN[6] + listN[5] + listN[4]) * nShield["sp_semicore"] + (listN[3] + listN[2] + listN[1] + listN[0]) * nShield["Core"])
+            lists.append((listN[7] - 1) * nShield["Valence"] + (listN[6] + listN[5] + listN[4]) * nShield["sp_semicore"] + (listN[3] + listN[2] + listN[1] + listN[0]) * nShield["Core"])
         elif i == 9:
-            newLists.append((listN[8] - 1) * nShield["Valence"] + (listN[7] + listN[6] + listN[5] + listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nShield["Core"])
-    """lists = [(listN[0] - 1) * nShield["1s_valence"],
-             (listN[1] - 1) * nShield["Valence"] + listN[0] * nShield["sp_semicore"],
-             (listN[2] - 1) * nShield["Valence"] + listN[1] * nShield["sp_semicore"] + listN[0] * nShield["Core"],
-             (listN[3] - 1) * nShield["Valence"] + (listN[2] + listN[1] + listN[0]) * nShield["Core"],
-             (listN[4] - 1) * nShield["Valence"] + (listN[3] + listN[2]) * nShield["sp_semicore"] + (listN[1] + listN[0]) * nShield["Core"],
-             (listN[5] - 1) * nShield["Valence"] + (listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nShield["Core"],
-             (listN[6] - 1) * nShield["Valence"] + (listN[5] + listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nShield["Core"],
-             (listN[7] - 1) * nShield["Valence"] + (listN[6] + listN[5] + listN[4]) * nShield["sp_semicore"] + (listN[3] + listN[2] + listN[1] + listN[0]) * nShield["Core"],
-             (listN[8] - 1) * nShield["Valence"] + (listN[7] + listN[6] + listN[5] + listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nShield["Core"]]  # ,
-            # (listN[9] - 1) * nShield["Valence"] + (listN[8] + listN[7] + listN[6] + listN[5] + listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nShield["Core"]] # Uncommenting this breaks something, I don't know why it was like that when I started working on this."""
+            lists.append((listN[8] - 1) * nShield["Valence"] + (listN[7] + listN[6] + listN[5] + listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nShield["Core"])
+        elif i == 10:
+            lists.append((listN[9] - 1) * nShield["Valence"] + (listN[8] + listN[7] + listN[6] + listN[5] + listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nShield["Core"])
     # 1s
     # 2sp
     # 3sp
@@ -73,11 +65,7 @@ def s(listN):
     # 5sp
     # 5d
     # 6s
-    """print("lists")
-    print(lists)"""
-    print("\nnewLists")
-    print(newLists)
-    return newLists
+    return lists
 
 
 """ e -> energyQuantumNumber  # This was put here to remind myself (Daniel) what the original variable names were, in case I missed something somewhere so I can be consistent with how I rename them.
