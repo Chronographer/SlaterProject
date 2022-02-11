@@ -32,7 +32,28 @@ nShield = {"1s_valence": 0.3, "Valence": 0.35, "sp_semicore": 0.85, "Core": 1.0}
 def s(listN):
     """Extract shielding constant from occupancy list - through 5d
     These are Ansatz functions, so there's no general formula."""
-    lists = [(listN[0] - 1) * nShield["1s_valence"],
+    shells = len(listN) + 1
+    newLists = []
+    for i in range(0, shells):
+        if i == 1:
+            newLists.append((listN[0] - 1) * nShield["1s_valence"])
+        elif i == 2:
+            newLists.append((listN[1] - 1) * nShield["Valence"] + listN[0] * nShield["sp_semicore"])
+        elif i == 3:
+            newLists.append((listN[2] - 1) * nShield["Valence"] + listN[1] * nShield["sp_semicore"] + listN[0] * nShield["Core"])
+        elif i == 4:
+            newLists.append((listN[3] - 1) * nShield["Valence"] + (listN[2] + listN[1] + listN[0]) * nShield["Core"])
+        elif i == 5:
+            newLists.append((listN[4] - 1) * nShield["Valence"] + (listN[3] + listN[2]) * nShield["sp_semicore"] + (listN[1] + listN[0]) * nShield["Core"])
+        elif i == 6:
+            newLists.append((listN[5] - 1) * nShield["Valence"] + (listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nShield["Core"])
+        elif i == 7:
+            newLists.append((listN[6] - 1) * nShield["Valence"] + (listN[5] + listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nShield["Core"])
+        elif i == 8:
+            newLists.append((listN[7] - 1) * nShield["Valence"] + (listN[6] + listN[5] + listN[4]) * nShield["sp_semicore"] + (listN[3] + listN[2] + listN[1] + listN[0]) * nShield["Core"])
+        elif i == 9:
+            newLists.append((listN[8] - 1) * nShield["Valence"] + (listN[7] + listN[6] + listN[5] + listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nShield["Core"])
+    """lists = [(listN[0] - 1) * nShield["1s_valence"],
              (listN[1] - 1) * nShield["Valence"] + listN[0] * nShield["sp_semicore"],
              (listN[2] - 1) * nShield["Valence"] + listN[1] * nShield["sp_semicore"] + listN[0] * nShield["Core"],
              (listN[3] - 1) * nShield["Valence"] + (listN[2] + listN[1] + listN[0]) * nShield["Core"],
@@ -41,7 +62,7 @@ def s(listN):
              (listN[6] - 1) * nShield["Valence"] + (listN[5] + listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nShield["Core"],
              (listN[7] - 1) * nShield["Valence"] + (listN[6] + listN[5] + listN[4]) * nShield["sp_semicore"] + (listN[3] + listN[2] + listN[1] + listN[0]) * nShield["Core"],
              (listN[8] - 1) * nShield["Valence"] + (listN[7] + listN[6] + listN[5] + listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nShield["Core"]]  # ,
-            # (listN[9] - 1) * nShield["Valence"] + (listN[8] + listN[7] + listN[6] + listN[5] + listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nShield["Core"]] # Uncommenting this breaks something, I don't know why it was like that when I started working on this.
+            # (listN[9] - 1) * nShield["Valence"] + (listN[8] + listN[7] + listN[6] + listN[5] + listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nShield["Core"]] # Uncommenting this breaks something, I don't know why it was like that when I started working on this."""
     # 1s
     # 2sp
     # 3sp
@@ -52,7 +73,11 @@ def s(listN):
     # 5sp
     # 5d
     # 6s
-    return lists
+    """print("lists")
+    print(lists)"""
+    print("\nnewLists")
+    print(newLists)
+    return newLists
 
 
 """ e -> energyQuantumNumber  # This was put here to remind myself (Daniel) what the original variable names were, in case I missed something somewhere so I can be consistent with how I rename them.
@@ -113,7 +138,7 @@ def density(arrayX, netCharge, listN):
     arrayX -- array of radial positions \n
     listN  -- list of shell occupancy numbers \n
     netCharge -- net charge"""
-    sValues = s(listN)
+    sValues = s(listN)  # sValues -> shieldingValues ?
     length = len(arrayX)
     final = numpy.zeros(length)
     finalP1 = numpy.zeros(length)
@@ -160,12 +185,14 @@ def grlaglll(arrayX, netCharge, listN):
 
 
 def H(listX):
+    """Most likely for debugging purposes"""
     y = numpy.exp(-2 * listX) / numpy.pi
     yPrime = -2 * numpy.exp(-2 * listX) / numpy.pi
     return y, yPrime
 
 
 def Ne(listX):
+    """Most likely for debugging purposes"""
     # N.B.: Not a real wavefunction!
     norm1s = numpy.sqrt(27.)
     y = numpy.exp(-listX) + norm1s * numpy.exp(-3 * listX)

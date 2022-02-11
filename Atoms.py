@@ -279,14 +279,8 @@ periodictable['N76'] = Atom(976, "N76",
                              22, 26, 8, 10, 14, 18, 22, 8, 10, 14, 18, 8, 10, 14, 8, 10, 8])
 
 # Finite Jellium drop system from Cyrus Umrigar
-periodictable['Jellium3'] = Atom(18, "Jellium3",
-                                 [2, 6, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                                  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                                  0, 0, 0, 0, 0, 0, 0, 0])  # Jellium -- 1s2 2p6 3d10 -- psp!!
-periodictable['Jellium3Smooth'] = Atom(18, "Jellium3Smooth",
-                                       [2, 6, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                                        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                                        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])  # Jellium 1s2 2p6 3d10
+periodictable['Jellium3'] = Atom(18, "Jellium3", [2, 6, 0, 10])  # Jellium -- 1s2 2p6 3d10 -- psp!!
+periodictable['Jellium3Smooth'] = Atom(18, "Jellium3Smooth", [2, 6, 0, 10])  # Jellium 1s2 2p6 3d10
 
 periodictable_ions = {}
 # Negative ions:  #####Add Fluorides

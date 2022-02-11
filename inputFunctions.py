@@ -1,6 +1,6 @@
 from easygui import *
 import numpy
-import Routines
+import GridStretch
 import Atoms
 
 derivativeOptions = ["None", "First derivative", "Second derivative", "Third Derivative", "Fourth derivative"]
@@ -65,7 +65,7 @@ def getArrayX(scaleType):
     Returns arrayX, appropriately scaled to either an exponential or uniform scale factor."""
     listLength = integerbox("Enter maximum radius for the figure (Bohr units).", "Grid Length")
     if scaleType == "Exponential":
-        arrayX = Routines.ExpGridStretch2(numpy.arange(0.01, 1.0 * listLength, 0.01))
+        arrayX = GridStretch.ExpGridStretch2(numpy.arange(0.01, 1.0 * listLength, 0.01))
     else:
         arrayX = numpy.arange(0.01, 1.0 * listLength, 0.01)
     return arrayX
@@ -132,7 +132,7 @@ def getArrayXFromJSON(scaleType, listLength):
     """Takes a string value for scaleType and an integer extracted from a JSON file for the length of the x axis.\n
         Returns arrayX, appropriately scaled to either an exponential or uniform scale factor."""
     if scaleType == "Exponential":
-        arrayX = Routines.ExpGridStretch2(numpy.arange(0.01, 1.0 * listLength, 0.01))
+        arrayX = GridStretch.ExpGridStretch2(numpy.arange(0.01, 1.0 * listLength, 0.01))
     else:
         arrayX = numpy.arange(0.01, 1.0 * listLength, 0.01)
     return arrayX
