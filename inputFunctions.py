@@ -28,23 +28,30 @@ def getElementNameInput():
 def getElectronConfigInput():
     """Handles user input of electron shell population.
     \nTakes input as a string of numbers separated by periods, then parses and converts it to a list of integers.\n
-    The returned list will always have 9 elements, and trailing zeros omitted by the user during input will
-    be automatically added by this function.\n
-    It also checks for and attempts to repair an input not ending in
-    a number, warning the user of possible unintended consequences in the process."""
+    It also checks for and attempts to automatically repair an input not ending in
+    a number, warning the user of possible unintended consequences in the process.\n
+    Additionally, it handles empty string inputs and inputs which contain characters which are neither numbers or
+    periods by clearing the user input and asking them to try again."""
     orbitalConfigList = []
-    while len(orbitalConfigList) != 9:
-        orbitalConfigString = enterbox("Enter the occupation of each Slater shell group as a period separated list.\n(The Slater shells combine certain orbitals as follows: 1s, 2sp, 3sp, 3d, 4sp, 4d, 4f, 5sp, 5d, 6s)\n\nThere should be no more than 9 elements.\n\nTrailing zero's can be omitted and will be automatically added to the end of the list as needed.")
-        if not orbitalConfigString[len(orbitalConfigString) - 1].isdigit():
-            print("\nWARNING: the last character of your input string was '" + orbitalConfigString[len(orbitalConfigString) - 1] + "', which is not a digit. You might have accidentally left out a number or entered it incorrectly. The input you provided was: '" + orbitalConfigString + "'\nThe anomalous character has been removed in an attempt to prevent a runtime error.\nBe cautious; even if a runtime error is not thrown, your results might not reflect the system you intended to model!\n")
+    print(len(orbitalConfigList))
+    while not 0 < len(orbitalConfigList) <= 10:
+        orbitalConfigString = enterbox("Enter the occupation of each Slater shell group as a period separated list.\n(The Slater shells combine certain orbitals into groups as follows: 1s, 2sp, 3sp, 3d, 4sp, 4d, 4f, 5sp, 5d, 6s)\n\nThere should be no more than 10 elements.")
+        if orbitalConfigString == "":
+            msgbox("There are no characters in 'orbitalConfigString'. (You provided an empty string)\n\nRe-enter the orbital configuration of each shell as a period separated list.")
+        elif not orbitalConfigString[len(orbitalConfigString) - 1].isdigit():
+            print("\nWARNING: The last character of your input string was '" + orbitalConfigString[len(orbitalConfigString) - 1] + "', which is not a digit. You might have accidentally left out a number or entered it incorrectly. The input you provided was: '" + orbitalConfigString + "'\nThe anomalous character has been removed in an attempt to prevent a runtime error.\nBe cautious; even if a runtime error is not thrown, your results might not reflect the system you intended to model!\n")
             orbitalConfigString = orbitalConfigString[:-1]  # this removes the last character from the input string; the idea is that if you accidentally end with a '.', this will remove it for you. Will produce incorrect results if the user left out a non-zero number after the last character.
         orbitalConfigList = orbitalConfigString.split(".")
-        if len(orbitalConfigList) > 9:
-            msgbox("There are " + str(len(orbitalConfigList)) + " elements in orbitalConfigList, there should be no more than 9.\nRe-enter the orbital configuration of each shell as a period separated list.")
-        elif len(orbitalConfigList) < 9:
-            while len(orbitalConfigList) < 9:  # Allows user to omit all trailing 0's by adding as many as are needed to generate a list of correct length, thus saving time.
-                orbitalConfigList.append(0)
-    for element in range(0, len(orbitalConfigList)):
+        if len(orbitalConfigList) > 10:
+            msgbox("There are " + str(len(orbitalConfigList)) + " elements in orbitalConfigList, there should be no more than 10.\nRe-enter the orbital configuration of each shell as a period separated list.")
+        for i in range(0, len(orbitalConfigList)):
+            if not orbitalConfigList[i].isdigit():
+                if not orbitalConfigList[i] == "":  # we already gave the user a message about providing an empty string above, so we don't want to give them a different message here for the same problem. We DO however still want to clear orbitalConfigList so it won't throw an error further on.
+                    msgbox("There are non-number elements in 'orbitalConfigList' after parsing to remove the periods. It should (at this point) contain only numbers (stored as strings). You most likely accidentally hit an errant key by accident.\n\nCurrently, 'orbitalConfigList' is " + str(orbitalConfigList) + ". The non-number element is '" + str(orbitalConfigList[i]) + "'.\n\nRe-enter the orbital configuration of each shell as a period separated list.")
+                orbitalConfigList.clear()
+                break  # clear the list so we can start over, then break out of this loop so we don't try to check the next element in it, which no longer exists.
+
+    for element in range(0, len(orbitalConfigList)):  # This converts the list of numbers stored as strings into a list of integers.
         orbitalConfigList[element] = int(orbitalConfigList[element])
     return orbitalConfigList
 
