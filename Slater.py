@@ -29,7 +29,7 @@ nShield = {"1s_valence": 0.3, "Valence": 0.35, "sp_semicore": 0.85, "Core": 1.0}
 # No shielding, 1s2 toy!
 # nShield = {"1s_valence":0.0, "Valence":1.0, "sp_semicore":1.0, "Core":1.0}
 
-def s(listN):
+def ComputeShieldingConstants(listN):
     """Extract shielding constant from occupancy list - through 5d
     These are Ansatz functions, so there's no general formula."""
     shells = len(listN) + 1
@@ -110,14 +110,14 @@ def n(shielding, energyQuantumNumber, netCharge, arrayX, N):
 
 def shellDensities(arrayX, Z, listN):
     """ gives the densities of each shell """
-    sValues = s(listN)
+    shieldingValues = ComputeShieldingConstants(listN)
     returnList = []
     for j in range(len(listN)):
-        sConstant = sValues[j]
+        shieldingConstant = shieldingValues[j]
         e = energy[j]
         N = listN[j]
         # only want the density of each shell, and want list over shells
-        returnList.append(n(sConstant, e, Z, arrayX, N)[0])
+        returnList.append(n(shieldingConstant, e, Z, arrayX, N)[0])
     return returnList
 
 
@@ -126,7 +126,7 @@ def density(arrayX, netCharge, listN):
     arrayX -- array of radial positions \n
     listN  -- list of shell occupancy numbers \n
     netCharge -- net charge"""
-    sValues = s(listN)  # sValues -> shieldingValues ?
+    shieldingValues = ComputeShieldingConstants(listN)
     length = len(arrayX)
     final = numpy.zeros(length)
     finalP1 = numpy.zeros(length)
@@ -135,11 +135,11 @@ def density(arrayX, netCharge, listN):
     finalP4 = numpy.zeros(length)
     componentList = []
     for j in range(len(listN)):
-        sConstant = sValues[j]
+        shieldingConstant = shieldingValues[j]
         e = energy[j]
         N = listN[j]
         if N > 0:
-            dens, densP1, densP2, densP3, densP4 = n(sConstant, e, netCharge, arrayX, N)
+            dens, densP1, densP2, densP3, densP4 = n(shieldingConstant, e, netCharge, arrayX, N)
             final = final + dens
             finalP1 = finalP1 + densP1
             finalP2 = finalP2 + densP2

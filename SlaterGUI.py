@@ -14,7 +14,6 @@ run = True
 
 
 while run:
-    inputMode = "automatic"
     target = inputFunctions.getElementNameInput()
 
     if target == "manual":

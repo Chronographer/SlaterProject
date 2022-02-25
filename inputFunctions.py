@@ -33,7 +33,6 @@ def getElectronConfigInput():
     Additionally, it handles empty string inputs and inputs which contain characters which are neither numbers or
     periods by clearing the user input and asking them to try again."""
     orbitalConfigList = []
-    print(len(orbitalConfigList))
     while not 0 < len(orbitalConfigList) <= 10:
         orbitalConfigString = enterbox("Enter the occupation of each Slater shell group as a period separated list.\n(The Slater shells combine certain orbitals into groups as follows: 1s, 2sp, 3sp, 3d, 4sp, 4d, 4f, 5sp, 5d, 6s)\n\nThere should be no more than 10 elements.")
         if orbitalConfigString == "":
