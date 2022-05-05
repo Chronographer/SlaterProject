@@ -46,7 +46,7 @@ def getElectronConfigInput():
         for i in range(0, len(orbitalConfigList)):
             if not orbitalConfigList[i].isdigit():
                 if not orbitalConfigList[i] == "":  # we already gave the user a message about providing an empty string above, so we don't want to give them a different message here for the same problem. We DO however still want to clear orbitalConfigList so it won't throw an error further on.
-                    msgbox("There are non-number elements in 'orbitalConfigList' after parsing to remove the periods. It should (at this point) contain only numbers (stored as strings). You most likely accidentally hit an errant key by accident.\n\nCurrently, 'orbitalConfigList' is " + str(orbitalConfigList) + ". The non-number element is '" + str(orbitalConfigList[i]) + "'.\n\nRe-enter the orbital configuration of each shell as a period separated list.")
+                    msgbox("There are non-number elements in 'orbitalConfigList' after parsing to remove the periods. It should (at this point) contain only numbers (stored as strings). You most likely hit an errant key by accident.\n\nCurrently, 'orbitalConfigList' is " + str(orbitalConfigList) + ". The non-number element is '" + str(orbitalConfigList[i]) + "'.\n\nRe-enter the orbital configuration of each shell as a period separated list.")
                 orbitalConfigList.clear()
                 break  # clear the list so we can start over, then break out of this loop so we don't try to check the next element in it, which no longer exists.
 

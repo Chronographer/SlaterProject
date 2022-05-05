@@ -29,42 +29,44 @@ nShield = {"1s_valence": 0.3, "Valence": 0.35, "sp_semicore": 0.85, "Core": 1.0}
 # No shielding, 1s2 toy!
 # nShield = {"1s_valence":0.0, "Valence":1.0, "sp_semicore":1.0, "Core":1.0}
 
-def ComputeShieldingConstants(listN):
+def ComputeShieldingConstants(electronConfigList):
     """Extract shielding constant from occupancy list - through 5d
     These are Ansatz functions, so there's no general formula."""
-    shells = len(listN) + 1
+    shells = len(electronConfigList)
     lists = []
     for i in range(0, shells):
-        if i == 1:
-            lists.append((listN[0] - 1) * nShield["1s_valence"])
-        elif i == 2:
-            lists.append((listN[1] - 1) * nShield["Valence"] + listN[0] * nShield["sp_semicore"])
-        elif i == 3:
-            lists.append((listN[2] - 1) * nShield["Valence"] + listN[1] * nShield["sp_semicore"] + listN[0] * nShield["Core"])
-        elif i == 4:
-            lists.append((listN[3] - 1) * nShield["Valence"] + (listN[2] + listN[1] + listN[0]) * nShield["Core"])
-        elif i == 5:
-            lists.append((listN[4] - 1) * nShield["Valence"] + (listN[3] + listN[2]) * nShield["sp_semicore"] + (listN[1] + listN[0]) * nShield["Core"])
-        elif i == 6:
-            lists.append((listN[5] - 1) * nShield["Valence"] + (listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nShield["Core"])
-        elif i == 7:
-            lists.append((listN[6] - 1) * nShield["Valence"] + (listN[5] + listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nShield["Core"])
-        elif i == 8:
-            lists.append((listN[7] - 1) * nShield["Valence"] + (listN[6] + listN[5] + listN[4]) * nShield["sp_semicore"] + (listN[3] + listN[2] + listN[1] + listN[0]) * nShield["Core"])
-        elif i == 9:
-            lists.append((listN[8] - 1) * nShield["Valence"] + (listN[7] + listN[6] + listN[5] + listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nShield["Core"])
-        elif i == 10:
-            lists.append((listN[9] - 1) * nShield["Valence"] + (listN[8] + listN[7] + listN[6] + listN[5] + listN[4] + listN[3] + listN[2] + listN[1] + listN[0]) * nShield["Core"])
-    # 1s
-    # 2sp
-    # 3sp
-    # 3d
-    # 4sp
-    # 4d
-    # 4f
-    # 5sp
-    # 5d
-    # 6s
+        if i == 0:  # 1s
+            lists.append((electronConfigList[0] - 1) * nShield["1s_valence"])
+        elif i == 1:  # 2sp
+            lists.append((electronConfigList[1] - 1) * nShield["Valence"] + electronConfigList[0] * nShield["sp_semicore"])
+        elif i == 2:  # 3sp
+            lists.append((electronConfigList[2] - 1) * nShield["Valence"] + electronConfigList[1] * nShield["sp_semicore"] + electronConfigList[0] * nShield["Core"])
+        elif i == 3:  # 3d
+            lists.append((electronConfigList[3] - 1) * nShield["Valence"] + (electronConfigList[2] + electronConfigList[1] + electronConfigList[0]) * nShield["Core"])
+        elif i == 4:  # 4sp
+            lists.append((electronConfigList[4] - 1) * nShield["Valence"] + (electronConfigList[3] + electronConfigList[2]) * nShield["sp_semicore"] + (electronConfigList[1] + electronConfigList[0]) * nShield["Core"])
+        elif i == 5:  # 4d
+            lists.append((electronConfigList[5] - 1) * nShield["Valence"] + (electronConfigList[4] + electronConfigList[3] + electronConfigList[2] + electronConfigList[1] + electronConfigList[0]) * nShield["Core"])
+        elif i == 6:  # 4f
+            lists.append((electronConfigList[6] - 1) * nShield["Valence"] + (electronConfigList[5] + electronConfigList[4] + electronConfigList[3] + electronConfigList[2] + electronConfigList[1] + electronConfigList[0]) * nShield["Core"])
+        elif i == 7:  # 5sp
+            lists.append((electronConfigList[7] - 1) * nShield["Valence"] + (electronConfigList[6] + electronConfigList[5] + electronConfigList[4]) * nShield["sp_semicore"] + (electronConfigList[3] + electronConfigList[2] + electronConfigList[1] + electronConfigList[0]) * nShield["Core"])
+        elif i == 8:  # 5d
+            lists.append((electronConfigList[8] - 1) * nShield["Valence"] + (electronConfigList[7] + electronConfigList[6] + electronConfigList[5] + electronConfigList[4] + electronConfigList[3] + electronConfigList[2] + electronConfigList[1] + electronConfigList[0]) * nShield["Core"])
+        elif i == 9:  # 6s
+            lists.append((electronConfigList[9] - 1) * nShield["Valence"] + (electronConfigList[8] + electronConfigList[7] + electronConfigList[6] + electronConfigList[5] + electronConfigList[4] + electronConfigList[3] + electronConfigList[2] + electronConfigList[1] + electronConfigList[0]) * nShield["Core"])
+        elif i == 10:  # *** WARNING: Work in progress. THIS IS NOT CORRECT ***
+            lists.append((electronConfigList[10] - 1) * nShield["Valence"] + (electronConfigList[9] + electronConfigList[9]))  # *** THIS IS NOT CORRECT ***
+
+
+
+
+
+
+
+
+
+
     return lists
 
 
