@@ -21,6 +21,13 @@ while run:
     else:
         atomicNumber = Atoms.periodictable[target].Z
 
+        #  make an actual atom object here
+        elementName = target
+        atomicNumber = Atoms.periodictable[target].Z
+        electronOccupancy = Atoms.periodictable[target].occupancy
+        atom = Atoms.NewAtom(atomicNumber, elementName, electronOccupancy)
+        print(atom)
+
     plotType = inputFunctions.getPlotType()
     derivativeNumber = inputFunctions.chooseDerivativeOptions()
     scaleType = inputFunctions.getScaleType()

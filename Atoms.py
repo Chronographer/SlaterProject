@@ -1,5 +1,26 @@
 """Infrastructure for storing periodic table data for Slater shielding code.
 """
+principalLabels = [1, 2, 3, 3, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9,
+                   9, 9, 9, 9, 10, 10, 10, 10, 10, 10, 10, 11, 11, 11, 11, 11, 11, 12, 12, 12, 12, 12, 13, 13, 13, 13,
+                   14, 14, 14, 15, 15, 16]  # This is principal quantum number N.
+
+magneticLabels = ["1s", "2sp", "3sp", "3d", "4sp", "4d", "4f", "5sp", "5d", "5f", "5g", "6sp", "6d", "6f", "6g", "6h",
+                  "7sp", "7d", "7f", "7g", "7h", "7i", "8sp", "8d", "8f", "8g", "8h", "8i", "8j", "9sp", "9d", "9f",
+                  "9g", "9h", "9i", "9j", "9k", "10sp", "10d", "10f", "10g", "10h", "10i", "10j", "11sp", "11d", "11f",
+                  "11g", "11h", "11i", "12sp", "12d", "12f", "12g", "12h", "13sp", "13d", "13f", "13g", "14sp", "14d",
+                  "14f", "15sp", "15d", "16sp"]  # This is the magnetic quantum number l, combined into Slater groups.
+
+class NewAtom:
+    """A new atom object to better suit my needs."""
+    def __init__(self, atomicNumber, name, occupancy):
+        self.atomicNumber = atomicNumber
+        self.name = name
+        self.occupancy = occupancy
+        self.principalQuantumNumberLabelList = []
+        self.magneticQuantumNumberLabelList = []
+        for i in range(len(self.occupancy)):
+            self.principalQuantumNumberLabelList.append(principalLabels[i])
+            self.magneticQuantumNumberLabelList.append(magneticLabels[i])
 
 
 class Atom:
@@ -65,8 +86,7 @@ class Grid:
 powers = [1, 2, 3, 3, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 9, 9, 9,
           9, 10, 10, 10, 10, 10, 10, 10, 11, 11, 11, 11, 11, 11, 12, 12, 12, 12, 12, 13, 13, 13, 13, 14, 14, 14, 15, 15,
           16]  # this is principal quantum number N
-
-# Why not defined through R (or leave out 5d's, 4f's
+# Why not defined through R (or leave out 5d's, 4f's)
 occupancylabels = ["1s", "2sp", "3sp", "3d", "4sp", "4d", "4f", "5sp", "5d", "5f", "5g", "6sp", "6d", "6f", "6g", "6h",
                    "7sp", "7d", "7f", "7g", "7h", "7i", "8sp", "8d", "8f", "8g", "8h", "8i", "8j", "9sp", "9d", "9f",
                    "9g", "9h", "9i", "9j", "9k", "10sp", "10d", "10f", "10g", "10h", "10i", "10j", "11sp", "11d", "11f",
