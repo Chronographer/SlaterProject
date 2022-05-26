@@ -29,12 +29,19 @@ nShield = {"1s_valence": 0.3, "Valence": 0.35, "sp_semicore": 0.85, "Core": 1.0}
 # No shielding, 1s2 toy!
 # nShield = {"1s_valence":0.0, "Valence":1.0, "sp_semicore":1.0, "Core":1.0}
 
+
+def newShieldingConstantComputer(electronConfigList):
+    shells = len(electronConfigList)
+    lists = []
+
+
+
 def ComputeShieldingConstants(electronConfigList):
     """Extract shielding constant from occupancy list - through 5d
     These are Ansatz functions, so there's no general formula."""
     shells = len(electronConfigList)
     lists = []
-    for i in range(0, shells):
+    for i in range(0, shells):  # this is really 2 nested loops
         if i == 0:  # 1s
             lists.append((electronConfigList[0] - 1) * nShield["1s_valence"])
         elif i == 1:  # 2sp
@@ -55,18 +62,8 @@ def ComputeShieldingConstants(electronConfigList):
             lists.append((electronConfigList[8] - 1) * nShield["Valence"] + (electronConfigList[7] + electronConfigList[6] + electronConfigList[5] + electronConfigList[4] + electronConfigList[3] + electronConfigList[2] + electronConfigList[1] + electronConfigList[0]) * nShield["Core"])
         elif i == 9:  # 6s
             lists.append((electronConfigList[9] - 1) * nShield["Valence"] + (electronConfigList[8] + electronConfigList[7] + electronConfigList[6] + electronConfigList[5] + electronConfigList[4] + electronConfigList[3] + electronConfigList[2] + electronConfigList[1] + electronConfigList[0]) * nShield["Core"])
-        elif i == 10:  # *** WARNING: Work in progress. THIS IS NOT CORRECT ***
-            lists.append((electronConfigList[10] - 1) * nShield["Valence"] + (electronConfigList[9] + electronConfigList[9]))  # *** THIS IS NOT CORRECT ***
-
-
-
-
-
-
-
-
-
-
+        #elif i == 10:  # *** WARNING: Work in progress. THIS IS NOT CORRECT ***
+         #   lists.append((electronConfigList[10] - 1) * nShield["Valence"] + (electronConfigList[9] + electronConfigList[9]))  # *** THIS IS NOT CORRECT ***
     return lists
 
 
@@ -95,14 +92,20 @@ def phi(shielding, energyQuantumNumber, netCharge, arrayX):
 
 
 def n(shielding, energyQuantumNumber, netCharge, arrayX, N):
-    """density for ith shell; returns density and four derivatives, calculated recursively"""
+    """density for ith shell; returns density and four derivatives, calculated recursively
+    shielding -- shielding charge s
+    energyQuantumNumber -- principal quantum number n
+    netCharge -- nuclear charge Z
+    arrayX -- grid of radial positions
+    N -- occupancy number of shell
+    Returns:  shell wavefunction squared * N, first, second, third,  fourth derivatives of nphi"""
     if N == 0:
         array0 = 0.0 * arrayX
         return array0, array0, array0, array0, array0
     else:
         nx = nStar[energyQuantumNumber]
-        mphi = numpy.absolute(phi(shielding, energyQuantumNumber, netCharge, arrayX)) ** 2  # What does 'mphi' stand for?
-        arrayY = N * mphi
+        nphi = numpy.absolute(phi(shielding, energyQuantumNumber, netCharge, arrayX)) ** 2   # probability  density of orbital phi.
+        arrayY = N * nphi
         ayp = 2 * ((nx - 1) / arrayX - (netCharge - shielding) / nx) * arrayY
         ayp2 = 2 * (nx - 1) * (-1 / arrayX ** 2) * arrayY + 2 * ((nx - 1) / arrayX - (netCharge - shielding) / nx) * ayp
         ayp3 = 2 * (nx - 1) * (2 / arrayX ** 3) * arrayY + 2 * 2 * (nx - 1) * (-1 / arrayX ** 2) * ayp + 2 * ((nx - 1) / arrayX - (netCharge - shielding) / nx) * ayp2
@@ -110,7 +113,7 @@ def n(shielding, energyQuantumNumber, netCharge, arrayX, N):
         return arrayY, ayp, ayp2, ayp3, ayp4
 
 
-def shellDensities(arrayX, Z, listN):
+def shellDensities(arrayX, Z, listN):  # check to see if i made this
     """ gives the densities of each shell """
     shieldingValues = ComputeShieldingConstants(listN)
     returnList = []
