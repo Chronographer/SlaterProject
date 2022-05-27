@@ -10,6 +10,7 @@ magneticLabels = ["1s", "2sp", "3sp", "3d", "4sp", "4d", "4f", "5sp", "5d", "5f"
                   "11g", "11h", "11i", "12sp", "12d", "12f", "12g", "12h", "13sp", "13d", "13f", "13g", "14sp", "14d",
                   "14f", "15sp", "15d", "16sp"]  # This is the magnetic quantum number l, combined into Slater groups.
 
+
 class NewAtom:
     """A new atom object to better suit my needs."""
     def __init__(self, atomicNumber, name, occupancy):

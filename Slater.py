@@ -30,10 +30,11 @@ nShield = {"1s_valence": 0.3, "Valence": 0.35, "sp_semicore": 0.85, "Core": 1.0}
 # nShield = {"1s_valence":0.0, "Valence":1.0, "sp_semicore":1.0, "Core":1.0}
 
 
-def newShieldingConstantComputer(electronConfigList):
-    shells = len(electronConfigList)
+def newShieldingConstantComputer(atom):
+    shells = len(atom.occupancy)
     lists = []
-
+    '''for i in range(0, shells):
+        for j in range():'''
 
 
 def ComputeShieldingConstants(electronConfigList):
@@ -124,6 +125,36 @@ def shellDensities(arrayX, Z, listN):  # check to see if i made this
         # only want the density of each shell, and want list over shells
         returnList.append(n(shieldingConstant, e, Z, arrayX, N)[0])
     return returnList
+
+
+def newDensity(atom):
+    """gets total density and its derivatives, summing over shells \n
+    arrayX -- array of radial positions \n
+    listN  -- list of shell occupancy numbers \n
+    netCharge -- net charge"""
+    shieldingValues = ComputeShieldingConstants(atom)
+    length = len(arrayX)
+    final = numpy.zeros(length)
+    finalP1 = numpy.zeros(length)
+    finalP2 = numpy.zeros(length)
+    finalP3 = numpy.zeros(length)
+    finalP4 = numpy.zeros(length)
+    componentList = []
+    for j in range(len(listN)):
+        shieldingConstant = shieldingValues[j]
+        e = energy[j]
+        N = listN[j]
+        if N > 0:
+            dens, densP1, densP2, densP3, densP4 = n(shieldingConstant, e, netCharge, arrayX, N)
+            final = final + dens
+            finalP1 = finalP1 + densP1
+            finalP2 = finalP2 + densP2
+            finalP3 = finalP3 + densP3
+            finalP4 = finalP4 + densP4
+            densDerivativeList = [dens, densP1, densP2, densP3, densP4]
+            componentList.append(densDerivativeList)
+    finalDerivativeList = [final, finalP1, finalP2, finalP3, finalP4]
+    return finalDerivativeList, componentList
 
 
 def density(arrayX, netCharge, listN):

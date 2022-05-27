@@ -39,6 +39,7 @@ while run:
         orbitalConfigList = Atoms.periodictable[target].occupancy
 
     dty, components = Slater.density(arrayX, atomicNumber, orbitalConfigList)
+    dty, components = Slater.newDensity(atom)
     # dty = Slater.grlaglll(arrayX, atomicNumber, orbitalConfigList)
     dty = 4 * numpy.pi * arrayX ** 2 * dty
     yList = []
