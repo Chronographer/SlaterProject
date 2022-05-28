@@ -31,10 +31,28 @@ nShield = {"1s_valence": 0.3, "Valence": 0.35, "sp_semicore": 0.85, "Core": 1.0}
 
 
 def newShieldingConstantComputer(atom):
-    shells = len(atom.occupancy)
-    lists = []
-    '''for i in range(0, shells):
-        for j in range():'''
+    shellLength = len(atom.occupancy)
+    shellOccupancy = atom.occupancy
+    l = atom.magneticQuantumNumberLabelList  # l[i] is the magnetic quantum number of an electron, ie 'sp' 'd' 'f' etc
+    shielding = 0
+    for i in range(0, shellLength):
+        if i == 0:  # this is the 1s shell.
+            shielding = shielding + 0.3 * (shellOccupancy[i]-1)
+        else:
+            for j in range(0, i-1):
+                if j == i:
+                    shielding = shielding + 0.35 * (shellOccupancy[i]-1)
+                else:
+                    if l[i] == 'd' or l[i] == 'f':
+                        shielding = shielding + (shellOccupancy[i]-1)
+                    elif l[i] == 'sp':
+                        if shellOccupancy[j] >= shellOccupancy[i]-1:
+                            shielding = shielding + 0.85 * (shellOccupancy[i]-1)
+                        else:
+                            shielding = shielding + (shellOccupancy[i]-1)
+                    else:
+                        print("WARNING: There were unrecognized characters in the list of magnetic labels. This most likely means some shells were skipped!")
+    return shielding
 
 
 def ComputeShieldingConstants(electronConfigList):
@@ -127,7 +145,7 @@ def shellDensities(arrayX, Z, listN):  # check to see if i made this
     return returnList
 
 
-def newDensity(atom):
+'''def newDensity(atom):
     """gets total density and its derivatives, summing over shells \n
     arrayX -- array of radial positions \n
     listN  -- list of shell occupancy numbers \n
@@ -154,7 +172,7 @@ def newDensity(atom):
             densDerivativeList = [dens, densP1, densP2, densP3, densP4]
             componentList.append(densDerivativeList)
     finalDerivativeList = [final, finalP1, finalP2, finalP3, finalP4]
-    return finalDerivativeList, componentList
+    return finalDerivativeList, componentList'''
 
 
 def density(arrayX, netCharge, listN):
@@ -163,6 +181,7 @@ def density(arrayX, netCharge, listN):
     listN  -- list of shell occupancy numbers \n
     netCharge -- net charge"""
     shieldingValues = ComputeShieldingConstants(listN)
+    print("output of computeShieldingConstants() is \n" + str(shieldingValues))
     length = len(arrayX)
     final = numpy.zeros(length)
     finalP1 = numpy.zeros(length)

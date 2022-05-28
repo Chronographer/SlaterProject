@@ -27,6 +27,8 @@ while run:
         electronOccupancy = Atoms.periodictable[target].occupancy
         atom = Atoms.NewAtom(atomicNumber, elementName, electronOccupancy)
         print(atom)
+        k = Slater.newShieldingConstantComputer(atom)
+        print(k)
 
     plotType = inputFunctions.getPlotType()
     derivativeNumber = inputFunctions.chooseDerivativeOptions()
@@ -39,7 +41,7 @@ while run:
         orbitalConfigList = Atoms.periodictable[target].occupancy
 
     dty, components = Slater.density(arrayX, atomicNumber, orbitalConfigList)
-    dty, components = Slater.newDensity(atom)
+    # dty, components = Slater.newDensity(atom)
     # dty = Slater.grlaglll(arrayX, atomicNumber, orbitalConfigList)
     dty = 4 * numpy.pi * arrayX ** 2 * dty
     yList = []
