@@ -33,7 +33,7 @@ nShield = {"1s_valence": 0.3, "Valence": 0.35, "sp_semicore": 0.85, "Core": 1.0}
 def newShieldingConstantComputer(atom):
     shellLength = len(atom.occupancy)
     shellOccupancy = atom.occupancy
-    l = atom.magneticQuantumNumberLabelList  # l[i] is the magnetic quantum number of an electron, ie 'sp' 'd' 'f' etc
+    magneticQuantumNumberList = atom.magneticQuantumNumberLabelList  # l[i] is the magnetic quantum number of an electron, ie 'sp' 'd' 'f' etc
     shielding = 0
     for i in range(0, shellLength):
         if i == 0:  # this is the 1s shell.
@@ -43,16 +43,16 @@ def newShieldingConstantComputer(atom):
                 if j == i:
                     shielding = shielding + 0.35 * (shellOccupancy[i]-1)
                 else:
-                    if l[i] == 'd' or l[i] == 'f':
+                    if magneticQuantumNumberList[i] == 'd' or magneticQuantumNumberList[i] == 'f':
                         shielding = shielding + (shellOccupancy[i]-1)
-                    elif l[i] == 'sp':
+                    elif magneticQuantumNumberList[i] == 'sp':
                         if shellOccupancy[j] >= shellOccupancy[i]-1:
                             shielding = shielding + 0.85 * (shellOccupancy[i]-1)
                         else:
                             shielding = shielding + (shellOccupancy[i]-1)
                     else:
                         print("WARNING: There were unrecognized characters in the list of magnetic labels. This most likely means some shells were skipped!")
-    return shielding
+    return shielding  # this should be (Z effective) however I dont think it is quite right yet.
 
 
 def ComputeShieldingConstants(electronConfigList):
