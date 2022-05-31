@@ -26,9 +26,9 @@ while run:
         atomicNumber = Atoms.periodictable[target].Z
         electronOccupancy = Atoms.periodictable[target].occupancy
         atom = Atoms.NewAtom(atomicNumber, elementName, electronOccupancy)
-        print(atom)
-        k = Slater.newShieldingConstantComputer(atom)
-        print(k)
+        total, lists = Slater.newShieldingConstantComputer(atom)
+        print("total is: " + str(total))
+        print("output of new computeShieldingConstants is: " + str(lists))
 
     plotType = inputFunctions.getPlotType()
     derivativeNumber = inputFunctions.chooseDerivativeOptions()

@@ -35,24 +35,33 @@ def newShieldingConstantComputer(atom):
     shellOccupancy = atom.occupancy
     magneticQuantumNumberList = atom.magneticQuantumNumberLabelList  # l[i] is the magnetic quantum number of an electron, ie 'sp' 'd' 'f' etc
     shielding = 0
+    lists = []
+    for i in range(0, shellLength):
+        lists.append([])
+    print("empty lists: " + str(lists))
     for i in range(0, shellLength):
         if i == 0:  # this is the 1s shell.
             shielding = shielding + 0.3 * (shellOccupancy[i]-1)
+            lists[i].append(shellOccupancy[i]-1)
         else:
             for j in range(0, i-1):
                 if j == i:
                     shielding = shielding + 0.35 * (shellOccupancy[i]-1)
+                    lists[i].append(shellOccupancy[i] - 1)
                 else:
                     if magneticQuantumNumberList[i] == 'd' or magneticQuantumNumberList[i] == 'f':
                         shielding = shielding + (shellOccupancy[i]-1)
+                        lists[i].append(shellOccupancy[i] - 1)
                     elif magneticQuantumNumberList[i] == 'sp':
                         if shellOccupancy[j] >= shellOccupancy[i]-1:
                             shielding = shielding + 0.85 * (shellOccupancy[i]-1)
+                            lists[i].append(shellOccupancy[i] - 1)
                         else:
                             shielding = shielding + (shellOccupancy[i]-1)
+                            lists[i].append(shellOccupancy[i] - 1)
                     else:
                         print("WARNING: There were unrecognized characters in the list of magnetic labels. This most likely means some shells were skipped!")
-    return shielding  # this should be (Z effective) however I dont think it is quite right yet.
+    return shielding, lists  # this should be (Z effective) however I dont think it is quite right yet.
 
 
 def ComputeShieldingConstants(electronConfigList):
@@ -181,7 +190,7 @@ def density(arrayX, netCharge, listN):
     listN  -- list of shell occupancy numbers \n
     netCharge -- net charge"""
     shieldingValues = ComputeShieldingConstants(listN)
-    print("output of computeShieldingConstants() is \n" + str(shieldingValues))
+    print("output of old computeShieldingConstants is: " + str(shieldingValues))
     length = len(arrayX)
     final = numpy.zeros(length)
     finalP1 = numpy.zeros(length)
