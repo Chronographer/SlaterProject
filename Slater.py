@@ -33,35 +33,25 @@ nShield = {"1s_valence": 0.3, "Valence": 0.35, "sp_semicore": 0.85, "Core": 1.0}
 def newShieldingConstantComputer(atom):
     shellLength = len(atom.occupancy)
     shellOccupancy = atom.occupancy
-    magneticQuantumNumberList = atom.magneticQuantumNumberLabelList  # l[i] is the magnetic quantum number of an electron, ie 'sp' 'd' 'f' etc
-    shielding = 0
+    principalQuantumNumber = atom.principalQuantumNumberLabelList
+    angularMomentumLabel = atom.magneticQuantumNumberLabelList  # l[i] is the magnetic quantum number of an electron, ie 'sp' 'd' 'f' etc
+    shielding = 0.0
     lists = []
-    for i in range(0, shellLength):
-        lists.append([])
     print("empty lists: " + str(lists))
     for i in range(0, shellLength):
+        shielding = 0.0
         if i == 0:  # this is the 1s shell.
             shielding = shielding + 0.3 * (shellOccupancy[i]-1)
-            lists[i].append(shellOccupancy[i]-1)
         else:
-            for j in range(0, i-1):
+            for j in range(0, i+1):
                 if j == i:
-                    shielding = shielding + 0.35 * (shellOccupancy[i]-1)
-                    lists[i].append(shellOccupancy[i] - 1)
+                    shielding = shielding + 0.35 * (shellOccupancy[j]-1)
+                elif angularMomentumLabel[i] == 'sp' and principalQuantumNumber[j] == principalQuantumNumber[i]-1:
+                    shielding = shielding + 0.85 * (shellOccupancy[j])
                 else:
-                    if magneticQuantumNumberList[i] == 'd' or magneticQuantumNumberList[i] == 'f':
-                        shielding = shielding + (shellOccupancy[i]-1)
-                        lists[i].append(shellOccupancy[i] - 1)
-                    elif magneticQuantumNumberList[i] == 'sp':
-                        if shellOccupancy[j] >= shellOccupancy[i]-1:
-                            shielding = shielding + 0.85 * (shellOccupancy[i]-1)
-                            lists[i].append(shellOccupancy[i] - 1)
-                        else:
-                            shielding = shielding + (shellOccupancy[i]-1)
-                            lists[i].append(shellOccupancy[i] - 1)
-                    else:
-                        print("WARNING: There were unrecognized characters in the list of magnetic labels. This most likely means some shells were skipped!")
-    return shielding, lists  # this should be (Z effective) however I dont think it is quite right yet.
+                    shielding = shielding + (shellOccupancy[j])
+        lists.append(shielding)
+    return lists  # this should be (Z effective) 
 
 
 def ComputeShieldingConstants(electronConfigList):
