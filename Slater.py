@@ -142,12 +142,15 @@ def shellDensities(arrayX, Z, listN):  # check to see if i made this
     return returnList
 
 
-'''def newDensity(atom):
+def newDensity(arrayX, atom):
     """gets total density and its derivatives, summing over shells \n
     arrayX -- array of radial positions \n
     listN  -- list of shell occupancy numbers \n
     netCharge -- net charge"""
-    shieldingValues = ComputeShieldingConstants(atom)
+    shieldingValues = newShieldingConstantComputer(atom)
+    netCharge = atom.atomicNumber
+    listN = atom.occupancy
+    print("output of old computeShieldingConstants is: " + str(shieldingValues))
     length = len(arrayX)
     final = numpy.zeros(length)
     finalP1 = numpy.zeros(length)
@@ -169,19 +172,17 @@ def shellDensities(arrayX, Z, listN):  # check to see if i made this
             densDerivativeList = [dens, densP1, densP2, densP3, densP4]
             componentList.append(densDerivativeList)
     finalDerivativeList = [final, finalP1, finalP2, finalP3, finalP4]
-    return finalDerivativeList, componentList'''
+    return finalDerivativeList, componentList
 
 
-def density(arrayX, atom):
+def density(arrayX, netCharge, listN):
     """gets total density and its derivatives, summing over shells \n
     arrayX -- array of radial positions \n
     listN  -- list of shell occupancy numbers \n
     netCharge -- net charge"""
-    # shieldingValues = ComputeShieldingConstants(listN)
-    shieldingValues = newShieldingConstantComputer(atom)
-    netCharge = atom.atomicNumber
-    listN = atom.occupancy
-    print("output of old computeShieldingConstants is: " + str(shieldingValues))
+    shieldingValues = ComputeShieldingConstants(listN)
+    # shieldingValues = newShieldingConstantComputer(atom) # this wont work, need to have newShieldingConstantComputer() take data extracted from the atom object, not the object itself.
+    # print("output of old computeShieldingConstants is: " + str(shieldingValues))
     length = len(arrayX)
     final = numpy.zeros(length)
     finalP1 = numpy.zeros(length)
