@@ -80,8 +80,6 @@ def ComputeShieldingConstants(electronConfigList):
             lists.append((electronConfigList[8] - 1) * nShield["Valence"] + (electronConfigList[7] + electronConfigList[6] + electronConfigList[5] + electronConfigList[4] + electronConfigList[3] + electronConfigList[2] + electronConfigList[1] + electronConfigList[0]) * nShield["Core"])
         elif i == 9:  # 6s
             lists.append((electronConfigList[9] - 1) * nShield["Valence"] + (electronConfigList[8] + electronConfigList[7] + electronConfigList[6] + electronConfigList[5] + electronConfigList[4] + electronConfigList[3] + electronConfigList[2] + electronConfigList[1] + electronConfigList[0]) * nShield["Core"])
-        #elif i == 10:  # *** WARNING: Work in progress. THIS IS NOT CORRECT ***
-         #   lists.append((electronConfigList[10] - 1) * nShield["Valence"] + (electronConfigList[9] + electronConfigList[9]))  # *** THIS IS NOT CORRECT ***
     return lists
 
 
@@ -174,12 +172,15 @@ def shellDensities(arrayX, Z, listN):  # check to see if i made this
     return finalDerivativeList, componentList'''
 
 
-def density(arrayX, netCharge, listN):
+def density(arrayX, atom):
     """gets total density and its derivatives, summing over shells \n
     arrayX -- array of radial positions \n
     listN  -- list of shell occupancy numbers \n
     netCharge -- net charge"""
-    shieldingValues = ComputeShieldingConstants(listN)
+    # shieldingValues = ComputeShieldingConstants(listN)
+    shieldingValues = newShieldingConstantComputer(atom)
+    netCharge = atom.atomicNumber
+    listN = atom.occupancy
     print("output of old computeShieldingConstants is: " + str(shieldingValues))
     length = len(arrayX)
     final = numpy.zeros(length)
