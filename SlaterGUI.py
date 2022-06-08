@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import Atoms
 
 # need to do: add documentation about how to use stuff and what it means, look into pypi stuff
-labelList = ["cumulative density", "1s subshell", "2s&p subshell", "3s&p subshell", "3d subshell", "4s&p subshell", "4d subshell", "4f subshell", "5s&p subshell", "5d subshell"]  # this list of strings is used in the legend of matplotlib plots.
+labelList = ["cumulative density", "1s subshell", "2s&p subshell", "3s&p subshell", "3d subshell", "4s&p subshell", "4d subshell", "4f subshell", "5s&p subshell", "5d subshell", "5f subshell", "placeholder 1 subshell", "placeholder 2 subshell", "placeholder 3 subshell"]  # this list of strings is used in the legend of matplotlib plots.
 run = True
 
 
@@ -19,15 +19,13 @@ while run:
     if target == "manual":
         atomicNumber = inputFunctions.getAtomicNumber()
     else:
-        atomicNumber = Atoms.periodictable[target].Z
-
         #  make an actual atom object here
         elementName = target
         atomicNumber = Atoms.periodictable[target].Z
         electronOccupancy = Atoms.periodictable[target].occupancy
         atom = Atoms.NewAtom(atomicNumber, elementName, electronOccupancy)
-        lists = Slater.newShieldingConstantComputer(atom)
-        print("output of new computeShieldingConstants is: " + str(lists))
+        lists = Slater.newComputeShieldingConstants(atom)
+        # print("output of new computeShieldingConstants is: " + str(lists))
 
     plotType = inputFunctions.getPlotType()
     derivativeNumber = inputFunctions.chooseDerivativeOptions()
@@ -60,9 +58,12 @@ while run:
 
     for i in range(len(yListMaster)):  # This ensures that labels in the legend are applied correctly by skipping the first label in the list of label handles if the cumulative plot is not present.
         if plotType == "cumulative" or plotType == "both":
-            plt.plot(arrayX, yListMaster[i], label=labelList[i])
+            if i == 0:
+                plt.plot(arrayX, yListMaster[i], label="cumulative density")
+            else:
+                plt.plot(arrayX, yListMaster[i], label=str(atom.principalQuantumNumberLabelList[i-1]) + atom.magneticQuantumNumberLabelList[i-1] + " subshell")
         else:
-            plt.plot(arrayX, yListMaster[i], label=labelList[i + 1])
+            plt.plot(arrayX, yListMaster[i], label=str(atom.principalQuantumNumberLabelList[i]) + atom.magneticQuantumNumberLabelList[i] + " subshell")  # Replace label list with something constructed from the atom object itself.
 
     if derivativeNumber != 0:  # makes the title reflect whether you are plotting just the density or one of it's derivatives.
         plt.title("Plot of charge density (" + inputFunctions.derivativeOptions[derivativeNumber] + ") vs. radius for atomic number " + str(atomicNumber) + "\nScale type: " + scaleType)

@@ -17,10 +17,10 @@ import numpy
 import Gamma
 
 # List to extract from occupancy list the energy
-energy = [1, 2, 3, 3, 4, 4, 4, 5, 5, 6]
+energy = [1, 2, 3, 3, 4, 4, 4, 5, 5, 6]  # replace this with data pulled from atom object
 
 # The effective energy level dict
-nStar = {1: 1.0, 2: 2.0, 3: 3.0, 4: 3.7, 5: 4.0, 6: 4.2}
+nStar = {1: 1.0, 2: 2.0, 3: 3.0, 4: 3.7, 5: 4.0, 6: 4.2, 7: 4.1}  # item 7 is a guess
 
 # The shielding level dict
 nShield = {"1s_valence": 0.3, "Valence": 0.35, "sp_semicore": 0.85, "Core": 1.0}
@@ -30,16 +30,14 @@ nShield = {"1s_valence": 0.3, "Valence": 0.35, "sp_semicore": 0.85, "Core": 1.0}
 # nShield = {"1s_valence":0.0, "Valence":1.0, "sp_semicore":1.0, "Core":1.0}
 
 
-def newShieldingConstantComputer(atom):
+def newComputeShieldingConstants(atom):
     shellLength = len(atom.occupancy)
     shellOccupancy = atom.occupancy
     principalQuantumNumber = atom.principalQuantumNumberLabelList
     angularMomentumLabel = atom.magneticQuantumNumberLabelList  # l[i] is the magnetic quantum number of an electron, ie 'sp' 'd' 'f' etc
-    shielding = 0.0
     lists = []
-    print("empty lists: " + str(lists))
     for i in range(0, shellLength):
-        shielding = 0.0
+        shielding = 0
         if i == 0:  # this is the 1s shell.
             shielding = shielding + 0.3 * (shellOccupancy[i]-1)
         else:
@@ -147,10 +145,9 @@ def newDensity(arrayX, atom):
     arrayX -- array of radial positions \n
     listN  -- list of shell occupancy numbers \n
     netCharge -- net charge"""
-    shieldingValues = newShieldingConstantComputer(atom)
+    shieldingValues = newComputeShieldingConstants(atom)
     netCharge = atom.atomicNumber
     listN = atom.occupancy
-    print("output of old computeShieldingConstants is: " + str(shieldingValues))
     length = len(arrayX)
     final = numpy.zeros(length)
     finalP1 = numpy.zeros(length)
@@ -160,9 +157,9 @@ def newDensity(arrayX, atom):
     componentList = []
     for j in range(len(listN)):
         shieldingConstant = shieldingValues[j]
-        e = energy[j]
+        e = atom.principalQuantumNumberLabelList[j]
         N = listN[j]
-        if N > 0:
+        if N >= 0:  # This used to be just if N > 0. It was causing the label system to break, I don't think changing it will create any problems but it might be possible.
             dens, densP1, densP2, densP3, densP4 = n(shieldingConstant, e, netCharge, arrayX, N)
             final = final + dens
             finalP1 = finalP1 + densP1
@@ -181,7 +178,7 @@ def density(arrayX, netCharge, listN):
     listN  -- list of shell occupancy numbers \n
     netCharge -- net charge"""
     shieldingValues = ComputeShieldingConstants(listN)
-    # shieldingValues = newShieldingConstantComputer(atom) # this wont work, need to have newShieldingConstantComputer() take data extracted from the atom object, not the object itself.
+    # shieldingValues = newComputeShieldingConstants(atom) # this wont work, need to have newComputeShieldingConstants() take data extracted from the atom object, not the object itself.
     # print("output of old computeShieldingConstants is: " + str(shieldingValues))
     length = len(arrayX)
     final = numpy.zeros(length)
