@@ -34,7 +34,7 @@ def newComputeShieldingConstants(atom):
     shellLength = len(atom.occupancy)
     shellOccupancy = atom.occupancy
     principalQuantumNumber = atom.principalQuantumNumberLabelList
-    angularMomentumLabel = atom.magneticQuantumNumberLabelList  # l[i] is the magnetic quantum number of an electron, ie 'sp' 'd' 'f' etc
+    angularMomentumLabel = atom.azimuthalQuantumNumberLabelList  # l[i] is the magnetic quantum number of an electron, ie 'sp' 'd' 'f' etc
     lists = []
     for i in range(0, shellLength):
         shielding = 0

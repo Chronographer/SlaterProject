@@ -4,10 +4,10 @@ principalLabels = [1, 2, 3, 3, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7
                    9, 9, 9, 9, 10, 10, 10, 10, 10, 10, 10, 11, 11, 11, 11, 11, 11, 12, 12, 12, 12, 12, 13, 13, 13, 13,
                    14, 14, 14, 15, 15, 16]  # This is principal quantum number N. combine with magnetic labels to get "1s" "2sp", "3sp", etc
 
-magneticLabels = ["s", "sp", "sp", "d", "sp", "d", "f", "sp", "d", "f", "g", "sp", "d", "f", "g", "h", "sp", "d", "f",
-                  "g", "h", "i", "sp", "d", "f", "g", "h", "i", "j", "sp", "d", "f", "g", "h", "i", "j", "k", "sp", "d",
-                  "f", "g", "h", "i", "j", "sp", "d", "f", "g", "h", "i", "sp", "d", "f", "g", "h", "sp", "d", "f", "g",
-                  "sp", "d", "f", "sp", "d", "sp"]  # This is the magnetic quantum number l, combined into Slater groups.
+azimuthalLabels = ["s", "sp", "sp", "d", "sp", "d", "f", "sp", "d", "f", "g", "sp", "d", "f", "g", "h", "sp", "d", "f",
+                   "g", "h", "i", "sp", "d", "f", "g", "h", "i", "j", "sp", "d", "f", "g", "h", "i", "j", "k", "sp",
+                   "d", "f", "g", "h", "i", "j", "sp", "d", "f", "g", "h", "i", "sp", "d", "f", "g", "h", "sp", "d",
+                   "f", "g", "sp", "d", "f", "sp", "d", "sp"]  # This is the magnetic quantum number l, combined into Slater groups.
 
 
 class NewAtom:
@@ -17,10 +17,10 @@ class NewAtom:
         self.name = name
         self.occupancy = occupancy
         self.principalQuantumNumberLabelList = []
-        self.magneticQuantumNumberLabelList = []
+        self.azimuthalQuantumNumberLabelList = []
         for i in range(len(self.occupancy)):
             self.principalQuantumNumberLabelList.append(principalLabels[i])
-            self.magneticQuantumNumberLabelList.append(magneticLabels[i])
+            self.azimuthalQuantumNumberLabelList.append(azimuthalLabels[i])
 
 
 class Atom:
