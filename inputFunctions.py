@@ -9,6 +9,10 @@ derivativeOptions = ["None", "First derivative", "Second derivative", "Third Der
 
 
 def getElementNameInput():
+    """Handles user input of desired element to model.\n
+    Takes a string as input which should either be 'manual' or a case sensitive element abbreviation.\n
+    Returns a string containing either a valid element abbreviation or the string 'manual'.\n
+    It also handles invalid selections by clearing the user input and trying again if the input cannot be matched to an element from the 'periodictable{}' dictionary in Atoms.py"""
     elementInput = enterbox("Enter the abbreviation for the element you wish to model, or type 'manual' to manually specify the atomic number and Slater electron configuration.")
     elementCodeIsValid = False
     while not elementCodeIsValid:
@@ -88,7 +92,7 @@ def getScaleType():
 def getPlotType():
     """Asks the user if they want to plot the cumulative density of the
     system, (factoring in all shells and their screening), just the component
-    density for each shell (not considering screening from other shells) or both."""
+    density for each shell (just showing the contributions from each individual shell) or both."""
     plotTypeOptions = ["cumulative", "components", "both"]
     plotType = buttonbox("What would you like to plot?", "Plot Type", plotTypeOptions)
     return plotType

@@ -17,11 +17,10 @@ while run:
 
     if target == "manual":
         atomicNumber = inputFunctions.getAtomicNumber()
-        orbitalConfigList = inputFunctions.getElectronConfigInput()
+        electronOccupancy = inputFunctions.getElectronConfigInput()
         elementName = "placeholder element name"
-        atom = Atoms.NewAtom(atomicNumber, elementName, orbitalConfigList)
+        atom = Atoms.NewAtom(atomicNumber, elementName, electronOccupancy)
     else:
-        #  make an actual atom object here
         elementName = target
         atomicNumber = Atoms.periodictable[target].Z  # at some point I want to make it so I don't need to build a newAtom object from an existing atom object.
         electronOccupancy = Atoms.periodictable[target].occupancy
