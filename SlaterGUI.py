@@ -9,7 +9,6 @@ import matplotlib.pyplot as plt
 import Atoms
 
 # need to do: add documentation about how to use stuff and what it means, look into pypi stuff
-labelList = ["cumulative density", "1s subshell", "2s&p subshell", "3s&p subshell", "3d subshell", "4s&p subshell", "4d subshell", "4f subshell", "5s&p subshell", "5d subshell", "5f subshell", "placeholder 1 subshell", "placeholder 2 subshell", "placeholder 3 subshell"]  # this list of strings is used in the legend of matplotlib plots.
 run = True
 
 
@@ -18,14 +17,16 @@ while run:
 
     if target == "manual":
         atomicNumber = inputFunctions.getAtomicNumber()
+        orbitalConfigList = inputFunctions.getElectronConfigInput()
+        elementName = "placeholder element name"
+        atom = Atoms.NewAtom(atomicNumber, elementName, orbitalConfigList)
     else:
         #  make an actual atom object here
         elementName = target
-        atomicNumber = Atoms.periodictable[target].Z
+        atomicNumber = Atoms.periodictable[target].Z  # at some point I want to make it so I don't need to build a newAtom object from an existing atom object.
         electronOccupancy = Atoms.periodictable[target].occupancy
         atom = Atoms.NewAtom(atomicNumber, elementName, electronOccupancy)
         lists = Slater.newComputeShieldingConstants(atom)
-        # print("output of new computeShieldingConstants is: " + str(lists))
 
     plotType = inputFunctions.getPlotType()
     derivativeNumber = inputFunctions.chooseDerivativeOptions()
@@ -33,39 +34,34 @@ while run:
     arrayX = inputFunctions.getArrayX(scaleType)
 
     if target == "manual":
-        orbitalConfigList = inputFunctions.getElectronConfigInput()
-        dty, components = Slater.density(arrayX, atomicNumber, orbitalConfigList)
+        dty, components = Slater.newDensity(arrayX, atom)
     else:
-        orbitalConfigList = Atoms.periodictable[target].occupancy
         dty, components = Slater.newDensity(arrayX, atom)
 
-
-    # dty, components = Slater.newDensity(atom)
-    # dty = Slater.grlaglll(arrayX, atomicNumber, orbitalConfigList)
     dty = 4 * numpy.pi * arrayX ** 2 * dty
     yList = []
     yListMaster = []
 
-    if plotType == "cumulative" or plotType == "both":  # Plots the density of the entire system as a single data set.
+    if plotType == "cumulative" or plotType == "both":  # Plots the combined density of every shell in the system as a single data set, without showing the contributions of each shell individual .
         for i in range(len(arrayX)):
             yList.append(dty[derivativeNumber][i])
         yListMaster.append(yList)
 
-    if plotType == "components" or plotType == "both":  # Plots the density of each individual shell without considering screening from other shells, each as its own data set.
+    if plotType == "components" or plotType == "both":  # Plots the contribution to the density from each individual shell as its own data set.
         for index in range(len(components)):
             components[index][derivativeNumber] = 4 * numpy.pi * arrayX ** 2 * components[index][derivativeNumber]
             yListMaster.append(components[index][derivativeNumber])
 
-    for i in range(len(yListMaster)):  # This ensures that labels in the legend are applied correctly by skipping the first label in the list of label handles if the cumulative plot is not present.
+    for i in range(len(yListMaster)):  # This loop adds the desired plots to the output graph, and ensures they have the appropriate label in the legend.
         if plotType == "cumulative" or plotType == "both":
             if i == 0:
-                plt.plot(arrayX, yListMaster[i], label="cumulative density")
+                plt.plot(arrayX, yListMaster[i], label="cumulative density")  # Since the cumulative density is the first thing to be plotted, we want that to be the first label. We insert it manually as a special case because that string can't be constructed from stuff already in the atom object.
             else:
-                plt.plot(arrayX, yListMaster[i], label=str(atom.principalQuantumNumberLabelList[i-1]) + atom.magneticQuantumNumberLabelList[i-1] + " subshell")
+                plt.plot(arrayX, yListMaster[i], label=str(atom.principalQuantumNumberLabelList[i-1]) + atom.magneticQuantumNumberLabelList[i-1] + " subshell")  # After the first label, we can construct the "<PrincipalQuantumNumber><AzimuthalQuantumNumber> subshell" string/label from data stored in the atom itself. (ie, "2sp subshell", "4d subshell", etc) but we have to use [i-1] because the first label is taken by the cumulative plot.
         else:
-            plt.plot(arrayX, yListMaster[i], label=str(atom.principalQuantumNumberLabelList[i]) + atom.magneticQuantumNumberLabelList[i] + " subshell")  # Replace label list with something constructed from the atom object itself.
+            plt.plot(arrayX, yListMaster[i], label=str(atom.principalQuantumNumberLabelList[i]) + atom.magneticQuantumNumberLabelList[i] + " subshell")  # This does not need the [i-1] part, because the cumulative density is not being plotted, and so is not being labeled. Thus we can generate ALL labels from the atom object itself.
 
-    if derivativeNumber != 0:  # makes the title reflect whether you are plotting just the density or one of it's derivatives.
+    if derivativeNumber != 0:  # This makes the title reflect whether you are plotting just the density or one of it's derivatives.
         plt.title("Plot of charge density (" + inputFunctions.derivativeOptions[derivativeNumber] + ") vs. radius for atomic number " + str(atomicNumber) + "\nScale type: " + scaleType)
     else:
         plt.title("Plot of charge density vs. radius for atomic number " + str(atomicNumber) + "\nScale type: " + scaleType)
