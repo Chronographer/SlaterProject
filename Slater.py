@@ -159,15 +159,14 @@ def newDensity(arrayX, atom):
         shieldingConstant = shieldingValues[j]
         e = atom.principalQuantumNumberLabelList[j]
         N = listN[j]
-        if N >= 0:  # This used to be just if N > 0. It was causing the label system to break, I don't think changing it will create any problems but it might be possible.
-            dens, densP1, densP2, densP3, densP4 = n(shieldingConstant, e, netCharge, arrayX, N)
-            final = final + dens
-            finalP1 = finalP1 + densP1
-            finalP2 = finalP2 + densP2
-            finalP3 = finalP3 + densP3
-            finalP4 = finalP4 + densP4
-            densDerivativeList = [dens, densP1, densP2, densP3, densP4]
-            componentList.append(densDerivativeList)
+        dens, densP1, densP2, densP3, densP4 = n(shieldingConstant, e, netCharge, arrayX, N)
+        final = final + dens
+        finalP1 = finalP1 + densP1
+        finalP2 = finalP2 + densP2
+        finalP3 = finalP3 + densP3
+        finalP4 = finalP4 + densP4
+        densDerivativeList = [dens, densP1, densP2, densP3, densP4]
+        componentList.append(densDerivativeList)
     finalDerivativeList = [final, finalP1, finalP2, finalP3, finalP4]
     return finalDerivativeList, componentList
 

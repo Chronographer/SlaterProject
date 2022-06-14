@@ -56,9 +56,25 @@ while run:
             if i == 0:
                 plt.plot(arrayX, yListMaster[i], label="cumulative density")  # Since the cumulative density is the first thing to be plotted, we want that to be the first label. We insert it manually as a special case because that string can't be constructed from stuff already in the atom object.
             else:
-                plt.plot(arrayX, yListMaster[i], label=str(atom.principalQuantumNumberLabelList[i-1]) + atom.azimuthalQuantumNumberLabelList[i - 1] + " subshell")  # After the first label, we can construct the "<PrincipalQuantumNumber><AzimuthalQuantumNumber> subshell" string/label from data stored in the atom itself. (ie, "2sp subshell", "4d subshell", etc) but we have to use [i-1] because the first label is taken by the cumulative plot.
+                legendLabel = str(atom.principalQuantumNumberLabelList[i-1]) + atom.azimuthalQuantumNumberLabelList[i-1] + " subshell"  # After the first label, we can construct the "<PrincipalQuantumNumber><AzimuthalQuantumNumber> subshell" string/label from data stored in the atom itself. (ie, "2sp subshell", "4d subshell", etc) but we have to use [i-1] because the first label is taken by the cumulative plot.
+                orbitalIsEmptyFlag = True
+                for index in range(len(yListMaster[i])):
+                    if not yListMaster[i][index] == 0:
+                        orbitalIsEmptyFlag = False
+                        break
+                if orbitalIsEmptyFlag:
+                    legendLabel = legendLabel + " (empty)"
+                plt.plot(arrayX, yListMaster[i], label=legendLabel)
         else:
-            plt.plot(arrayX, yListMaster[i], label=str(atom.principalQuantumNumberLabelList[i]) + atom.azimuthalQuantumNumberLabelList[i] + " subshell")  # This does not need the [i-1] part, because the cumulative density is not being plotted, and so is not being labeled. Thus we can generate ALL labels from the atom object itself.
+            legendLabel = str(atom.principalQuantumNumberLabelList[i]) + atom.azimuthalQuantumNumberLabelList[i] + " subshell"  # This does not need the [i-1] part, because the cumulative density is not being plotted, and so is not being labeled. Thus we can generate ALL labels from the atom object itself.
+            orbitalIsEmptyFlag = True
+            for index in range(len(yListMaster[i])):
+                if not yListMaster[i][index] == 0:
+                    orbitalIsEmptyFlag = False
+                    break
+            if orbitalIsEmptyFlag:
+                legendLabel = legendLabel + " (empty)"
+            plt.plot(arrayX, yListMaster[i], label=legendLabel)
 
     if derivativeNumber != 0:  # This makes the title reflect whether you are plotting just the density or one of it's derivatives.
         plt.title("Plot of charge density (" + inputFunctions.derivativeOptions[derivativeNumber] + ") vs. radius for atomic number " + str(atomicNumber) + "\nScale type: " + scaleType)
