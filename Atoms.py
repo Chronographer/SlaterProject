@@ -17,11 +17,38 @@ class NewAtom:
         self.name = name
         self.occupancy = occupancy
         self.principalQuantumNumberLabelList = []
-        self.azimuthalQuantumNumberLabelList = []
+        self.azimuthalQuantumNumberLabelList = []  # This is the azimuthal quantum number of an electron, ie 'sp' 'd' 'f' etc
         self.shieldingValues = []
+        self.totalEnergy = 0
         for i in range(len(self.occupancy)):
             self.principalQuantumNumberLabelList.append(principalLabels[i])
             self.azimuthalQuantumNumberLabelList.append(azimuthalLabels[i])
+
+    def computeTotalEnergy(self):
+        hartree = 1
+        totalEnergy = 0
+        for i in range(len(self.occupancy)):
+            if not self.occupancy[i] == 0:
+                # print("i = " + str(i) + ": " + str((atom.occupancy[i] * ((atom.atomicNumber - atom.shieldingValues[i]) / atom.occupancy[i]) * (-1 * hartree))))
+                totalEnergy = totalEnergy + (self.occupancy[i] * ((self.atomicNumber - self.shieldingValues[i]) / self.occupancy[i]) * (-1 * hartree))
+        self.totalEnergy = totalEnergy
+
+    def computeShieldingConstants(self):
+        lists = []
+        for i in range(0, len(self.occupancy)):
+            shielding = 0
+            if i == 0:  # this is the 1s shell.
+                shielding = shielding + 0.3 * (self.occupancy[i] - 1)
+            else:
+                for j in range(0, i + 1):
+                    if j == i:
+                        shielding = shielding + 0.35 * (self.occupancy[j] - 1)
+                    elif self.azimuthalQuantumNumberLabelList[i] == 'sp' and self.principalQuantumNumberLabelList[j] == self.principalQuantumNumberLabelList[i] - 1:
+                        shielding = shielding + 0.85 * (self.occupancy[j])
+                    else:
+                        shielding = shielding + (self.occupancy[j])
+            lists.append(shielding)
+        self.shieldingValues = lists
 
 
 class Atom:

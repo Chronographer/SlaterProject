@@ -16,25 +16,15 @@ __documenter__ == "Antonio Cancio"
 import numpy
 import Gamma
 
-# List to extract from occupancy list the energy
-energy = [1, 2, 3, 3, 4, 4, 4, 5, 5, 6]  # replace this with data pulled from atom object
-
 # The effective energy level dict
 nStar = {1: 1.0, 2: 2.0, 3: 3.0, 4: 3.7, 5: 4.0, 6: 4.2, 7: 4.1}  # item 7 is a guess
-
-# The shielding level dict
-nShield = {"1s_valence": 0.3, "Valence": 0.35, "sp_semicore": 0.85, "Core": 1.0}
-
-
-# No shielding, 1s2 toy!
-# nShield = {"1s_valence":0.0, "Valence":1.0, "sp_semicore":1.0, "Core":1.0}
 
 
 def newComputeShieldingConstants(atom):  # This can be an object function/method. Change later.
     shellLength = len(atom.occupancy)
     shellOccupancy = atom.occupancy
     principalQuantumNumber = atom.principalQuantumNumberLabelList
-    angularMomentumLabel = atom.azimuthalQuantumNumberLabelList  # l[i] is the magnetic quantum number of an electron, ie 'sp' 'd' 'f' etc
+    angularMomentumLabel = atom.azimuthalQuantumNumberLabelList  # This is the azimuthal quantum number of an electron, ie 'sp' 'd' 'f' etc
     lists = []
     for i in range(0, shellLength):
         shielding = 0
@@ -50,7 +40,7 @@ def newComputeShieldingConstants(atom):  # This can be an object function/method
                     shielding = shielding + (shellOccupancy[j])
         lists.append(shielding)
     atom.shieldingValues = lists
-    return lists  # this should be (Z effective) 
+    return lists  # this should be (Z effective)
 
 
 """ e -> energyQuantumNumber  # This was put here to remind myself (Daniel) what the original variable names were, in case I missed something somewhere so I can be consistent with how I rename them.
@@ -105,7 +95,7 @@ def n(shielding, energyQuantumNumber, netCharge, arrayX, N):
     returnList = []
     for j in range(len(listN)):
         shieldingConstant = shieldingValues[j]
-        e = energy[j]
+        e = energy[j]  # this list has been removed and can instead be accessed as atom.principalQuantumNumberLabelList[j]
         N = listN[j]
         # only want the density of each shell, and want list over shells
         returnList.append(n(shieldingConstant, e, Z, arrayX, N)[0])
