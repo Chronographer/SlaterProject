@@ -86,4 +86,7 @@ while run:
     plt.grid()
     plt.show()
 
+    totalEnergy = Slater.computeTotalEnergy(atom)
+    print("Total energy is: " + str(totalEnergy) + " Hartrees")
+
     run = inputFunctions.askToRepeat()

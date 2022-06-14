@@ -18,6 +18,7 @@ class NewAtom:
         self.occupancy = occupancy
         self.principalQuantumNumberLabelList = []
         self.azimuthalQuantumNumberLabelList = []
+        self.shieldingValues = []
         for i in range(len(self.occupancy)):
             self.principalQuantumNumberLabelList.append(principalLabels[i])
             self.azimuthalQuantumNumberLabelList.append(azimuthalLabels[i])

@@ -30,7 +30,7 @@ nShield = {"1s_valence": 0.3, "Valence": 0.35, "sp_semicore": 0.85, "Core": 1.0}
 # nShield = {"1s_valence":0.0, "Valence":1.0, "sp_semicore":1.0, "Core":1.0}
 
 
-def newComputeShieldingConstants(atom):
+def newComputeShieldingConstants(atom):  # This can be an object function/method. Change later.
     shellLength = len(atom.occupancy)
     shellOccupancy = atom.occupancy
     principalQuantumNumber = atom.principalQuantumNumberLabelList
@@ -49,36 +49,8 @@ def newComputeShieldingConstants(atom):
                 else:
                     shielding = shielding + (shellOccupancy[j])
         lists.append(shielding)
+    atom.shieldingValues = lists
     return lists  # this should be (Z effective) 
-
-
-def ComputeShieldingConstants(electronConfigList):
-    """Extract shielding constant from occupancy list - through 5d
-    These are Ansatz functions, so there's no general formula."""
-    shells = len(electronConfigList)
-    lists = []
-    for i in range(0, shells):  # this is really 2 nested loops
-        if i == 0:  # 1s
-            lists.append((electronConfigList[0] - 1) * nShield["1s_valence"])
-        elif i == 1:  # 2sp
-            lists.append((electronConfigList[1] - 1) * nShield["Valence"] + electronConfigList[0] * nShield["sp_semicore"])
-        elif i == 2:  # 3sp
-            lists.append((electronConfigList[2] - 1) * nShield["Valence"] + electronConfigList[1] * nShield["sp_semicore"] + electronConfigList[0] * nShield["Core"])
-        elif i == 3:  # 3d
-            lists.append((electronConfigList[3] - 1) * nShield["Valence"] + (electronConfigList[2] + electronConfigList[1] + electronConfigList[0]) * nShield["Core"])
-        elif i == 4:  # 4sp
-            lists.append((electronConfigList[4] - 1) * nShield["Valence"] + (electronConfigList[3] + electronConfigList[2]) * nShield["sp_semicore"] + (electronConfigList[1] + electronConfigList[0]) * nShield["Core"])
-        elif i == 5:  # 4d
-            lists.append((electronConfigList[5] - 1) * nShield["Valence"] + (electronConfigList[4] + electronConfigList[3] + electronConfigList[2] + electronConfigList[1] + electronConfigList[0]) * nShield["Core"])
-        elif i == 6:  # 4f
-            lists.append((electronConfigList[6] - 1) * nShield["Valence"] + (electronConfigList[5] + electronConfigList[4] + electronConfigList[3] + electronConfigList[2] + electronConfigList[1] + electronConfigList[0]) * nShield["Core"])
-        elif i == 7:  # 5sp
-            lists.append((electronConfigList[7] - 1) * nShield["Valence"] + (electronConfigList[6] + electronConfigList[5] + electronConfigList[4]) * nShield["sp_semicore"] + (electronConfigList[3] + electronConfigList[2] + electronConfigList[1] + electronConfigList[0]) * nShield["Core"])
-        elif i == 8:  # 5d
-            lists.append((electronConfigList[8] - 1) * nShield["Valence"] + (electronConfigList[7] + electronConfigList[6] + electronConfigList[5] + electronConfigList[4] + electronConfigList[3] + electronConfigList[2] + electronConfigList[1] + electronConfigList[0]) * nShield["Core"])
-        elif i == 9:  # 6s
-            lists.append((electronConfigList[9] - 1) * nShield["Valence"] + (electronConfigList[8] + electronConfigList[7] + electronConfigList[6] + electronConfigList[5] + electronConfigList[4] + electronConfigList[3] + electronConfigList[2] + electronConfigList[1] + electronConfigList[0]) * nShield["Core"])
-    return lists
 
 
 """ e -> energyQuantumNumber  # This was put here to remind myself (Daniel) what the original variable names were, in case I missed something somewhere so I can be consistent with how I rename them.
@@ -127,7 +99,7 @@ def n(shielding, energyQuantumNumber, netCharge, arrayX, N):
         return arrayY, ayp, ayp2, ayp3, ayp4
 
 
-def shellDensities(arrayX, Z, listN):  # check to see if i made this
+'''def shellDensities(arrayX, Z, listN):  # check to see if i made this  # This has been commented out because I have not 1) checked to see if it is useful and 2) adapted it to run with the newAtom object and newComputeShieldingConstant()
     """ gives the densities of each shell """
     shieldingValues = ComputeShieldingConstants(listN)
     returnList = []
@@ -137,7 +109,17 @@ def shellDensities(arrayX, Z, listN):  # check to see if i made this
         N = listN[j]
         # only want the density of each shell, and want list over shells
         returnList.append(n(shieldingConstant, e, Z, arrayX, N)[0])
-    return returnList
+    return returnList'''
+
+
+def computeTotalEnergy(atom):  # This can be an object function
+    hartree = 1
+    totalEnergy = 0
+    for i in range(len(atom.occupancy)):
+        if not atom.occupancy[i] == 0:
+            # print("i = " + str(i) + ": " + str((atom.occupancy[i] * ((atom.atomicNumber - atom.shieldingValues[i]) / atom.occupancy[i]) * (-1 * hartree))))
+            totalEnergy = totalEnergy + (atom.occupancy[i] * ((atom.atomicNumber - atom.shieldingValues[i]) / atom.occupancy[i]) * (-1 * hartree))
+    return totalEnergy  # This can be made an object variable
 
 
 def newDensity(arrayX, atom):
@@ -171,39 +153,7 @@ def newDensity(arrayX, atom):
     return finalDerivativeList, componentList
 
 
-def density(arrayX, netCharge, listN):
-    """gets total density and its derivatives, summing over shells \n
-    arrayX -- array of radial positions \n
-    listN  -- list of shell occupancy numbers \n
-    netCharge -- net charge"""
-    shieldingValues = ComputeShieldingConstants(listN)
-    # shieldingValues = newComputeShieldingConstants(atom) # this wont work, need to have newComputeShieldingConstants() take data extracted from the atom object, not the object itself.
-    # print("output of old computeShieldingConstants is: " + str(shieldingValues))
-    length = len(arrayX)
-    final = numpy.zeros(length)
-    finalP1 = numpy.zeros(length)
-    finalP2 = numpy.zeros(length)
-    finalP3 = numpy.zeros(length)
-    finalP4 = numpy.zeros(length)
-    componentList = []
-    for j in range(len(listN)):
-        shieldingConstant = shieldingValues[j]
-        e = energy[j]
-        N = listN[j]
-        if N > 0:
-            dens, densP1, densP2, densP3, densP4 = n(shieldingConstant, e, netCharge, arrayX, N)
-            final = final + dens
-            finalP1 = finalP1 + densP1
-            finalP2 = finalP2 + densP2
-            finalP3 = finalP3 + densP3
-            finalP4 = finalP4 + densP4
-            densDerivativeList = [dens, densP1, densP2, densP3, densP4]
-            componentList.append(densDerivativeList)
-    finalDerivativeList = [final, finalP1, finalP2, finalP3, finalP4]
-    return finalDerivativeList, componentList
-
-
-def grlaglll(arrayX, netCharge, listN):
+'''def grlaglll(arrayX, netCharge, listN):  # commented out until I adapt it to work with the newAtom object.
     """Returns the RADIAL density and its gradient, laplacian, grad(lapl), lapl(lapl)\n
     arrayX -- array of radial positions \n
     listN  -- list of shell occupancy numbers \n
@@ -218,7 +168,7 @@ def grlaglll(arrayX, netCharge, listN):
     glap = d3 + 2 * d2 / arrayX - 2 * d1 / arrayX ** 2
     llap = d4 + 4 * d3 / arrayX
 
-    return d0, grad, lapl, glap, llap
+    return d0, grad, lapl, glap, llap'''
 
 
 # The following are some miscellaneous analytic density routines.
