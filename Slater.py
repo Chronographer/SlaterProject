@@ -20,29 +20,6 @@ import Gamma
 nStar = {1: 1.0, 2: 2.0, 3: 3.0, 4: 3.7, 5: 4.0, 6: 4.2, 7: 4.1}  # item 7 is a guess
 
 
-def newComputeShieldingConstants(atom):  # This can be an object function/method. Change later.
-    shellLength = len(atom.occupancy)
-    shellOccupancy = atom.occupancy
-    principalQuantumNumber = atom.principalQuantumNumberLabelList
-    angularMomentumLabel = atom.azimuthalQuantumNumberLabelList  # This is the azimuthal quantum number of an electron, ie 'sp' 'd' 'f' etc
-    lists = []
-    for i in range(0, shellLength):
-        shielding = 0
-        if i == 0:  # this is the 1s shell.
-            shielding = shielding + 0.3 * (shellOccupancy[i]-1)
-        else:
-            for j in range(0, i+1):
-                if j == i:
-                    shielding = shielding + 0.35 * (shellOccupancy[j]-1)
-                elif angularMomentumLabel[i] == 'sp' and principalQuantumNumber[j] == principalQuantumNumber[i]-1:
-                    shielding = shielding + 0.85 * (shellOccupancy[j])
-                else:
-                    shielding = shielding + (shellOccupancy[j])
-        lists.append(shielding)
-    atom.shieldingValues = lists
-    return lists  # this should be (Z effective)
-
-
 """ e -> energyQuantumNumber  # This was put here to remind myself (Daniel) what the original variable names were, in case I missed something somewhere so I can be consistent with how I rename them.
     s -> shielding
     Z -> netCharge """
@@ -102,23 +79,12 @@ def n(shielding, energyQuantumNumber, netCharge, arrayX, N):
     return returnList'''
 
 
-def computeTotalEnergy(atom):  # This can be an object function
-    hartree = 1
-    totalEnergy = 0
-    for i in range(len(atom.occupancy)):
-        if not atom.occupancy[i] == 0:
-            n = nStar[atom.principalQuantumNumberLabelList[i]]
-            # print("i = " + str(i) + ": " + str((atom.occupancy[i] * ((atom.atomicNumber - atom.shieldingValues[i]) / atom.occupancy[i]) * (-1 * hartree))))
-            totalEnergy = totalEnergy + (atom.occupancy[i] * (((atom.atomicNumber - atom.shieldingValues[i]) / n) ** 2) * (-1 * hartree))
-    return totalEnergy  # This can be made an object variable
-
-
 def newDensity(arrayX, atom):
     """gets total density and its derivatives, summing over shells \n
     arrayX -- array of radial positions \n
     listN  -- list of shell occupancy numbers \n
     netCharge -- net charge"""
-    shieldingValues = newComputeShieldingConstants(atom)
+    shieldingValues = atom.shieldingValues
     netCharge = atom.atomicNumber
     listN = atom.occupancy
     length = len(arrayX)

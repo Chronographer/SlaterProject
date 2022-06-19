@@ -19,17 +19,19 @@ class NewAtom:
         self.principalQuantumNumberLabelList = []
         self.azimuthalQuantumNumberLabelList = []  # This is the azimuthal quantum number of an electron, ie 'sp' 'd' 'f' etc
         self.shieldingValues = []
-        self.totalEnergy = 0
+        self.totalEnergy = -1
         for i in range(len(self.occupancy)):
             self.principalQuantumNumberLabelList.append(principalLabels[i])
             self.azimuthalQuantumNumberLabelList.append(azimuthalLabels[i])
+        self.computeShieldingConstants()
+        self.computeTotalEnergy()
 
     def computeTotalEnergy(self):
         hartree = 1
         totalEnergy = 0
         for i in range(len(self.occupancy)):
             if not self.occupancy[i] == 0:
-                # print("i = " + str(i) + ": " + str((atom.occupancy[i] * ((atom.atomicNumber - atom.shieldingValues[i]) / atom.occupancy[i]) * (-1 * hartree))))
+                # print("i = " + str(i) + ": " + str((atom.occupancy[i] * ((atom.atomicNumber - atom.shieldingValues[i]) / atom.occupancy[i]) * (-1 * hartree))))  # prints the energy contribution of each orbital
                 totalEnergy = totalEnergy + (self.occupancy[i] * (((self.atomicNumber - self.shieldingValues[i]) / self.occupancy[i]) ** 2) * (-1 * hartree))
         self.totalEnergy = totalEnergy
 

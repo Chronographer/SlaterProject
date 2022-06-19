@@ -25,12 +25,12 @@ while run:
         atomicNumber = Atoms.periodictable[target].Z  # at some point I want to make it so I don't need to build a newAtom object from an existing atom object.
         electronOccupancy = Atoms.periodictable[target].occupancy
         atom = Atoms.NewAtom(atomicNumber, elementName, electronOccupancy)
-        lists = Slater.newComputeShieldingConstants(atom)
 
     plotType = inputFunctions.getPlotType()
     derivativeNumber = inputFunctions.chooseDerivativeOptions()
     scaleType = inputFunctions.getScaleType()
     arrayX = inputFunctions.getArrayX(scaleType)
+    print("Total energy is: " + str(atom.totalEnergy) + " Hartrees")
 
     if target == "manual":
         dty, components = Slater.newDensity(arrayX, atom)
@@ -85,8 +85,5 @@ while run:
     plt.legend()
     plt.grid()
     plt.show()
-
-    totalEnergy = Slater.computeTotalEnergy(atom)
-    print("Total energy is: " + str(totalEnergy) + " Hartrees")
 
     run = inputFunctions.askToRepeat()
