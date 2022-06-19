@@ -37,7 +37,7 @@ def getElectronConfigInput():
     Additionally, it handles empty string inputs and inputs which contain characters which are neither numbers or
     periods by clearing the user input and asking them to try again."""
     orbitalConfigList = []
-    while not 0 < len(orbitalConfigList) <= 10:
+    while not 0 < len(orbitalConfigList) <= 100:
         orbitalConfigString = enterbox("Enter the occupation of each Slater shell group as a period separated list.\n(The Slater shells combine certain orbitals into groups as follows: 1s, 2sp, 3sp, 3d, 4sp, 4d, 4f, 5sp, 5d, 6s)\n\nThere should be no more than 10 elements.")
         if orbitalConfigString == "":
             msgbox("There are no characters in 'orbitalConfigString'. (You provided an empty string)\n\nRe-enter the orbital configuration of each shell as a period separated list.")
@@ -100,7 +100,10 @@ def getPlotType():
 
 def getAtomicNumber():
     """Asks the user to enter the atomic number of the element they wish to model."""
-    atomicNumber = integerbox("Enter the atomic number of the element.", "Element Selection.")
+    atomicNumber = integerbox("Enter the atomic number of the element.\nThe largest supported element is Radon (atomic number 88)", "Element Selection.")
+    while atomicNumber > 88:
+        msgbox("Manual input supports elements up to atomic number 88!\n\nYou attempted to model element number " + str(atomicNumber) + ", which is not supported in manual input mode!\n\nTo model heavier atoms, use the automatic system by entering the elements abbreviation.", "Error: Element too large for manual entry!")
+        atomicNumber = integerbox("Enter the atomic number of the element.\nThe largest supported element is Radon (atomic number 88)", "Element Selection.")
     return atomicNumber
 
 

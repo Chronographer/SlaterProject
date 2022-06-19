@@ -359,7 +359,7 @@ def integerbox(msg=""
                , title=" "
                , default=""
                , argLowerBound=0
-               , argUpperBound=99
+               , argUpperBound=999
                , image=None
                , root=None
                ):

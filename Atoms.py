@@ -7,7 +7,7 @@ principalLabels = [1, 2, 3, 3, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7
 azimuthalLabels = ["s", "sp", "sp", "d", "sp", "d", "f", "sp", "d", "f", "g", "sp", "d", "f", "g", "h", "sp", "d", "f",
                    "g", "h", "i", "sp", "d", "f", "g", "h", "i", "j", "sp", "d", "f", "g", "h", "i", "j", "k", "sp",
                    "d", "f", "g", "h", "i", "j", "sp", "d", "f", "g", "h", "i", "sp", "d", "f", "g", "h", "sp", "d",
-                   "f", "g", "sp", "d", "f", "sp", "d", "sp"]  # This is the magnetic quantum number l, combined into Slater groups.
+                   "f", "g", "sp", "d", "f", "sp", "d", "sp"]  # This is the azimuthal quantum number, combined into Slater groups.
 
 
 class NewAtom:
@@ -30,7 +30,7 @@ class NewAtom:
         for i in range(len(self.occupancy)):
             if not self.occupancy[i] == 0:
                 # print("i = " + str(i) + ": " + str((atom.occupancy[i] * ((atom.atomicNumber - atom.shieldingValues[i]) / atom.occupancy[i]) * (-1 * hartree))))
-                totalEnergy = totalEnergy + (self.occupancy[i] * ((self.atomicNumber - self.shieldingValues[i]) / self.occupancy[i]) * (-1 * hartree))
+                totalEnergy = totalEnergy + (self.occupancy[i] * (((self.atomicNumber - self.shieldingValues[i]) / self.occupancy[i]) ** 2) * (-1 * hartree))
         self.totalEnergy = totalEnergy
 
     def computeShieldingConstants(self):

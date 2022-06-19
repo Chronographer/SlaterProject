@@ -107,8 +107,9 @@ def computeTotalEnergy(atom):  # This can be an object function
     totalEnergy = 0
     for i in range(len(atom.occupancy)):
         if not atom.occupancy[i] == 0:
+            n = nStar[atom.principalQuantumNumberLabelList[i]]
             # print("i = " + str(i) + ": " + str((atom.occupancy[i] * ((atom.atomicNumber - atom.shieldingValues[i]) / atom.occupancy[i]) * (-1 * hartree))))
-            totalEnergy = totalEnergy + (atom.occupancy[i] * ((atom.atomicNumber - atom.shieldingValues[i]) / atom.occupancy[i]) * (-1 * hartree))
+            totalEnergy = totalEnergy + (atom.occupancy[i] * (((atom.atomicNumber - atom.shieldingValues[i]) / n) ** 2) * (-1 * hartree))
     return totalEnergy  # This can be made an object variable
 
 
