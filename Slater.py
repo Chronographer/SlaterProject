@@ -28,11 +28,10 @@ nStar = {1: 1.0, 2: 2.0, 3: 3.0, 4: 3.7, 5: 4.0, 6: 4.2, 7: 4.1}  # item 7 is a 
 def A(shielding, energyQuantumNumber, netCharge):
     """Normalization constant for ith shell"""
     nx = nStar[energyQuantumNumber]
-    # print("Energy quantum number, shielding, netCharge:  ", energyQuantumNumber, shielding, netCharge)
     if (netCharge - shielding) < 0:
         print("Fatal Error: UNBOUND ATOM")
         print("Shielding charge {0} exceeds nuclear charge {1} ".format(shielding, netCharge))
-        print("EXITING SOON")
+        print("Results will likely be nonsensical!")
     normalizationConstant = numpy.sqrt((2.0 * (netCharge - shielding)) ** (2.0 * nx + 1) / (4.0 * numpy.pi * nx ** (2.0 * nx + 1) * Gamma.gamma(2 * nx + 1.0)))
     return normalizationConstant
 

@@ -13,7 +13,7 @@ def getElementNameInput():
     Takes a string as input which should either be 'manual' or a case sensitive element abbreviation.\n
     Returns a string containing either a valid element abbreviation or the string 'manual'.\n
     It also handles invalid selections by clearing the user input and trying again if the input cannot be matched to an element from the 'periodictable{}' dictionary in Atoms.py"""
-    elementInput = enterbox("Enter the abbreviation for the element you wish to model, or type 'manual' to manually specify the atomic number and Slater electron configuration.")
+    elementInput = enterbox("Enter the abbreviation for the element you wish to model, or type 'manual' to manually specify the atomic number and Slater electron configuration.", "Element Selection (automatic)")
     elementCodeIsValid = False
     while not elementCodeIsValid:
         if elementInput == "manual":
@@ -23,8 +23,8 @@ def getElementNameInput():
                 elementCodeIsValid = True
                 break  # once we find a key matching the user input, we do not need to check the rest.
         if not elementCodeIsValid:
-            msgbox("'" + elementInput + "' is not a recognized element!\n\nElement abbreviations are case sensitive. Check to make sure you spelled it correctly.\n\nNot all elements are in the database. For a list of all recognized elements, see dictionary 'periodictable{}' in script 'Atoms.py'")
-            elementInput = enterbox("Enter the abbreviation for the element you wish to model, or type 'manual' to manually specify the atomic number and Slater electron configuration.")
+            msgbox("'" + elementInput + "' is not a recognized element!\n\nElement abbreviations are case sensitive. Check to make sure you spelled it correctly.\n\nNot all elements are in the database. For a list of all recognized elements, see dictionary 'periodictable{}' in script 'Atoms.py'", "Input Error: Unrecognized Element")
+            elementInput = enterbox("Enter the abbreviation for the element you wish to model, or type 'manual' to manually specify the atomic number and Slater electron configuration.", "Element Selection (automatic)")
 
     return elementInput
 
@@ -37,20 +37,20 @@ def getElectronConfigInput():
     Additionally, it handles empty string inputs and inputs which contain characters which are neither numbers or
     periods by clearing the user input and asking them to try again."""
     orbitalConfigList = []
-    while not 0 < len(orbitalConfigList) <= 100:
-        orbitalConfigString = enterbox("Enter the occupation of each Slater shell group as a period separated list.\n(The Slater shells combine certain orbitals into groups as follows: 1s, 2sp, 3sp, 3d, 4sp, 4d, 4f, 5sp, 5d, 6s)\n\nThere should be no more than 10 elements.")
+    while len(orbitalConfigList) == 0:
+        orbitalConfigString = enterbox("Enter the occupation of each Slater orbital as a period separated list. (Ie, combine the s and p orbitals)\n\nThe general input format should thus be as follows:\n1s, 2sp, 3sp, 3d, 4sp, 4d, 4f, 5sp, 5d, 5f, 5g, 6sp, 6d, 6f, 6g, 6h, 7sp, etc.\n\nYour input MUST include zeros for empty orbitals which are inside of populated orbitals. Trailing zeros may be omitted.\n\nFor example, Potassium (19) populates the 4sp orbital before 3d, and thus it should be formatted as '2.8.8.0.1'.", "Electron Configuration Entry")
         if orbitalConfigString == "":
-            msgbox("There are no characters in 'orbitalConfigString'. (You provided an empty string)\n\nRe-enter the orbital configuration of each shell as a period separated list.")
+            msgbox("There are no characters in 'orbitalConfigString'. (You provided an empty string)\n\nRe-enter the orbital configuration of each shell as a period separated list.", "Input Error: Empty string")
         elif not orbitalConfigString[len(orbitalConfigString) - 1].isdigit():
             print("\nWARNING: The last character of your input string was '" + orbitalConfigString[len(orbitalConfigString) - 1] + "', which is not a digit. You might have accidentally left out a number or entered it incorrectly. The input you provided was: '" + orbitalConfigString + "'\nThe anomalous character has been removed in an attempt to prevent a runtime error.\nBe cautious; even if a runtime error is not thrown, your results might not reflect the system you intended to model!\n")
             orbitalConfigString = orbitalConfigString[:-1]  # this removes the last character from the input string; the idea is that if you accidentally end with a '.', this will remove it for you. Will produce incorrect results if the user left out a non-zero number after the last character.
         orbitalConfigList = orbitalConfigString.split(".")
-        if len(orbitalConfigList) > 10:
-            msgbox("There are " + str(len(orbitalConfigList)) + " elements in orbitalConfigList, there should be no more than 10.\nRe-enter the orbital configuration of each shell as a period separated list.")
         for i in range(0, len(orbitalConfigList)):
             if not orbitalConfigList[i].isdigit():
                 if not orbitalConfigList[i] == "":  # we already gave the user a message about providing an empty string above, so we don't want to give them a different message here for the same problem. We DO however still want to clear orbitalConfigList so it won't throw an error further on.
-                    msgbox("There are non-number elements in 'orbitalConfigList' after parsing to remove the periods. It should (at this point) contain only numbers (stored as strings). You most likely hit an errant key by accident.\n\nCurrently, 'orbitalConfigList' is " + str(orbitalConfigList) + ". The non-number element is '" + str(orbitalConfigList[i]) + "'.\n\nRe-enter the orbital configuration of each shell as a period separated list.")
+                    msgbox("There are non-number elements in 'orbitalConfigList' after parsing to remove the periods. It should (at this point) contain only numbers (stored as strings). You most likely hit an errant key by accident.\n\nCurrently, 'orbitalConfigList' is " + str(orbitalConfigList) + ". The non-number element is '" + str(orbitalConfigList[i]) + "'.\n\nRe-enter the orbital configuration of each shell as a period separated list.", "Parsing Error: Non-Number Element")
+                elif len(orbitalConfigList) > 1 and orbitalConfigList[i] == "":
+                    msgbox("There is at least one empty string in 'orbitalConfigList' after parsing to remove the periods. It should (at this point) contain only numbers (stored as strings). You mostly likely either hit the period key twice or omitted a number in between periods.\n\nCurrently, 'orbitalConfigList' is " + str(orbitalConfigList) + ".\n\nRe-enter the orbital configuration of each shell as a period separated list.", "Parsing Error: Empty String")
                 orbitalConfigList.clear()
                 break  # clear the list so we can start over, then break out of this loop so we don't try to check the next element in it, which no longer exists.
 
@@ -100,10 +100,10 @@ def getPlotType():
 
 def getAtomicNumber():
     """Asks the user to enter the atomic number of the element they wish to model."""
-    atomicNumber = integerbox("Enter the atomic number of the element.\nThe largest supported element is Radon (atomic number 88)", "Element Selection.")
+    atomicNumber = integerbox("Enter the atomic number of the element.\nThe largest supported element is Radon (atomic number 88)", "Element Selection (manual)")
     while atomicNumber > 88:
         msgbox("Manual input supports elements up to atomic number 88!\n\nYou attempted to model element number " + str(atomicNumber) + ", which is not supported in manual input mode!\n\nTo model heavier atoms, use the automatic system by entering the elements abbreviation.", "Error: Element too large for manual entry!")
-        atomicNumber = integerbox("Enter the atomic number of the element.\nThe largest supported element is Radon (atomic number 88)", "Element Selection.")
+        atomicNumber = integerbox("Enter the atomic number of the element.\nThe largest supported element is Radon (atomic number 88)", "Element Selection (manual)")
     return atomicNumber
 
 

@@ -214,7 +214,7 @@ periodictable['Po'] = Atom(84, "Po", [2, 8, 8, 10, 8, 10, 14, 8, 10, 0, 0, 6])
 periodictable['At'] = Atom(85, "At", [2, 8, 8, 10, 8, 10, 14, 8, 10, 0, 0, 7])
 periodictable['Rn'] = Atom(86, "Rn", [2, 8, 8, 10, 8, 10, 14, 8, 10, 0, 0, 8])  # [Xe] 4f14 5d10 6s2 6p6
 periodictable['Fr'] = Atom(87, "Fr", [2, 8, 8, 10, 8, 10, 14, 8, 10, 0, 0, 8, 1])
-periodictable['Ra'] = Atom(88, "Ra", [2, 8, 8, 10, 8, 10, 14, 8, 10, 0, 0, 8, 2])  # [Rn] 7s2
+periodictable['Ra'] = Atom(88, "Ra", [2, 8, 8, 10, 8, 10, 14, 8, 10, 0, 0, 8, 2])  # [Rn] 7s2  # This all appears to be far more complicated than I initially anticipated... See https://en.wikipedia.org/wiki/Electron_configurations_of_the_elements_(data_page) and https://physics.nist.gov/cgi-bin/ASD/ie.pl?spectra=H-DS+i&units=1&at_num_out=on&el_name_out=on&shells_out=on&level_out=on&e_out=0&unc_out=on&biblio=on for details. (6/21/2022)
 
 periodictable['H2p'] = Atom(1, "H2p", [2, 3])
 periodictable['H3d'] = Atom(1, "H3d", [0, 0, 0, 1])
