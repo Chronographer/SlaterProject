@@ -1,7 +1,8 @@
 """A means of accessing the functionality of SlaterGUI.py without a GUI.
    By Daniel Isenberg
-   TODO: Consider refactoring the input orbital configuration for atoms so that they are integer lists instead of strings to save an extra step in converting it. (It only took string input originally because of the manual input system I started with)
-   TODO: Consider refactoring Slater.density() so that it only returns the component contributions, which can then be added together later so it only has to return one thing instead of a tuple.
+   Stuff to do: Consider refactoring the input orbital configuration for atoms so that they are integer lists instead of strings to save an extra step in converting it. (It only took string input originally because of the manual input system I started with)
+                Consider refactoring Slater.density() so that it only returns the component contributions, which can then be added together later so it only has to return one thing instead of a tuple.
+                Refactor pretty much everything here so it works with all the changes made to regular Slater, ie usage of atom object, etc.
 """
 import Slater
 import inputFunctions

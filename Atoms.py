@@ -2,7 +2,7 @@
 """
 principalLabels = [1, 2, 3, 3, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9,
                    9, 9, 9, 9, 10, 10, 10, 10, 10, 10, 10, 11, 11, 11, 11, 11, 11, 12, 12, 12, 12, 12, 13, 13, 13, 13,
-                   14, 14, 14, 15, 15, 16]  # This is principal quantum number N. combine with magnetic labels to get "1s" "2sp", "3sp", etc
+                   14, 14, 14, 15, 15, 16]  # This is principal quantum number N. combine with azimuthal labels to get "1s" "2sp", "3sp", etc
 
 azimuthalLabels = ["s", "sp", "sp", "d", "sp", "d", "f", "sp", "d", "f", "g", "sp", "d", "f", "g", "h", "sp", "d", "f",
                    "g", "h", "i", "sp", "d", "f", "g", "h", "i", "j", "sp", "d", "f", "g", "h", "i", "j", "k", "sp",
