@@ -2,6 +2,7 @@
    By Neal Coleman
    Modified and expanded by Daniel Isenberg
 """
+
 import Slater
 import inputFunctions
 import numpy
