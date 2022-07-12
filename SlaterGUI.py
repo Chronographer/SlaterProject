@@ -44,8 +44,7 @@ while run:
     if plotType == "cumulative" or plotType == "both":  # Plots the combined density of every shell in the system as a single data set, without showing the contributions of each shell individual .
         for i in range(len(arrayX)):
             yList.append(dty[derivativeNumber][i])
-        yListMaster.append(yList)
-
+   
     if plotType == "components" or plotType == "both":  # Plots the contribution to the density from each individual shell as its own data set.
         for index in range(len(components)):
             components[index][derivativeNumber] = 4 * numpy.pi * arrayX ** 2 * components[index][derivativeNumber]
