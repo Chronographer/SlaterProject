@@ -53,10 +53,10 @@ class NewAtom:
         self.shieldingValues = lists
 
 
-class Atom:
-    """quick and dirty class for structured atomic data.
+"""class Atom:
+    '''quick and dirty class for structured atomic data.
     Use with Periodic Table to get a dictionary of elements
-    """
+    '''
 
     def __init__(self, Z, label, occupancy, config="Normal", filename=None):
         self.Z = Z
@@ -86,7 +86,7 @@ class Atom:
             line5 = ""
         return line1 + linex + line2 + line3 + line4 + line5
 
-
+"""
 #    def initialize(self):
 
 class Grid:
@@ -197,8 +197,8 @@ atomData['Dy'] = {"atomicNumber": 66, "name": "Dy", "occupancy": [2, 8, 8, 10, 8
 atomData['Ho'] = {"atomicNumber": 67, "name": "Ho", "occupancy": [2, 8, 8, 10, 8, 10, 11, 8, 0, 0, 0, 2]}
 atomData['Er'] = {"atomicNumber": 68, "name": "Er", "occupancy": [2, 8, 8, 10, 8, 10, 12, 8, 0, 0, 0, 2]}
 atomData['Tm'] = {"atomicNumber": 69, "name": "Tm", "occupancy": [2, 8, 8, 10, 8, 10, 13, 8, 0, 0, 0, 2]}
-atomData['Yb'] = {"atomicNumber": 70, "name": "Dy", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 0, 0, 0, 2]} # duplicate
-atomData['Lu'] = {"atomicNumber": 71, "name": "Dy", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 1, 0, 0, 2]}  # duplicate
+atomData['Yb'] = {"atomicNumber": 70, "name": "Yb", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 0, 0, 0, 2]} # duplicate
+atomData['Lu'] = {"atomicNumber": 71, "name": "Lu", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 1, 0, 0, 2]}  # duplicate
 atomData['Hf'] = {"atomicNumber": 72, "name": "Hf", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 2, 0, 0, 2]}
 atomData['Ta'] = {"atomicNumber": 73, "name": "Ta", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 3, 0, 0, 2]}
 atomData['W'] = {"atomicNumber": 74, "name": "W", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 4, 0, 0, 2]}
@@ -221,7 +221,7 @@ atomData['Ra'] = {"atomicNumber": 88, "name": "Ra", "occupancy": [2, 8, 8, 10, 8
 
 
 
-periodictable = {}
+"""periodictable = {}
 # Normal
 periodictable['H'] = Atom(1, "H", [1])  # 1s
 periodictable['He'] = Atom(2, "He", [2])  # 1s2
@@ -292,8 +292,8 @@ periodictable['Dy'] = Atom(66, "Dy", [2, 8, 8, 10, 8, 10, 10, 8, 0, 0, 0, 2])
 periodictable['Ho'] = Atom(67, "Ho", [2, 8, 8, 10, 8, 10, 11, 8, 0, 0, 0, 2])
 periodictable['Er'] = Atom(68, "Er", [2, 8, 8, 10, 8, 10, 12, 8, 0, 0, 0, 2])
 periodictable['Tm'] = Atom(69, "Tm", [2, 8, 8, 10, 8, 10, 13, 8, 0, 0, 0, 2])
-periodictable['Yb'] = Atom(70, "Dy", [2, 8, 8, 10, 8, 10, 14, 8, 0, 0, 0, 2])
-periodictable['Lu'] = Atom(71, "Dy", [2, 8, 8, 10, 8, 10, 14, 8, 1, 0, 0, 2])
+periodictable['Yb'] = Atom(70, "Yb", [2, 8, 8, 10, 8, 10, 14, 8, 0, 0, 0, 2])
+periodictable['Lu'] = Atom(71, "Lu", [2, 8, 8, 10, 8, 10, 14, 8, 1, 0, 0, 2])
 periodictable['Hf'] = Atom(72, "Hf", [2, 8, 8, 10, 8, 10, 14, 8, 2, 0, 0, 2])
 periodictable['Ta'] = Atom(73, "Ta", [2, 8, 8, 10, 8, 10, 14, 8, 3, 0, 0, 2])
 periodictable['W'] = Atom(74, "W", [2, 8, 8, 10, 8, 10, 14, 8, 4, 0, 0, 2])
@@ -335,11 +335,11 @@ periodictable['N76'] = Atom(976, "N76",
 periodictable['Jellium3'] = Atom(18, "Jellium3", [2, 6, 0, 10])  # Jellium -- 1s2 2p6 3d10 -- psp!!
 periodictable['Jellium3Smooth'] = Atom(18, "Jellium3Smooth", [2, 6, 0, 10])  # Jellium 1s2 2p6 3d10
 
+"""
 
 
 
-
-periodictable_ions = {}
+"""periodictable_ions = {}
 # Negative ions:  ##### Add Fluorides
 periodictable_ions['H -'] = Atom(1, "H -", [2])  # 1s
 periodictable_ions['He -'] = Atom(2, "He -", [2, 1])  # 1s2
@@ -389,27 +389,27 @@ periodictable_ions['Rb +'] = Atom(37, "Rb +", [2, 8, 8, 10, 8])  # [Ar] 3d10 4s2
 periodictable_ions['Xe +'] = Atom(54, "Xe +", [2, 8, 8, 10, 8, 10, 0, 7])  # [Kr] 4d10 5s2 5p6
 periodictable_ions['Cs +'] = Atom(55, "Cs +", [2, 8, 8, 10, 8, 10, 0, 8])  # [Kr] 4d10 5s2 5p6
 periodictable_ions['Rn +'] = Atom(86, "Rn +", [2, 8, 8, 10, 8, 10, 14, 8, 10, 7])  # [Xe] 4f14 5d10 6s2 6p6
-
+"""
 
 # atom configuration definitions
-def PosIon(atom):
+"""def PosIon(atom):
     label = atom.label + " +"
     atom.occupancy = periodictable_ions[label].occupancy
     atom.config = "Positive Ion"
-    return atom
+    return atom """
 
 
-def NegIon(atom):
+"""def NegIon(atom):
     label = atom.label + " -"
     atom.occupancy = periodictable_ions[label].occupancy
     atom.config = "Negative Ion"
-    return atom
+    return atom"""
 
 
-def InnerShell(atom):
+"""def InnerShell(atom):
     atom.config = "1s^2 Shell"
     atom.occupancy = periodictable["He"].occupancy
-    return atom
+    return atom"""
 
 
 def Valence(atom):
@@ -430,8 +430,8 @@ def Normal(atom):  # This literally does nothing? (Daniel 2-6-2022)
     return atom
 
 
-configTable = {"Normal": Normal, "PosIon": PosIon, "NegIon": NegIon, "InnerShell": InnerShell, "Valence": Valence}
+"""configTable = {"Normal": Normal, "PosIon": PosIon, "NegIon": NegIon, "InnerShell": InnerShell, "Valence": Valence}
+"""
 
-
-def setAtomConfig(atom, atomconfig):
-    return configTable[atomconfig](atom)
+"""def setAtomConfig(atom, atomconfig):
+    return configTable[atomconfig](atom)"""

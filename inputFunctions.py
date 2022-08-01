@@ -18,7 +18,7 @@ def getElementNameInput():
     while not elementCodeIsValid:
         if elementInput == "manual":
             break  # if you want manual control, we do not need to waste time checking every key in the dictionary.
-        for key in Atoms.periodictable:  # We want to make sure that there is a dictionary key matching the input before we pass it back to SlaterGUI.py
+        for key in Atoms.atomData:  # We want to make sure that there is a dictionary key matching the input before we pass it back to SlaterGUI.py
             if key == elementInput:
                 elementCodeIsValid = True
                 break  # once we find a key matching the user input, we do not need to check the rest.
