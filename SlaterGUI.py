@@ -10,11 +10,6 @@ import Atoms
 
 # need to do: add documentation about how to use stuff and what it means, look into pypi stuff
 run = True
-print("atomic number is: " + str(Atoms.atomData['He']['atomicNumber']))
-print("name is: " + str(Atoms.atomData['He']['name']))
-print("occupancy is: " + str(Atoms.atomData['He']['occupancy']))
-
-
 
 
 while run:
@@ -27,8 +22,8 @@ while run:
         atom = Atoms.NewAtom(atomicNumber, elementName, electronOccupancy)
     else:
         elementName = target
-        atomicNumber = Atoms.periodictable[target].Z  # at some point I want to make it so I don't need to build a newAtom object from an existing atom object.
-        electronOccupancy = Atoms.periodictable[target].occupancy
+        atomicNumber = Atoms.atomData[target]['atomicNumber']  # at some point I want to make it so I don't need to build a newAtom object from an existing atom object.
+        electronOccupancy = Atoms.atomData[target]['occupancy']
         atom = Atoms.NewAtom(atomicNumber, elementName, electronOccupancy)
 
     plotType = inputFunctions.getPlotType()
