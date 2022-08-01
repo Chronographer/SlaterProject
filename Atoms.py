@@ -52,11 +52,14 @@ class NewAtom:
             lists.append(shielding)
         self.shieldingValues = lists
 
+    def __repr__(self):
+        return "This is a newAtom object! It contains the following human readable data:\n\nAtomic Number: " + str(self.atomicNumber) + "\nAbbreviation: " + str(self.name) + "\nElectron Occupancy: " + str(self.occupancy) + "\nTotal Energy: " + str(self.totalEnergy) + " Hartrees\n\nIt also contains lists with labels for both its principal and azimuthal quantum numbers\nand a list containing the shielding constants of each orbital.\n"
 
-"""class Atom:
-    '''quick and dirty class for structured atomic data.
+
+'''class Atom:
+    """quick and dirty class for structured atomic data.
     Use with Periodic Table to get a dictionary of elements
-    '''
+    """
 
     def __init__(self, Z, label, occupancy, config="Normal", filename=None):
         self.Z = Z
@@ -85,9 +88,10 @@ class NewAtom:
         else:
             line5 = ""
         return line1 + linex + line2 + line3 + line4 + line5
+'''
 
-"""
 #    def initialize(self):
+
 
 class Grid:
     """Holder class for grid on which to display atom"""
@@ -221,7 +225,7 @@ atomData['Ra'] = {"atomicNumber": 88, "name": "Ra", "occupancy": [2, 8, 8, 10, 8
 
 
 
-"""periodictable = {}
+'''periodictable = {}
 # Normal
 periodictable['H'] = Atom(1, "H", [1])  # 1s
 periodictable['He'] = Atom(2, "He", [2])  # 1s2
@@ -334,8 +338,8 @@ periodictable['N76'] = Atom(976, "N76",
 # Finite Jellium drop system from Cyrus Umrigar
 periodictable['Jellium3'] = Atom(18, "Jellium3", [2, 6, 0, 10])  # Jellium -- 1s2 2p6 3d10 -- psp!!
 periodictable['Jellium3Smooth'] = Atom(18, "Jellium3Smooth", [2, 6, 0, 10])  # Jellium 1s2 2p6 3d10
+'''
 
-"""
 
 
 

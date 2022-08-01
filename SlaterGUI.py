@@ -25,6 +25,7 @@ while run:
         atomicNumber = Atoms.atomData[target]['atomicNumber']  # at some point I want to make it so I don't need to build a newAtom object from an existing atom object.
         electronOccupancy = Atoms.atomData[target]['occupancy']
         atom = Atoms.NewAtom(atomicNumber, elementName, electronOccupancy)
+        print(atom)
 
     plotType = inputFunctions.getPlotType()
     derivativeNumber = inputFunctions.chooseDerivativeOptions()
