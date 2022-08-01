@@ -10,6 +10,11 @@ import Atoms
 
 # need to do: add documentation about how to use stuff and what it means, look into pypi stuff
 run = True
+print("atomic number is: " + str(Atoms.atomData['He']['atomicNumber']))
+print("name is: " + str(Atoms.atomData['He']['name']))
+print("occupancy is: " + str(Atoms.atomData['He']['occupancy']))
+
+
 
 
 while run:
