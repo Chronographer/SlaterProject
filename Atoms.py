@@ -91,7 +91,7 @@ class NewAtom:
 '''
 
 #    def initialize(self):
-
+'''
 
 class Grid:
     """Holder class for grid on which to display atom"""
@@ -129,100 +129,98 @@ occupancylabels = ["1s", "2sp", "3sp", "3d", "4sp", "4d", "4f", "5sp", "5d", "5f
 maxoccupancy = [2, 8, 8, 10, 8, 10, 14, 8, 10, 14, 18, 8, 10, 14, 18, 22, 8, 10, 14, 18, 22, 26, 8, 10, 14, 18, 22, 26,
                 30, 8, 10, 14, 18, 22, 26, 30, 34, 8, 10, 14, 18, 22, 26, 30, 8, 10, 14, 18, 22, 26, 8, 10, 14, 18, 22,
                 8, 10, 14, 18, 8, 10, 14, 8, 10, 8]
-
-atomData = {}
+'''
+atomData = {
+            'H': {"atomicNumber": 1, "name": "H", "occupancy": [1]},
+            'He': {"atomicNumber": 2, "name": "He", "occupancy": [2]},
+            'Li': {"atomicNumber": 3, "name": "Li", "occupancy": [2, 1]},
+            'Be': {"atomicNumber": 4, "name": "Be", "occupancy": [2, 2]},
+            'B': {"atomicNumber": 5, "name": "B", "occupancy": [2, 3]},
+            'C': {"atomicNumber": 6, "name": "C", "occupancy": [2, 4]},
+            'N': {"atomicNumber": 7, "name": "N", "occupancy": [2, 5]},
+            'O': {"atomicNumber": 8, "name": "O", "occupancy": [2, 6]},
+            'F': {"atomicNumber": 9, "name": "F", "occupancy": [2, 7]},
+            'Ne': {"atomicNumber": 10, "name": "Ne", "occupancy": [2, 8]},
+            'Na': {"atomicNumber": 11, "name": "Na", "occupancy": [2, 8, 1]},
+            'Mg': {"atomicNumber": 12, "name": "Mg", "occupancy": [2, 8, 2]},
+            'Al': {"atomicNumber": 13, "name": "Al", "occupancy": [2, 8, 3]},
+            'Si': {"atomicNumber": 14, "name": "Si", "occupancy": [2, 8, 4]},
+            'P': {"atomicNumber": 15, "name": "P", "occupancy": [2, 8, 5]},
+            'S': {"atomicNumber": 16, "name": "S", "occupancy": [2, 8, 6]},
+            'Cl': {"atomicNumber": 17, "name": "Cl", "occupancy": [2, 8, 7]},
+            'Ar': {"atomicNumber": 18, "name": "Ar", "occupancy": [2, 8, 8]},
+            'K': {"atomicNumber": 19, "name": "K", "occupancy": [2, 8, 8, 0, 1]},
+            'Ca': {"atomicNumber": 20, "name": "Ca", "occupancy": [2, 8, 8, 0, 2]},
+            'Sc': {"atomicNumber": 21, "name": "Sc", "occupancy": [2, 8, 8, 1, 2]},
+            'Ti': {"atomicNumber": 22, "name": "Ti", "occupancy": [2, 8, 8, 2, 2]},
+            'V': {"atomicNumber": 23, "name": "V", "occupancy": [2, 8, 8, 3, 2]},
+            'Cr': {"atomicNumber": 24, "name": "Cr", "occupancy": [2, 8, 8, 5, 1]},
+            'Mn': {"atomicNumber": 25, "name": "Mn", "occupancy": [2, 8, 8, 5, 2]},
+            'Fe': {"atomicNumber": 26, "name": "Fe", "occupancy": [2, 8, 8, 6, 2]},
+            'Co': {"atomicNumber": 27, "name": "Co", "occupancy": [2, 8, 8, 7, 2]},
+            'Ni': {"atomicNumber": 28, "name": "Ni", "occupancy": [2, 8, 8, 8, 2]},
+            'Cu': {"atomicNumber": 29, "name": "Cu", "occupancy": [2, 8, 8, 10, 1]},
+            'Zn': {"atomicNumber": 30, "name": "Zn", "occupancy": [2, 8, 8, 10, 2]},
+            'Ga': {"atomicNumber": 31, "name": "Ga", "occupancy": [2, 8, 8, 10, 3]},
+            'Ge': {"atomicNumber": 32, "name": "Ge", "occupancy": [2, 8, 8, 10, 4]},
+            'As': {"atomicNumber": 33, "name": "As", "occupancy": [2, 8, 8, 10, 5]},
+            'Se': {"atomicNumber": 34, "name": "Se", "occupancy": [2, 8, 8, 10, 6]},
+            'Br': {"atomicNumber": 35, "name": "Br", "occupancy": [2, 8, 8, 10, 7]},
+            'Kr': {"atomicNumber": 36, "name": "Kr", "occupancy": [2, 8, 8, 10, 8]},
+            'Rb': {"atomicNumber": 37, "name": "Rb", "occupancy": [2, 8, 8, 10, 8, 0, 0, 1]},
+            'Sr': {"atomicNumber": 38, "name": "Sr", "occupancy": [2, 8, 8, 10, 8, 0, 0, 2]},
+            'Y': {"atomicNumber": 39, "name": "Y", "occupancy": [2, 8, 8, 10, 8, 1, 0, 2]},
+            'Zr': {"atomicNumber": 40, "name": "Zr", "occupancy": [2, 8, 8, 10, 8, 2, 0, 2]},
+            'Nb': {"atomicNumber": 41, "name": "Nb", "occupancy": [2, 8, 8, 10, 8, 4, 0, 1]},
+            'Mo': {"atomicNumber": 42, "name": "Mo", "occupancy": [2, 8, 8, 10, 8, 5, 0, 1]},
+            'Tc': {"atomicNumber": 43, "name": "Tc", "occupancy": [2, 8, 8, 10, 8, 6, 0, 1]},
+            'Ru': {"atomicNumber": 44, "name": "Ru", "occupancy": [2, 8, 8, 10, 8, 7, 0, 1]},
+            'Rh': {"atomicNumber": 45, "name": "Rh", "occupancy": [2, 8, 8, 10, 8, 8, 0, 1]},
+            'Pd': {"atomicNumber": 46, "name": "Pd", "occupancy": [2, 8, 8, 10, 8, 10]},
+            'Ag': {"atomicNumber": 47, "name": "Ag", "occupancy": [2, 8, 8, 10, 8, 10, 0, 1]},
+            'Cd': {"atomicNumber": 48, "name": "Cd", "occupancy": [2, 8, 8, 10, 8, 10, 0, 2]},
+            'In': {"atomicNumber": 49, "name": "In", "occupancy": [2, 8, 8, 10, 8, 10, 0, 3]},
+            'Sn': {"atomicNumber": 50, "name": "Sn", "occupancy": [2, 8, 8, 10, 8, 10, 0, 4]},
+            'Sb': {"atomicNumber": 51, "name": "Sb", "occupancy": [2, 8, 8, 10, 8, 10, 0, 5]},
+            'Te': {"atomicNumber": 52, "name": "Te", "occupancy": [2, 8, 8, 10, 8, 10, 0, 6]},
+            'I': {"atomicNumber": 53, "name": "I", "occupancy": [2, 8, 8, 10, 8, 10, 0, 7]},
+            'Xe': {"atomicNumber": 54, "name": "Xe", "occupancy": [2, 8, 8, 10, 8, 10, 0, 8]},
+            'Cs': {"atomicNumber": 55, "name": "Cs", "occupancy": [2, 8, 8, 10, 8, 10, 0, 8, 0, 0, 0, 1]},
+            'Ba': {"atomicNumber": 56, "name": "Ba", "occupancy": [2, 8, 8, 10, 8, 10, 0, 8, 0, 0, 0, 2]},
+            'La': {"atomicNumber": 57, "name": "La", "occupancy": [2, 8, 8, 10, 8, 10, 0, 8, 1, 0, 0, 2]},
+            'Ce': {"atomicNumber": 58, "name": "Ce", "occupancy": [2, 8, 8, 10, 8, 10, 2, 8, 0, 0, 0, 2]},
+            'Pr': {"atomicNumber": 59, "name": "Pr", "occupancy": [2, 8, 8, 10, 8, 10, 3, 8, 0, 0, 0, 2]},
+            'Nd': {"atomicNumber": 60, "name": "Nd", "occupancy": [2, 8, 8, 10, 8, 10, 4, 8, 0, 0, 0, 2]},
+            'Pm': {"atomicNumber": 61, "name": "Pm", "occupancy": [2, 8, 8, 10, 8, 10, 5, 8, 0, 0, 0, 2]},
+            'Sm': {"atomicNumber": 62, "name": "Sm", "occupancy": [2, 8, 8, 10, 8, 10, 6, 8, 0, 0, 0, 2]},
+            'Eu': {"atomicNumber": 63, "name": "Eu", "occupancy": [2, 8, 8, 10, 8, 10, 7, 8, 0, 0, 0, 2]},
+            'Gd': {"atomicNumber": 64, "name": "Gd", "occupancy": [2, 8, 8, 10, 8, 10, 7, 8, 1, 0, 0, 2]},
+            'Tb': {"atomicNumber": 65, "name": "Tb", "occupancy": [2, 8, 8, 10, 8, 10, 8, 8, 1, 0, 0, 2]},
+            'Dy': {"atomicNumber": 66, "name": "Dy", "occupancy": [2, 8, 8, 10, 8, 10, 10, 8, 0, 0, 0, 2]},
+            'Ho': {"atomicNumber": 67, "name": "Ho", "occupancy": [2, 8, 8, 10, 8, 10, 11, 8, 0, 0, 0, 2]},
+            'Er': {"atomicNumber": 68, "name": "Er", "occupancy": [2, 8, 8, 10, 8, 10, 12, 8, 0, 0, 0, 2]},
+            'Tm': {"atomicNumber": 69, "name": "Tm", "occupancy": [2, 8, 8, 10, 8, 10, 13, 8, 0, 0, 0, 2]},
+            'Yb': {"atomicNumber": 70, "name": "Yb", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 0, 0, 0, 2]},
+            'Lu': {"atomicNumber": 71, "name": "Lu", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 1, 0, 0, 2]},
+            'Hf': {"atomicNumber": 72, "name": "Hf", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 2, 0, 0, 2]},
+            'Ta': {"atomicNumber": 73, "name": "Ta", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 3, 0, 0, 2]},
+            'W': {"atomicNumber": 74, "name": "W", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 4, 0, 0, 2]},
+            'Re': {"atomicNumber": 75, "name": "Re", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 5, 0, 0, 2]},
+            'Os': {"atomicNumber": 76, "name": "Os", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 6, 0, 0, 2]},
+            'Ir': {"atomicNumber": 77, "name": "Ir", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 9]},
+            'Pt': {"atomicNumber": 78, "name": "Pt", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 9, 0, 0, 1]},
+            'Au': {"atomicNumber": 79, "name": "Au", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 0, 0, 1]},
+            'Hg': {"atomicNumber": 80, "name": "Hg", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 0, 0, 2]},
+            'Tl': {"atomicNumber": 81, "name": "Tl", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 0, 0, 3]},
+            'Pb': {"atomicNumber": 82, "name": "Pb", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 0, 0, 4]},
+            'Bi': {"atomicNumber": 83, "name": "Bi", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 0, 0, 5]},
+            'Po': {"atomicNumber": 84, "name": "Po", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 0, 0, 6]},
+            'At': {"atomicNumber": 85, "name": "At", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 0, 0, 7]},
+            'Rn': {"atomicNumber": 86, "name": "Rn", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 0, 0, 8]},
+            'Fr': {"atomicNumber": 87, "name": "Fr", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 0, 0, 8, 1]},
+            'Ra': {"atomicNumber": 88, "name": "Ra", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 0, 0, 8, 2]}
+}
 # work in progress refactoring of the atoms database that doesnt require creating an atom object for every atom in the database at runtime.
-atomData['H'] = {"atomicNumber": 1, "name": "H", "occupancy": [1]}  # 1s
-atomData['He'] = {"atomicNumber": 2, "name": "He", "occupancy": [2]}  # 1s2
-atomData['Li'] = {"atomicNumber": 3, "name": "Li", "occupancy": [2, 1]}  # [He] 2sN
-atomData['Be'] = {"atomicNumber": 4, "name": "Be", "occupancy": [2, 2]}  #
-atomData['B'] = {"atomicNumber": 5, "name": "B", "occupancy": [2, 3]}  # [He] 2s2 2pN
-atomData['C'] = {"atomicNumber": 6, "name": "C", "occupancy": [2, 4]}  #
-atomData['N'] = {"atomicNumber": 7, "name": "N", "occupancy": [2, 5]}  #
-atomData['O'] = {"atomicNumber": 8, "name": "O", "occupancy": [2, 6]}  #
-atomData['F'] = {"atomicNumber": 9, "name": "F", "occupancy": [2, 7]}  #
-atomData['Ne'] = {"atomicNumber": 10, "name": "Ne", "occupancy": [2, 8]}  # [He] 2s2 2p6
-atomData['Na'] = {"atomicNumber": 11, "name": "Na", "occupancy": [2, 8, 1]}  # [Ne] 3s1
-atomData['Mg'] = {"atomicNumber": 12, "name": "Mg", "occupancy": [2, 8, 2]}  # [Ne] 3s2
-atomData['Al'] = {"atomicNumber": 13, "name": "Al", "occupancy": [2, 8, 3]}  # [Ne] 3s2 3p1
-atomData['Si'] = {"atomicNumber": 14, "name": "Si", "occupancy": [2, 8, 4]}  # [Ne] 3s2 3p2
-atomData['P'] = {"atomicNumber": 15, "name": "P", "occupancy": [2, 8, 5]}  # [Ne] 3s2 3p3
-atomData['S'] = {"atomicNumber": 16, "name": "S", "occupancy": [2, 8, 6]}  # [Ne] 3s2 3p4
-atomData['Cl'] = {"atomicNumber": 17, "name": "Cl", "occupancy": [2, 8, 7]}  # [Ne] 3s2 3p5
-atomData['Ar'] = {"atomicNumber": 18, "name": "Ar", "occupancy": [2, 8, 8]}  # [Ne] 3s2 3p6
-atomData['K'] = {"atomicNumber": 19, "name": "K", "occupancy": [2, 8, 8, 0, 1]}  # [Ne] 3s2 3p6
-atomData['Ca'] = {"atomicNumber": 20, "name": "Ca", "occupancy": [2, 8, 8, 0, 2]}  # [Ne] 3s2 3p6
-atomData['Sc'] = {"atomicNumber": 21, "name": "Sc", "occupancy": [2, 8, 8, 1, 2]}  # [Ne] 3s2 3p6 3d1
-atomData['Ti'] = {"atomicNumber": 22, "name": "Ti", "occupancy": [2, 8, 8, 2, 2]}  # [Ne] 3s2 3p6
-atomData['V'] = {"atomicNumber": 23, "name": "V", "occupancy": [2, 8, 8, 3, 2]}  # [Ne] 3s2 3p6
-atomData['Cr'] = {"atomicNumber": 24, "name": "Cr", "occupancy": [2, 8, 8, 5, 1]}  # [Ne] 3s2 3p6
-atomData['Mn'] = {"atomicNumber": 25, "name": "Mn", "occupancy": [2, 8, 8, 5, 2]}  # [Ne] 3s2 3p6
-atomData['Fe'] = {"atomicNumber": 26, "name": "Fe", "occupancy": [2, 8, 8, 6, 2]}  # [Ar] 4s2 3d6
-atomData['Co'] = {"atomicNumber": 27, "name": "Co", "occupancy": [2, 8, 8, 7, 2]}  # [Ne] 3s2 3p6
-atomData['Ni'] = {"atomicNumber": 28, "name": "Ni", "occupancy": [2, 8, 8, 8, 2]}  # [Ne] 3s2 3p6
-atomData['Cu'] = {"atomicNumber": 29, "name": "Cu", "occupancy": [2, 8, 8, 10, 1]}  # [Ar] 4s1 3d10
-atomData['Zn'] = {"atomicNumber": 30, "name": "Zn", "occupancy": [2, 8, 8, 10, 2]}  # [Ne] 3s2 3p6
-atomData['Ga'] = {"atomicNumber": 31, "name": "Ga", "occupancy": [2, 8, 8, 10, 3]}  # [Ne] 3s2 3p6
-atomData['Ge'] = {"atomicNumber": 32, "name": "Ge", "occupancy": [2, 8, 8, 10, 4]}
-atomData['As'] = {"atomicNumber": 33, "name": "As", "occupancy": [2, 8, 8, 10, 5]}
-atomData['Se'] = {"atomicNumber": 34, "name": "Se", "occupancy": [2, 8, 8, 10, 6]}
-atomData['Br'] = {"atomicNumber": 35, "name": "Br", "occupancy": [2, 8, 8, 10, 7]}
-atomData['Kr'] = {"atomicNumber": 36, "name": "Kr", "occupancy": [2, 8, 8, 10, 8]}  # [Ar] 3d10 4s2 4p6
-atomData['Rb'] = {"atomicNumber": 37, "name": "Rb", "occupancy": [2, 8, 8, 10, 8, 0, 0, 1]}  # [Ar] 3d10 4s2 4p6
-atomData['Sr'] = {"atomicNumber": 38, "name": "Sr", "occupancy": [2, 8, 8, 10, 8, 0, 0, 2]}  # [Ar] 3d10 4s2 4p6
-atomData['Y'] = {"atomicNumber": 39, "name": "Y", "occupancy": [2, 8, 8, 10, 8, 1, 0, 2]}
-atomData['Zr'] = {"atomicNumber": 40, "name": "Zr", "occupancy": [2, 8, 8, 10, 8, 2, 0, 2]}
-atomData['Nb'] = {"atomicNumber": 41, "name": "Nb", "occupancy": [2, 8, 8, 10, 8, 4, 0, 1]}
-atomData['Mo'] = {"atomicNumber": 42, "name": "Mo", "occupancy": [2, 8, 8, 10, 8, 5, 0, 1]}
-atomData['Tc'] = {"atomicNumber": 43, "name": "Tc","occupancy":  [2, 8, 8, 10, 8, 6, 0, 1]}
-atomData['Ru'] = {"atomicNumber": 44, "name": "Ru", "occupancy": [2, 8, 8, 10, 8, 7, 0, 1]}
-atomData['Rh'] = {"atomicNumber": 45, "name": "Rh", "occupancy": [2, 8, 8, 10, 8, 8, 0, 1]}
-atomData['Pd'] = {"atomicNumber": 46, "name": "Pd", "occupancy": [2, 8, 8, 10, 8, 10]}
-atomData['Ag'] = {"atomicNumber": 47, "name": "Ag", "occupancy": [2, 8, 8, 10, 8, 10, 0, 1]}
-atomData['Cd'] = {"atomicNumber": 48, "name": "Cd", "occupancy": [2, 8, 8, 10, 8, 10, 0, 2]}
-atomData['In'] = {"atomicNumber": 49, "name": "In", "occupancy": [2, 8, 8, 10, 8, 10, 0, 3]}
-atomData['Sn'] = {"atomicNumber": 50, "name": "Sn", "occupancy": [2, 8, 8, 10, 8, 10, 0, 4]}
-atomData['Sb'] = {"atomicNumber": 51, "name": "Sb", "occupancy": [2, 8, 8, 10, 8, 10, 0, 5]}
-atomData['Te'] = {"atomicNumber": 52, "name": "Te", "occupancy": [2, 8, 8, 10, 8, 10, 0, 6]}
-atomData['I'] = {"atomicNumber": 53, "name": "I", "occupancy": [2, 8, 8, 10, 8, 10, 0, 7]}
-atomData['Xe'] = {"atomicNumber": 54, "name": "Xe", "occupancy": [2, 8, 8, 10, 8, 10, 0, 8]}  # [Kr] 4d10 5s2 5p6
-atomData['Cs'] = {"atomicNumber": 55, "name": "Cs", "occupancy": [2, 8, 8, 10, 8, 10, 0, 8, 0, 0, 0, 1]}
-atomData['Ba'] = {"atomicNumber": 56, "name": "Ba", "occupancy": [2, 8, 8, 10, 8, 10, 0, 8, 0, 0, 0, 2]}  # [Xe] 6s2
-atomData['La'] = {"atomicNumber": 57, "name": "La", "occupancy": [2, 8, 8, 10, 8, 10, 0, 8, 1, 0, 0, 2]}
-atomData['Ce'] = {"atomicNumber": 58, "name": "Ce", "occupancy": [2, 8, 8, 10, 8, 10, 2, 8, 0, 0, 0, 2]}
-atomData['Pr'] = {"atomicNumber": 59, "name": "Pr", "occupancy": [2, 8, 8, 10, 8, 10, 3, 8, 0, 0, 0, 2]}
-atomData['Nd'] = {"atomicNumber": 60, "name": "Nd", "occupancy": [2, 8, 8, 10, 8, 10, 4, 8, 0, 0, 0, 2]}
-atomData['Pm'] = {"atomicNumber": 61, "name": "Pm", "occupancy": [2, 8, 8, 10, 8, 10, 5, 8, 0, 0, 0, 2]}
-atomData['Sm'] = {"atomicNumber": 62, "name": "Sm", "occupancy": [2, 8, 8, 10, 8, 10, 6, 8, 0, 0, 0, 2]}
-atomData['Eu'] = {"atomicNumber": 63, "name": "Eu", "occupancy": [2, 8, 8, 10, 8, 10, 7, 8, 0, 0, 0, 2]}
-atomData['Gd'] = {"atomicNumber": 64, "name": "Gd", "occupancy": [2, 8, 8, 10, 8, 10, 7, 8, 1, 0, 0, 2]}
-atomData['Tb'] = {"atomicNumber": 65, "name": "Tb", "occupancy": [2, 8, 8, 10, 8, 10, 8, 8, 1, 0, 0, 2]}
-atomData['Dy'] = {"atomicNumber": 66, "name": "Dy", "occupancy": [2, 8, 8, 10, 8, 10, 10, 8, 0, 0, 0, 2]}  # this is correct
-atomData['Ho'] = {"atomicNumber": 67, "name": "Ho", "occupancy": [2, 8, 8, 10, 8, 10, 11, 8, 0, 0, 0, 2]}
-atomData['Er'] = {"atomicNumber": 68, "name": "Er", "occupancy": [2, 8, 8, 10, 8, 10, 12, 8, 0, 0, 0, 2]}
-atomData['Tm'] = {"atomicNumber": 69, "name": "Tm", "occupancy": [2, 8, 8, 10, 8, 10, 13, 8, 0, 0, 0, 2]}
-atomData['Yb'] = {"atomicNumber": 70, "name": "Yb", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 0, 0, 0, 2]} # duplicate
-atomData['Lu'] = {"atomicNumber": 71, "name": "Lu", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 1, 0, 0, 2]}  # duplicate
-atomData['Hf'] = {"atomicNumber": 72, "name": "Hf", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 2, 0, 0, 2]}
-atomData['Ta'] = {"atomicNumber": 73, "name": "Ta", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 3, 0, 0, 2]}
-atomData['W'] = {"atomicNumber": 74, "name": "W", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 4, 0, 0, 2]}
-atomData['Re'] = {"atomicNumber": 75, "name": "Re", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 5, 0, 0, 2]}
-atomData['Os'] = {"atomicNumber": 76, "name": "Os", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 6, 0, 0, 2]}
-atomData['Ir'] = {"atomicNumber": 77, "name": "Ir", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 9]}
-atomData['Pt'] = {"atomicNumber": 78, "name": "Pt", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 9, 0, 0, 1]}
-atomData['Au'] = {"atomicNumber": 79, "name": "Au", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 0, 0, 1]}
-atomData['Hg'] = {"atomicNumber": 80, "name": "Hg", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 0, 0, 2]}
-atomData['Tl'] = {"atomicNumber": 81, "name": "Tl", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 0, 0, 3]}
-atomData['Pb'] = {"atomicNumber": 82, "name": "Pb", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 0, 0, 4]}
-atomData['Bi'] = {"atomicNumber": 83, "name": "Bi", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 0, 0, 5]}
-atomData['Po'] = {"atomicNumber": 84, "name": "Po", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 0, 0, 6]}
-atomData['At'] = {"atomicNumber": 85, "name": "At", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 0, 0, 7]}
-atomData['Rn'] = {"atomicNumber": 86, "name": "Rn", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 0, 0, 8]}  # [Xe] 4f14 5d10 6s2 6p6
-atomData['Fr'] = {"atomicNumber": 87, "name": "Fr", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 0, 0, 8, 1]}
-atomData['Ra'] = {"atomicNumber": 88, "name": "Ra", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 0, 0, 8, 2]}  # [Rn] 7s2  # This all appears to be far more complicated than I initially anticipated... See https://en.wikipedia.org/wiki/Electron_configurations_of_the_elements_(data_page) and https://physics.nist.gov/cgi-bin/ASD/ie.pl?spectra=H-DS+i&units=1&at_num_out=on&el_name_out=on&shells_out=on&level_out=on&e_out=0&unc_out=on&biblio=on for details. (6/21/2022)
-
-
-
 
 
 '''periodictable = {}
@@ -415,7 +413,7 @@ periodictable_ions['Rn +'] = Atom(86, "Rn +", [2, 8, 8, 10, 8, 10, 14, 8, 10, 7]
     atom.occupancy = periodictable["He"].occupancy
     return atom"""
 
-
+'''
 def Valence(atom):
     # Keep last occupied shell only in normal configuration
     have_valence = False
@@ -433,7 +431,7 @@ def Valence(atom):
 def Normal(atom):  # This literally does nothing? (Daniel 2-6-2022)
     return atom
 
-
+'''
 """configTable = {"Normal": Normal, "PosIon": PosIon, "NegIon": NegIon, "InnerShell": InnerShell, "Valence": Valence}
 """
 
