@@ -107,6 +107,10 @@ def getAtomicNumber():
     return atomicNumber
 
 
+def showEnergy(energy):
+    msgbox("The total energy is " + str(energy) + " Hartrees.")
+
+
 def askToRepeat():
     """Asks the user if they would like to run the program again after the plot window has been closed."""
     reRunProgram = boolbox("There was your density. Would you like to run the program again?", "End of program")

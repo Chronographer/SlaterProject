@@ -50,7 +50,7 @@ def n(shielding, energyQuantumNumber, netCharge, arrayX, N):
     netCharge -- nuclear charge Z
     arrayX -- grid of radial positions
     N -- occupancy number of shell
-    Returns:  shell wavefunction squared * N, first, second, third,  fourth derivatives of nphi"""
+    Returns:  shell wavefunction squared * N, first, second, third, fourth derivatives of nphi"""
     if N == 0:
         array0 = 0.0 * arrayX
         return array0, array0, array0, array0, array0

@@ -22,7 +22,7 @@ while run:
         atom = Atoms.NewAtom(atomicNumber, elementName, electronOccupancy)
     else:
         elementName = target
-        atomicNumber = Atoms.atomData[target]['atomicNumber']  # at some point I want to make it so I don't need to build a newAtom object from an existing atom object.
+        atomicNumber = Atoms.atomData[target]['atomicNumber']
         electronOccupancy = Atoms.atomData[target]['occupancy']
         atom = Atoms.NewAtom(atomicNumber, elementName, electronOccupancy)
 
@@ -30,7 +30,7 @@ while run:
     derivativeNumber = inputFunctions.chooseDerivativeOptions()
     scaleType = inputFunctions.getScaleType()
     arrayX = inputFunctions.getArrayX(scaleType)
-    print("Total energy is: " + str(atom.totalEnergy) + " Hartrees")
+    inputFunctions.showEnergy(atom.totalEnergy)
 
     if target == "manual":
         dty, components = Slater.newDensity(arrayX, atom)

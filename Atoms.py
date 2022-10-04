@@ -91,7 +91,7 @@ class NewAtom:
 '''
 
 #    def initialize(self):
-'''
+
 
 class Grid:
     """Holder class for grid on which to display atom"""
@@ -129,7 +129,7 @@ occupancylabels = ["1s", "2sp", "3sp", "3d", "4sp", "4d", "4f", "5sp", "5d", "5f
 maxoccupancy = [2, 8, 8, 10, 8, 10, 14, 8, 10, 14, 18, 8, 10, 14, 18, 22, 8, 10, 14, 18, 22, 26, 8, 10, 14, 18, 22, 26,
                 30, 8, 10, 14, 18, 22, 26, 30, 34, 8, 10, 14, 18, 22, 26, 30, 8, 10, 14, 18, 22, 26, 8, 10, 14, 18, 22,
                 8, 10, 14, 18, 8, 10, 14, 8, 10, 8]
-'''
+
 atomData = {
             'H': {"atomicNumber": 1, "name": "H", "occupancy": [1]},
             'He': {"atomicNumber": 2, "name": "He", "occupancy": [2]},
