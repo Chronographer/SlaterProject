@@ -100,15 +100,12 @@ def getPlotType():
 
 def getAtomicNumber():
     """Asks the user to enter the atomic number of the element they wish to model."""
-    atomicNumber = integerbox("Enter the atomic number of the element.\nThe largest supported element is Radon (atomic number 88)", "Element Selection (manual)")
-    while atomicNumber > 88:
-        msgbox("Manual input supports elements up to atomic number 88!\n\nYou attempted to model element number " + str(atomicNumber) + ", which is not supported in manual input mode!\n\nTo model heavier atoms, use the automatic system by entering the elements abbreviation.", "Error: Element too large for manual entry!")
-        atomicNumber = integerbox("Enter the atomic number of the element.\nThe largest supported element is Radon (atomic number 88)", "Element Selection (manual)")
+    atomicNumber = integerbox("Enter the atomic number of the element.", "Element Selection (manual)")
     return atomicNumber
 
 
 def showEnergy(energy):
-    msgbox("The total energy is " + str(energy) + " Hartrees.")
+    msgbox("The total energy is " + str(energy) + " Hartrees.", "Total Energy")
 
 
 def askToRepeat():

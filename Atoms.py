@@ -218,7 +218,38 @@ atomData = {
             'At': {"atomicNumber": 85, "name": "At", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 0, 0, 7]},
             'Rn': {"atomicNumber": 86, "name": "Rn", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 0, 0, 8]},
             'Fr': {"atomicNumber": 87, "name": "Fr", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 0, 0, 8, 1]},
-            'Ra': {"atomicNumber": 88, "name": "Ra", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 0, 0, 8, 2]}
+            'Ra': {"atomicNumber": 88, "name": "Ra", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 0, 0, 8, 2]},  # I believe this is incorrect
+            'Ra1': {"atomicNumber": 88, "name": "Ra", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 0, 0, 8, 0, 0, 0, 0, 2]},  # proposed correct Ra
+            'Ac': {"atomicNumber": 89, "name": "Ac", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 0, 0, 8, 1, 0, 0, 0, 2]},
+            'Th': {"atomicNumber": 90, "name": "Th", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 0, 0, 8, 2, 0, 0, 0, 2]},
+            'Pa': {"atomicNumber": 91, "name": "Pa", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 2, 0, 8, 1, 0, 0, 0, 2]},
+            'U': {"atomicNumber": 92, "name": "U", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 3, 0, 8, 1, 0, 0, 0, 2]},
+            'Np': {"atomicNumber": 93, "name": "Np", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 4, 0, 8, 1, 0, 0, 0, 2]},
+            'Pu': {"atomicNumber": 94, "name": "Pu", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 6, 0, 8, 0, 0, 0, 0, 2]},
+            'Am': {"atomicNumber": 95, "name": "Am", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 7, 0, 8, 0, 0, 0, 0, 2]},
+            'Cm': {"atomicNumber": 96, "name": "Cu", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 7, 0, 8, 1, 0, 0, 0, 2]},
+            'Bk': {"atomicNumber": 97, "name": "Bk", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 9, 0, 8, 0, 0, 0, 0, 2]},
+            'Cf': {"atomicNumber": 98, "name": "Cf", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 10, 0, 8, 0, 0, 0, 0, 2]},
+            'Es': {"atomicNumber": 99, "name": "Es", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 11, 0, 8, 0, 0, 0, 0, 2]},
+            'Fm': {"atomicNumber": 100, "name": "Fm", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 12, 0, 8, 0, 0, 0, 0, 2]},
+            'Md': {"atomicNumber": 101, "name": "Md", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 13, 0, 8, 0, 0, 0, 0, 2]},
+            'No': {"atomicNumber": 102, "name": "No", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 14, 0, 8, 0, 0, 0, 0, 2]},
+            'Lr': {"atomicNumber": 103, "name": "Lr", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 14, 0, 8, 0, 0, 0, 0, 3]},
+            'Rf': {"atomicNumber": 104, "name": "Rf", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 14, 0, 8, 2, 0, 0, 0, 2]},
+            'Db': {"atomicNumber": 105, "name": "Db", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 14, 0, 8, 3, 0, 0, 0, 2]},
+            'Sg': {"atomicNumber": 106, "name": "Sg", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 14, 0, 8, 4, 0, 0, 0, 2]},
+            'Bh': {"atomicNumber": 107, "name": "Bh", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 14, 0, 8, 5, 0, 0, 0, 2]},
+            'Hs': {"atomicNumber": 108, "name": "Hs", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 14, 0, 8, 6, 0, 0, 0, 2]},
+            'Mt': {"atomicNumber": 109, "name": "Mt", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 14, 0, 8, 7, 0, 0, 0, 2]},
+            'Ds': {"atomicNumber": 110, "name": "Ds", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 14, 0, 8, 8, 0, 0, 0, 2]},
+            'Rg': {"atomicNumber": 111, "name": "Rg", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 14, 0, 8, 9, 0, 0, 0, 2]},
+            'Cn': {"atomicNumber": 112, "name": "Cn", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 14, 0, 8, 10, 0, 0, 0, 2]},
+            'Nh': {"atomicNumber": 113, "name": "Nh", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 14, 0, 8, 10, 0, 0, 0, 3]},
+            'Fl': {"atomicNumber": 114, "name": "Fl", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 14, 0, 8, 10, 0, 0, 0, 4]},
+            'Mc': {"atomicNumber": 115, "name": "Mc", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 14, 0, 8, 10, 0, 0, 0, 5]},
+            'Lv': {"atomicNumber": 116, "name": "Lv", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 14, 0, 8, 10, 0, 0, 0, 6]},
+            'Ts': {"atomicNumber": 117, "name": "Ts", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 14, 0, 8, 10, 0, 0, 0, 7]},
+            'Og': {"atomicNumber": 118, "name": "Og", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 14, 0, 8, 10, 0, 0, 0, 8]}
 }
 # work in progress refactoring of the atoms database that doesnt require creating an atom object for every atom in the database at runtime.
 
@@ -337,8 +368,6 @@ periodictable['N76'] = Atom(976, "N76",
 periodictable['Jellium3'] = Atom(18, "Jellium3", [2, 6, 0, 10])  # Jellium -- 1s2 2p6 3d10 -- psp!!
 periodictable['Jellium3Smooth'] = Atom(18, "Jellium3Smooth", [2, 6, 0, 10])  # Jellium 1s2 2p6 3d10
 '''
-
-
 
 
 """periodictable_ions = {}
