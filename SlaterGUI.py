@@ -79,9 +79,10 @@ while run:
     if derivativeNumber != 0:  # This makes the title reflect whether you are plotting just the density or one of it's derivatives.
         plt.title("Plot of charge density (" + inputFunctions.derivativeOptions[derivativeNumber] + ") vs. radius for atomic number " + str(atomicNumber) + "\nScale type: " + scaleType)
     else:
-        plt.title("Plot of charge density vs. radius for atomic number " + str(atomicNumber) + "\nScale type: " + scaleType)
-    plt.xlabel("Distance from atomic center (Bohr radii)")
-    plt.ylabel("Radial electron density")
+        plt.title("Plot of number density vs. radius for atomic number " + str(atomicNumber) + "\nScale type: " + scaleType)
+    plt.xlabel("Distance from atomic center r (Bohr radii)")
+    #plt.ylabel("Radial electron density")
+    plt.ylabel(r'$4\pi r^2 \rho (r)$')
     plt.legend()
     plt.grid()
     plt.show()

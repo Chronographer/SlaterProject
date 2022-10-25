@@ -172,7 +172,7 @@ atomData = {
             'Y': {"atomicNumber": 39, "name": "Y", "occupancy": [2, 8, 8, 10, 8, 1, 0, 2]},
             'Zr': {"atomicNumber": 40, "name": "Zr", "occupancy": [2, 8, 8, 10, 8, 2, 0, 2]},
             'Nb': {"atomicNumber": 41, "name": "Nb", "occupancy": [2, 8, 8, 10, 8, 4, 0, 1]},
-            'Mo': {"atomicNumber": 42, "name": "Mo", "occupancy": [2, 8, 8, 10, 8, 5, 0, 1]},
+            'Mo': {"atomicNumber": 42, "name": "Mo", "occupancy": [2, 8, 8, 10, 8, 5, 0, 1]},  # verified correct ^
             'Tc': {"atomicNumber": 43, "name": "Tc", "occupancy": [2, 8, 8, 10, 8, 6, 0, 1]},
             'Ru': {"atomicNumber": 44, "name": "Ru", "occupancy": [2, 8, 8, 10, 8, 7, 0, 1]},
             'Rh': {"atomicNumber": 45, "name": "Rh", "occupancy": [2, 8, 8, 10, 8, 8, 0, 1]},
@@ -218,8 +218,7 @@ atomData = {
             'At': {"atomicNumber": 85, "name": "At", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 0, 0, 7]},
             'Rn': {"atomicNumber": 86, "name": "Rn", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 0, 0, 8]},
             'Fr': {"atomicNumber": 87, "name": "Fr", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 0, 0, 8, 1]},
-            'Ra': {"atomicNumber": 88, "name": "Ra", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 0, 0, 8, 2]},  # I believe this is incorrect
-            'Ra1': {"atomicNumber": 88, "name": "Ra", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 0, 0, 8, 0, 0, 0, 0, 2]},  # proposed correct Ra
+            'Ra': {"atomicNumber": 88, "name": "Ra", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 0, 0, 8, 0, 0, 0, 0, 2]},  # proposed correct Ra : Everything below is correct
             'Ac': {"atomicNumber": 89, "name": "Ac", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 0, 0, 8, 1, 0, 0, 0, 2]},
             'Th': {"atomicNumber": 90, "name": "Th", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 0, 0, 8, 2, 0, 0, 0, 2]},
             'Pa': {"atomicNumber": 91, "name": "Pa", "occupancy": [2, 8, 8, 10, 8, 10, 14, 8, 10, 2, 0, 8, 1, 0, 0, 0, 2]},

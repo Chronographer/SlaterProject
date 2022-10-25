@@ -104,8 +104,9 @@ def getAtomicNumber():
     return atomicNumber
 
 
-def showEnergy(energy):
-    msgbox("The total energy is " + str(energy) + " Hartrees.", "Total Energy")
+def showEnergy(energyIn):
+    energy = '%.5E' % energyIn
+    msgbox("The total energy is " + energy + " Hartrees.", "Total Energy")
 
 
 def askToRepeat():
