@@ -27,6 +27,7 @@ class NewAtom:
         self.computeTotalEnergy()
 
     def computeTotalEnergy(self):
+        """Computes the total energy of the atom and adds it as an object variable to the atom object."""
         hartree = 1
         totalEnergy = 0
         for i in range(len(self.occupancy)):
@@ -36,6 +37,8 @@ class NewAtom:
         self.totalEnergy = totalEnergy
 
     def computeShieldingConstants(self):
+        """Computes the shielding constants of the atom using the Slater shielding rules and adds it to the object in
+        the form of a list, with each element of the list representing the shielding of a given shell."""
         lists = []
         for i in range(0, len(self.occupancy)):
             shielding = 0

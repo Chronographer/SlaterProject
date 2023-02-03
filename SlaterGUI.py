@@ -8,7 +8,7 @@ import numpy
 import matplotlib.pyplot as plt
 import Atoms
 
-# need to do: add documentation about how to use stuff and what it means, look into pypi stuff
+# need to do: add documentation about how to use stuff and what it means
 run = True
 
 
@@ -57,7 +57,7 @@ while run:
             if not yListMaster[i][index] == 0:
                 emptyOrbitalFlag = False
                 break
-        if emptyOrbitalFlag == False:
+        if not emptyOrbitalFlag:
             if plotType == "cumulative" or plotType == "both":
                 if i == 0:
                     plt.plot(arrayX, yListMaster[i], label="cumulative density")  # Since the cumulative density is the first thing to be plotted, we want that to be the first label. We insert it manually as a special case because that string can't be constructed from stuff already in the atom object.
@@ -70,11 +70,11 @@ while run:
 
     if derivativeNumber != 0:  # This makes the title reflect whether you are plotting just the density or one of it's derivatives.
         plt.title("Plot of charge density (" + inputFunctions.derivativeOptions[derivativeNumber] + ") vs. radius for atomic number " + str(atomicNumber) + "\nScale type: " + scaleType)
+        plt.ylabel("Some derivative of " + r'$4\pi r^2 \rho (r)$')
     else:
         plt.title("Plot of number density vs. radius for atomic number " + str(atomicNumber) + "\nScale type: " + scaleType)
+        plt.ylabel(r'$4\pi r^2 \rho (r)$')
     plt.xlabel("Distance from atomic center r (Bohr radii)")
-    #plt.ylabel("Radial electron density")
-    plt.ylabel(r'$4\pi r^2 \rho (r)$')
     plt.legend()
     plt.grid()
     plt.show()
