@@ -109,7 +109,7 @@ def newDensity(arrayX, atom):
     return finalDerivativeList, componentList
 
 
-'''def grlaglll(arrayX, netCharge, listN):  # commented out until I adapt it to work with the newAtom object.
+def grlaglll(arrayX, atom):  # commented out until I adapt it to work with the newAtom object.
     """Returns the RADIAL density and its gradient, laplacian, grad(lapl), lapl(lapl)\n
     arrayX -- array of radial positions \n
     listN  -- list of shell occupancy numbers \n
@@ -117,14 +117,14 @@ def newDensity(arrayX, atom):
     N = len(arrayX)
 
     # print("grlaglll: listN", listN)
-    d0, d1, d2, d3, d4 = density(arrayX, netCharge, listN)[0]
+    d0, d1, d2, d3, d4 = newDensity(arrayX, atom,)[0]
 
     grad = d1
     lapl = d2 + 2 * d1 / arrayX
     glap = d3 + 2 * d2 / arrayX - 2 * d1 / arrayX ** 2
     llap = d4 + 4 * d3 / arrayX
 
-    return d0, grad, lapl, glap, llap'''
+    return d0, grad, lapl, glap, llap
 
 
 # The following are some miscellaneous analytic density routines.

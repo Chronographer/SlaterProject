@@ -10,7 +10,7 @@ import Atoms
 
 # need to do: add documentation about how to use stuff and what it means
 run = True
-
+function = "density"
 
 while run:
     target = inputFunctions.getElementNameInput()
@@ -32,10 +32,16 @@ while run:
     arrayX = inputFunctions.getArrayX(scaleType)
     inputFunctions.showEnergy(atom.totalEnergy)
 
-    if target == "manual":
-        dty, components = Slater.newDensity(arrayX, atom)
-    else:
-        dty, components = Slater.newDensity(arrayX, atom)
+    if function == "density":
+        if target == "manual":
+            dty, components = Slater.newDensity(arrayX, atom)
+        else:
+            dty, components = Slater.newDensity(arrayX, atom)
+    if function == "grlaglll":
+        if target == "manual":
+            print("Run manual mode on grlaglll")
+        else:
+            print("run grlaglll in auto mode")
 
     dty = 4 * numpy.pi * arrayX ** 2 * dty
     yList = []
